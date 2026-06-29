@@ -121,7 +121,7 @@ function ContactUs() {
                   </span>
                   <li className="mt-5">
                     <h6> Email Address</h6>
-                    <p>info@bharatroofers.com</p>
+                    <p>info@SiaraProperties.com</p>
                   </li>
                 </div>
               </ul>

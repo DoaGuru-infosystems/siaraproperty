@@ -108,8 +108,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub" ref={subRef}>
-          <strong>Jabalpur ki sabse trusted property service.</strong> Ghar
-          kharidna ab aur bhi aasaan.
+          <strong>Jabalpur's most trusted property service.</strong> Buying a
+          home just got easier.
         </p>
 
         <form className="search-bar" ref={searchRef} onSubmit={handleSearch}>
@@ -117,16 +117,16 @@ export default function Hero() {
             className="search-input"
             name="query"
             type="text"
-            placeholder="Location ya project ka naam likhein…"
+            placeholder="Enter location or project name…"
           />
           <div className="search-divider" />
           <select className="search-select" name="type">
-            <option value="buy">Khareedein</option>
-            <option value="rent">Kiraye par</option>
+            <option value="buy">Buy</option>
+            <option value="rent">Rent</option>
           </select>
           <div className="search-divider" />
           <select className="search-select" name="category">
-            <option value="">Sabhi Type</option>
+            <option value="">All Types</option>
             <option value="house">House</option>
             <option value="flat">Flat</option>
             <option value="plot">Plot</option>
@@ -220,10 +220,14 @@ const HeroSection = styled.section`
 
     em.wavy-text {
       font-style: italic;
-      color: #b8895a;
+      color: #d4a574;
+      font-weight: 400;
       text-shadow:
-        0 4px 16px rgba(235, 233, 230, 0.9),
-        0 1px 4px rgba(44, 44, 40, 0.15);
+        0 2px 4px rgba(44, 44, 40, 0.4),
+        0 4px 12px rgba(44, 44, 40, 0.3),
+        0 8px 24px rgba(0, 0, 0, 0.25),
+        2px 2px 0px rgba(255, 255, 255, 0.3);
+      filter: drop-shadow(0 2px 2px rgba(44, 44, 40, 0.2));
       // display: block;
 
       span {
@@ -238,11 +242,11 @@ const HeroSection = styled.section`
     0%,
     100% {
       transform: translateY(0);
-      color: #b8895a;
+      color: #d4a574;
     }
     50% {
       transform: translateY(-4px);
-      color: #636358ff;
+      color: #8b6f47;
     }
   }
 

@@ -66,7 +66,7 @@ export default function PropertySection({
   viewAllLink = "/properties",
   properties = null,
   images = null,
-  emptyText = "Abhi koi properties available nahi hain.",
+  emptyText = "No properties available at the moment.",
   priceDrop = false,
   bg,
 }) {
@@ -157,7 +157,7 @@ export default function PropertySection({
             </h2>
           </div>
           <Link to={viewAllLink} className="link-arrow">
-            Sab dekhein
+            View All
           </Link>
         </div>
 

@@ -301,10 +301,9 @@ const deleteRegisteredUser = (req, res) => {
 };
 
 
-const forgotPassword = (req,res) =>{
+const forgotPassword = (req, res) => {
   try {
     const { email } = req.body;
-    
 
     // Validation
     if (!email) {
@@ -334,62 +333,63 @@ const forgotPassword = (req,res) =>{
       }
 
       const user = results[0];
-      
-
-      
 
       // Generate token
-      const token =  JWT.sign({ id: user.uid }, process.env.JWT_SECRET, {
+      const token = JWT.sign({ id: user.uid }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
 
-
       var transporter = nodemailer.createTransport({
-        host: 'mail.bharatroofers.com',
-  port: 465,
-  secure: true, // Use SSL
+        host: "mail.SiaraProperties.com",
+        port: 465,
+        secure: true, // Use SSL
         auth: {
-    user: 'info@bharatroofers.com',
-    pass: 'bharatroofers@123'
-  }
+          user: "info@SiaraProperties.com",
+          pass: "SiaraProperties@123",
+        },
       });
-      
+
       var mailOptions = {
-        from: 'info@bharatroofers.com',
+        from: "info@SiaraProperties.com",
         to: email,
-        subject: 'Password reset link',
-        text:  `Click this link to reset password  http://localhost:4000/reset-password/${user.uid}/${token}`
+        subject: "Password reset link",
+        text: `Click this link to reset password  http://localhost:4000/reset-password/${user.uid}/${token}`,
       };
-      
-      transporter.sendMail(mailOptions, function(error, info){
+
+      transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+          console.log("Email sent: " + info.response);
         }
       });
 
-      res.cookie('access_token' , token , { httpOnly : true}).status(200).send({
-        success: true,
-        message: "Password reset link sent to your email",
-        user: {
-          id: user.uid,
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          
-        }
-        
-      });
-
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .send({
+          success: true,
+          message: "Password reset link sent to your email",
+          user: {
+            id: user.uid,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+          },
+        });
     });
   } catch (error) {
     console.log(error);
     console.error("Error in registration:", error);
-    res.status(500).json({ success: false, message: "Error in login",error: error.message });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Error in login",
+        error: error.message,
+      });
   }
-
-}
+};
 
 const resetPassword = (req, res) => {
   const { id, token } = req.params;
@@ -397,55 +397,61 @@ const resetPassword = (req, res) => {
 
   // Validate if newPassword is present
   if (!newPassword) {
-    return res.status(400).json({ success: false, message: "New password is required" });
+    return res
+      .status(400)
+      .json({ success: false, message: "New password is required" });
   }
 
   JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       res.status(500).json({ success: false, message: "Invalid token" });
     } else {
-
       const userIdFromToken = decoded.id;
-     
+
       // Check if the user IDs match
       if (id != userIdFromToken) {
-        return res.status(403).json({ success: false, message: "Unauthorized access" });
+        return res
+          .status(403)
+          .json({ success: false, message: "Unauthorized access" });
       }
 
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
 
       // Update the user's password in the database
       const updatePasswordQuery = "UPDATE users SET password = ? WHERE uid = ?";
-      db.query(updatePasswordQuery, [hashedPassword, id], (updateErr, updateResults) => {
-        if (updateErr) {
-          console.error("Error updating password in MySQL:", updateErr);
-          return res.status(500).json({
-            success: false,
-            message: "Internal server error while updating password",
-            error: updateErr,
-          });
-        }
+      db.query(
+        updatePasswordQuery,
+        [hashedPassword, id],
+        (updateErr, updateResults) => {
+          if (updateErr) {
+            console.error("Error updating password in MySQL:", updateErr);
+            return res.status(500).json({
+              success: false,
+              message: "Internal server error while updating password",
+              error: updateErr,
+            });
+          }
 
-        if (updateResults.affectedRows === 0) {
-          return res.status(404).json({
-            success: false,
-            message: "User not found for the provided ID",
-          });
-        }
+          if (updateResults.affectedRows === 0) {
+            return res.status(404).json({
+              success: false,
+              message: "User not found for the provided ID",
+            });
+          }
 
-        res.status(200).json({
-          success: true,
-          message: "Password reset successfully",
-        });
-      });
+          res.status(200).json({
+            success: true,
+            message: "Password reset successfully",
+          });
+        },
+      );
     }
   });
 };
 
-const adminForgotPassword = (req,res) =>{
+const adminForgotPassword = (req, res) => {
   try {
     const { email } = req.body;
-    
 
     // Validation
     if (!email) {
@@ -475,62 +481,63 @@ const adminForgotPassword = (req,res) =>{
       }
 
       const user = results[0];
-      
-
-      
 
       // Generate token
-      const token =  JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+      const token = JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
 
-
       var transporter = nodemailer.createTransport({
-        host: 'mail.bharatroofers.com',
+        host: "mail.SiaraProperties.com",
         port: 465,
         secure: true, // Use SSL
-              auth: {
-          user: 'info@bharatroofers.com',
-          pass: 'bharatroofers@123'
-        }
+        auth: {
+          user: "info@SiaraProperties.com",
+          pass: "SiaraProperties@123",
+        },
       });
-      
+
       var mailOptions = {
-        from: 'info@bharatroofers.com',
+        from: "info@SiaraProperties.com",
         to: email,
-        subject: 'Password reset link',
-        text:  `Click this link to reset password  https://admin.bharatroofers.com/reset-password/${user.id}/${token}`
+        subject: "Password reset link",
+        text: `Click this link to reset password  https://admin.SiaraProperties.com/reset-password/${user.id}/${token}`,
       };
-      
-      transporter.sendMail(mailOptions, function(error, info){
+
+      transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+          console.log("Email sent: " + info.response);
         }
       });
 
-      res.cookie('access_token' , token , { httpOnly : true}).status(200).send({
-        success: true,
-        message: "Password reset link sent to your email",
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          
-        }
-        
-      });
-
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .send({
+          success: true,
+          message: "Password reset link sent to your email",
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+          },
+        });
     });
   } catch (error) {
     console.log(error);
     console.error("Error in registration:", error);
-    res.status(500).json({ success: false, message: "Error in login",error: error.message });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Error in login",
+        error: error.message,
+      });
   }
-
-}
+};
 
 const adminResetPassword = (req, res) => {
   const { id, token } = req.params;

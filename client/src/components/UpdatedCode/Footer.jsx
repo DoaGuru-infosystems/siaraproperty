@@ -6,39 +6,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
     <FooterWrap>
       <div className="footer-grid">
-        {/* Brand column */}
+        {/* Brand column */ }
         <div>
-          <div className="footer-logo">BharatRoofers</div>
+          <div className="footer-logo">Siara Properties</div>
           <p className="footer-desc">
-            Jabalpur ki sabse trusted real estate platform. Ghar kharidna,
-            bechna, ya kiraye par lena — sab kuch ek jagah.
+            Jabalpur's most trusted real estate platform. Buy, sell, or rent  everything in one place.
           </p>
           <div className="footer-socials">
-            <a href="#" className="social-btn" aria-label="Facebook">
-              f
+            <a href="https://www.facebook.com/profile.php?id=61590581714128" className="social-btn" aria-label="Facebook">
+              <FaFacebookF />
             </a>
-            <a href="#" className="social-btn" aria-label="LinkedIn">
-              in
+            <a href="https://www.instagram.com/siaraproperties/" className="social-btn" aria-label="Instagram">
+              <FaInstagram />
             </a>
             <a href="#" className="social-btn" aria-label="YouTube">
-              yt
+              <FaYoutube />
             </a>
             <a href="#" className="social-btn" aria-label="WhatsApp">
-              wa
+              <FaWhatsapp />
             </a>
           </div>
         </div>
 
-        {/* Column 2 */}
+        {/* Column 2 */ }
         <div className="footer-col">
           <h4>Residential</h4>
           <ul>
-            {[
+            { [
               "Houses in Jabalpur",
               "Villas in Jabalpur",
               "Plots in Jabalpur",
@@ -47,18 +47,18 @@ export default function Footer() {
               "Farm Land",
               "Commercial",
             ].map((item) => (
-              <li key={item}>
-                <a href="/properties">{item}</a>
+              <li key={ item }>
+                <a href="/properties">{ item }</a>
               </li>
-            ))}
+            )) }
           </ul>
         </div>
 
-        {/* Column 3 */}
+        {/* Column 3 */ }
         <div className="footer-col">
           <h4>BHK Searches</h4>
           <ul>
-            {[
+            { [
               "1 BHK Flats",
               "2 BHK Flats",
               "3 BHK Flats",
@@ -67,18 +67,18 @@ export default function Footer() {
               "2 BHK House",
               "3 BHK House",
             ].map((item) => (
-              <li key={item}>
-                <a href="/properties">{item}</a>
+              <li key={ item }>
+                <a href="/properties">{ item }</a>
               </li>
-            ))}
+            )) }
           </ul>
         </div>
 
-        {/* Column 4 */}
+        {/* Column 4 */ }
         <div className="footer-col">
           <h4>For Rent</h4>
           <ul>
-            {[
+            { [
               "Houses for Rent",
               "Villas for Rent",
               "Plots for Rent",
@@ -87,18 +87,18 @@ export default function Footer() {
               "Farm Lands",
               "Commercial Rent",
             ].map((item) => (
-              <li key={item}>
-                <a href="/properties">{item}</a>
+              <li key={ item }>
+                <a href="/properties">{ item }</a>
               </li>
-            ))}
+            )) }
           </ul>
         </div>
 
-        {/* Column 5 */}
+        {/* Column 5 */ }
         <div className="footer-col">
           <h4>Resale</h4>
           <ul>
-            {[
+            { [
               "House Resale",
               "Villa Resale",
               "Plot Resale",
@@ -107,10 +107,10 @@ export default function Footer() {
               "Farm Lands",
               "Farm Houses",
             ].map((item) => (
-              <li key={item}>
-                <a href="/properties">{item}</a>
+              <li key={ item }>
+                <a href="/properties">{ item }</a>
               </li>
-            ))}
+            )) }
           </ul>
         </div>
       </div>

@@ -30,14 +30,14 @@ function About() {
     <>
       <Container>
         <Helmet>
-          <link rel="canonical" href={canonicalUrl} />
+          <link rel="canonical" href={ canonicalUrl } />
         </Helmet>
 
         <div className="nav1">
           <Navbar />
         </div>
         <div className="nav2">
-          <NavbarMob />{" "}
+          <NavbarMob />{ " " }
         </div>
         <div>
           <div className="mt-5 container-fluid">
@@ -98,7 +98,7 @@ function About() {
 
                     <div className=" col-lg-12 col-sm-12  mt-5 ">
                       <img
-                        src={house}
+                        src={ house }
                         alt="House"
                         className="main-img img-fluid"
                       />
@@ -166,7 +166,7 @@ function About() {
                             Is spreading joy your mantra too?
                           </h3>
                           <pre>
-                            Shoot us an email at careers@bharatroofers.com and
+                            Shoot us an email at careers@SiaraProperties.com and
                             we'll be happy to meet you
                           </pre>
                         </div>
@@ -174,7 +174,7 @@ function About() {
                     </div>
                     <div className="col-lg-6 col-sm-12">
                       <img
-                        src={Happy}
+                        src={ Happy }
                         className="d-block w-100 h-80 mt-5"
                         alt="happy House with Family"
                       />
@@ -204,7 +204,7 @@ function About() {
                             <div className="row">
                               <div className="ceo-pic col-lg-6 col-sm-12">
                                 <img
-                                  src={profile}
+                                  src={ profile }
                                   alt=" team"
                                   className="passport"
                                 />
@@ -219,7 +219,7 @@ function About() {
                               elit. Distinctio veniam amet facilis esse
                               exercitationem sint doloribus at sapiente!
                               Sapiente vitae eos voluptas sint reprehenderit
-                              doloribus corporis facere autem rerum dolore!{" "}
+                              doloribus corporis facere autem rerum dolore!{ " " }
                             </p>
 
                             <p>
@@ -233,7 +233,7 @@ function About() {
 
                           <div className="col-lg-6  ">
                             <img
-                              src={honer}
+                              src={ honer }
                               alt="House"
                               className="pretty-house"
                             />
@@ -291,9 +291,9 @@ function About() {
               </div>
             </div>
             <div className="col-lg-4 col-sm-12 secand-child">
-              <h3>Bharatroofers.com</h3>
+              <h3>siaraproperties.com</h3>
               <p>
-                1815 Wright Town, Jabalpur, Madhya pradesh INDIA 482002
+                1815 Wright Town, Jabalpur, Madhya Pradesh INDIA 482002
                 Phone:+91-8839280515
               </p>
             </div>

@@ -26,11 +26,11 @@ export default function ResaleProperty() {
   const [loading, setLoading] = useState(true);
   const { propertyType } = useParams();
   const location = useLocation();
-  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
+  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyForResaleByType/${propertyType}`);
+      const response = await axios.get(`https://siaraproperties.com//api/property/getPropertyForResaleByType/${propertyType}`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -39,7 +39,7 @@ export default function ResaleProperty() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
+      const response = await axios.get('https://siaraproperties.com//api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);

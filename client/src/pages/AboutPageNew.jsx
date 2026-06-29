@@ -36,13 +36,20 @@ const css = `
   /* HERO */
   .hero{height:72vh;min-height:520px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:64px 0 8vh;}
   .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&auto=format&fit=crop') center/cover no-repeat;will-change:transform;}
-  .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(44,44,40,.3) 0%,rgba(44,44,40,.1) 40%,rgba(250,248,243,.92) 82%,rgba(250,248,243,1) 100%);}
+  .hero-bg::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(to right, rgba(250, 248, 243, 0.82) 0%, rgba(250, 248, 243, 0.5) 30%, rgba(250, 248, 243, 0) 65%),
+      linear-gradient(to bottom, rgba(44, 44, 40, 0.05) 0%, rgba(250, 248, 243, 0) 50%, rgba(250, 248, 243, 0.8) 85%, rgba(250, 248, 243, 1) 100%);
+  }
   .hero-content{position:relative;z-index:1;padding:0 8%;max-width:900px;}
-  .hero-eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(20px);}
-  .hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--terra);}
-  .hero-title{font-family:var(--fd);font-size:clamp(2.8rem,5.5vw,5rem);font-weight:300;line-height:1.05;color:var(--charcoal);letter-spacing:-.01em;opacity:0;transform:translateY(30px);}
-  .hero-title em{font-style:italic;color:var(--terra);}
-  .hero-sub{margin-top:18px;font-size:16px;color:var(--charcoal-mid);max-width:500px;font-weight:300;opacity:0;transform:translateY(20px);}
+  .hero-eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-dark);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(20px);}
+  .hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--terra-dark);}
+  .hero-title{font-family:var(--fd);font-size:clamp(2.8rem,5.5vw,5rem);font-weight:500;line-height:1.05;color:var(--charcoal);letter-spacing:-.01em;opacity:0;transform:translateY(30px);}
+  .hero-title em{font-style:italic;color:var(--terra-dark);font-weight:600;}
+  .hero-sub{margin-top:18px;font-size:16px;color:var(--charcoal);max-width:500px;font-weight:400;opacity:0;transform:translateY(20px);}
   .scroll-hint{position:absolute;bottom:28px;right:8%;display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--charcoal-light);opacity:0;}
   .scroll-line{width:40px;height:1px;background:var(--charcoal-light);overflow:hidden;position:relative;}
   .scroll-line::after{content:'';position:absolute;inset:0;background:var(--terra);animation:scan 1.8s ease-in-out infinite;}
@@ -641,16 +648,16 @@ export default function AboutPageNew() {
         <div className="hero-bg" ref={heroBgRef} />
         <div className="hero-content">
           <p className="hero-eyebrow" ref={eyeRef}>
-            Hamare Baare Mein
+            About Us
           </p>
           <h1 className="hero-title" ref={titleRef}>
-            Ghar dhundhna ab
+            Finding Home Just
             <br />
-            hoga <em>aasaan</em>
+            Got <em>Easier</em>
           </h1>
           <p className="hero-sub" ref={subRef}>
-            Jabalpur ki sabse trusted real estate platform — jahan har property
-            ke peeche ek bharosa hota hai.
+            Jabalpur's most trusted real estate platform where every property
+            comes with trust.
           </p>
         </div>
         <div className="scroll-hint" ref={hintRef}>
@@ -658,7 +665,7 @@ export default function AboutPageNew() {
           <div className="scroll-line" />
         </div>
       </section>
-      {/* WHO WE ARE */}Joy spreading hamaara mantra hai
+      {/* WHO WE ARE */ }
       <section className="who">
         <div>
           <p className="sec-label reveal">About Us</p>
@@ -857,10 +864,10 @@ export default function AboutPageNew() {
             in Jabalpur make better property decisions.
           </p>
           <a
-            href="mailto:careers@bharatroofers.com"
+            href="mailto:careers@SiaraProperties.com"
             className="email-link reveal"
           >
-            careers@bharatroofers.com
+            careers@SiaraProperties.com
           </a>
         </div>
         <div className="careers-img reveal">
@@ -970,7 +977,7 @@ export default function AboutPageNew() {
       {/* <footer>
         <div className="footer-g">
           <div>
-            <div className="f-logo">BharatRoofers</div>
+            <div className="f-logo">SiaraProperties</div>
             <p className="f-desc">Jabalpur ki sabse trusted real estate platform. Ghar kharidna, bechna, ya kiraye par lena — sab kuch ek jagah.</p>
             <div className="f-socials">
               {["f","in","yt","wa"].map(s => <a key={s} href="#" className="soc">{s}</a>)}

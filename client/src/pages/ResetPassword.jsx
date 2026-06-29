@@ -24,7 +24,7 @@ const ResetPassword = () => {
     }
     try{
         
-       const res = await axios.post(`https://bharatroofers.com/api/property/reset-password/${id}/${token}`, { password: password });
+      const res = await axios.post(`https://siaraproperties.com//api/property/reset-password/${id}/${token}`, { password: password });
        if (res?.data && res?.data?.success === true) {
         
         console.log(res?.data);

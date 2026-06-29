@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom';
 function Singleblog7() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
+  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
   useEffect(()=>{
     const handleTop = () => {
       ReactGA.send({ hitType: "pageview", page: window.location.pathname });

@@ -22,35 +22,35 @@ const Footer = () => {
                 </h6>
                 <ul>
                   <a href="/property/propertyType/house" target="blank">
-                    {" "}
-                    <li>Houses in Jabalpur</li>{" "}
+                    { " " }
+                    <li>Houses in Jabalpur</li>{ " " }
                   </a>
                   <a href="/property/propertyType/villa" target="blank">
-                    {" "}
+                    { " " }
                     <li>Villas in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/plot" target="blank">
-                    {" "}
+                    { " " }
                     <li>Plots in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/flat" target="blank">
-                    {" "}
+                    { " " }
                     <li>Flats in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/land" target="blank">
-                    {" "}
+                    { " " }
                     <li>Land in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/farmLand" target="blank">
-                    {" "}
+                    { " " }
                     <li>Farm Land in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/farmHouse" target="blank">
-                    {" "}
+                    { " " }
                     <li>Farm House in Jabalpur</li>
                   </a>
                   <a href="/property/propertyType/commercial" target="blank">
-                    {" "}
+                    { " " }
                     <li>Commercial Property in Jabalpur</li>
                   </a>
                 </ul>
@@ -59,35 +59,35 @@ const Footer = () => {
                 <h6 className="text-center">Popular BHK Searches</h6>
                 <ul>
                   <a href="/property/flat/1" target="blank">
-                    {" "}
+                    { " " }
                     <li>1 BHK Flats in Jabalpur</li>
                   </a>
                   <a href="/property/flat/2" target="blank">
-                    {" "}
+                    { " " }
                     <li>2 BHK Flats in Jabalpur</li>
                   </a>
                   <a href="/property/flat/3" target="blank">
-                    {" "}
+                    { " " }
                     <li>3 BHK Flats in Jabalpur</li>
                   </a>
                   <a href="/property/flat/4" target="blank">
-                    {" "}
+                    { " " }
                     <li>4 BHK Flats in Jabalpur</li>
                   </a>
                   <a href="/property/house/1" target="blank">
-                    {" "}
+                    { " " }
                     <li>1 BHK House for Sale in Jabalpur</li>
                   </a>
                   <a href="/property/house/2" target="blank">
-                    {" "}
+                    { " " }
                     <li>2 BHK House for Sale in Jabalpur</li>
                   </a>
                   <a href="/property/house/3" target="blank">
-                    {" "}
+                    { " " }
                     <li>3 BHK House for Sale in Jabalpur</li>
                   </a>
                   <a href="/property/house/4" target="blank">
-                    {" "}
+                    { " " }
                     <li>4 BHK House for Sale in Jabalpur</li>
                   </a>
                 </ul>
@@ -101,37 +101,37 @@ const Footer = () => {
                     <li>Houses for Rent in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForRent/villa" target="blank">
-                    {" "}
+                    { " " }
                     <li>Villas for Rent in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForRent/plot" target="blank">
-                    {" "}
+                    { " " }
                     <li>Plots for Rent in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForRent/flat" target="blank">
-                    {" "}
+                    { " " }
                     <li>Flats for Rent in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForRent/land" target="blank">
-                    {" "}
+                    { " " }
                     <li>Land for Rent in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForRent/farmLand" target="blank">
-                    {" "}
+                    { " " }
                     <li>Farm Lands for Rent in Jabalpur</li>
                   </a>
                   <a
                     href="/property/propertiesForRent/farmHouse"
                     target="blank"
                   >
-                    {" "}
+                    { " " }
                     <li>Farm House for Rent in Jabalpur</li>
                   </a>
                   <a
                     href="/property/propertiesForRent/commercial"
                     target="blank"
                   >
-                    {" "}
+                    { " " }
                     <li>Commercial Property for Rent in Jabalpur</li>
                   </a>
                 </ul>
@@ -142,37 +142,37 @@ const Footer = () => {
                 </h6>
                 <ul>
                   <a href="/property/propertiesForResale/house" target="blank">
-                    {" "}
+                    { " " }
                     <li>House for Resale in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForResale/villa" target="blank">
-                    {" "}
+                    { " " }
                     <li>Villas for Resale in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForResale/plot" target="blank">
-                    {" "}
+                    { " " }
                     <li>Plots for Resale in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForResale/flat" target="blank">
-                    {" "}
+                    { " " }
                     <li>Flats for Resale in Jabalpur</li>
                   </a>
                   <a href="/property/propertiesForResale/land" target="blank">
-                    {" "}
+                    { " " }
                     <li>Lands for Resale in Jabalpur</li>
                   </a>
                   <a
                     href="/property/propertiesForResale/farmLand"
                     target="blank"
                   >
-                    {" "}
+                    { " " }
                     <li>Farm Lands for Resale in Jabalpur</li>
                   </a>
                   <a
                     href="/property/propertiesForResale/farmHouse"
                     target="blank"
                   >
-                    {" "}
+                    { " " }
                     <li>Farm Houses for Resale in Jabalpur</li>
                   </a>
                   <a
@@ -186,14 +186,14 @@ const Footer = () => {
               <div className="d-flex justify-content-center">
                 <ul className="text-center">
                   <li>
-                    {" "}
+                    { " " }
                     <img
-                      src={logo}
-                      height={100}
-                      width={100}
+                      src={ logo }
+                      height={ 100 }
+                      width={ 100 }
                       alt=""
                       className="rounded-3"
-                    />{" "}
+                    />{ " " }
                   </li>
                   <li>
                     <h5 className="mt-3 mx-5">Follow us on</h5>
@@ -201,42 +201,42 @@ const Footer = () => {
                   <li>
                     <div className="d-flex gap-4 mt-3">
                       <Link
-                        to={"https://www.facebook.com/bharatroofers/"}
+                        to={ "https://www.facebook.com/profile.php?id=61590581714128" }
                         target="blank"
                       >
-                        {" "}
+                        { " " }
                         <BsFacebook
-                          size={30}
+                          size={ 30 }
                           className="fbIcon"
-                          style={{ color: "#316FF6" }}
+                          style={ { color: "#316FF6" } }
                         />
                       </Link>
                       <Link
                         to={
-                          "https://www.instagram.com/bharatroofers?utm_source=qr&igsh=YzU1NGVlODEzOA=="
+                          "https://www.instagram.com/siaraproperties/"
                         }
                         target="blank"
                       >
-                        {" "}
-                        <BsInstagram size={30} style={{ color: "#E4405F" }} />
+                        { " " }
+                        <BsInstagram size={ 30 } style={ { color: "#E4405F" } } />
                       </Link>
                       <Link
                         className=""
-                        to={"https://wa.me/+918839280515"}
+                        to={ "https://wa.me/+918839280515" }
                         target="blank"
                       >
                         <BsWhatsapp
-                          size={30}
-                          style={{ color: "#128C7E" }}
-                          onMouseOver={({ target }) =>
+                          size={ 30 }
+                          style={ { color: "#128C7E" } }
+                          onMouseOver={ ({ target }) =>
                             (target.style.color = "#128C7E")
                           }
-                          onMouseOut={({ target }) =>
+                          onMouseOut={ ({ target }) =>
                             (target.style.color = "#128C7E")
                           }
                         />
                       </Link>
-                      <IoLogoYoutube size={30} style={{ color: "#CD201F" }} />
+                      <IoLogoYoutube size={ 30 } style={ { color: "#CD201F" } } />
                     </div>
                   </li>
                 </ul>
@@ -248,21 +248,21 @@ const Footer = () => {
                   Reserved
                 </h5>
                 <p className="text-white text-center fs-6">
-                  {" "}
+                  { " " }
                   <a
                     href="http://localhost:4000/info/terms-and-conditions"
                     target="blank"
                     className="terms"
                   >
                     <span className="text-white">Terms and Conditions</span>
-                  </a>{" "}
-                  |{" "}
+                  </a>{ " " }
+                  |{ " " }
                   <a
                     href="http://localhost:4000/info/privacy-policy"
                     target="blank"
                     className="terms"
                   >
-                    <span className="text-white">Privacy Policy</span>{" "}
+                    <span className="text-white">Privacy Policy</span>{ " " }
                   </a>
                 </p>
               </div>

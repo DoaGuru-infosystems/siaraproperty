@@ -194,7 +194,7 @@ export default function HomePageNew() {
         viewAllLink="/properties?filter=posh"
         properties={poshHouse}
         images={images}
-        emptyText="Abhi koi posh properties available nahi hain."
+        emptyText="No posh properties available at the moment."
       />
 
       <PropertySection
@@ -204,7 +204,7 @@ export default function HomePageNew() {
         viewAllLink="/properties?type=commercial"
         properties={commercial}
         images={images}
-        emptyText="Abhi koi commercial properties available nahi hain."
+        emptyText="No commercial properties available at the moment."
       />
 
       <PropertySection
@@ -225,7 +225,7 @@ export default function HomePageNew() {
         viewAllLink="/properties?filter=luxury"
         properties={luxuryHouse}
         images={images}
-        emptyText="Abhi koi luxury houses available nahi hain."
+        emptyText="No luxury houses available at the moment."
       />
 
       {/* ── FOOTER ──
