@@ -1,0 +1,119 @@
+property controller
+
+// const deletePropertyImageById = (req, res) => {
+//     const imageId = req.params.imageId;
+
+//     const sqlSelect = 'SELECT * FROM properties_images WHERE id = ?';
+//     const sqlDelete = 'DELETE FROM properties_images WHERE id = ?';
+
+//     db.query(sqlSelect, [imageId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching property image from MySQL:', err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//         } else {
+//             if (results.length > 0) {
+//                 const imagePath = results[0].image; // Assuming the column name for the image path is 'image'
+
+//                 db.query(sqlDelete, [imageId], (errDelete) => {
+//                     if (errDelete) {
+//                         console.error('Error deleting property image from MySQL:', errDelete);
+//                         res.status(500).json({ error: 'Internal Server Error' });
+//                     } else {
+//                         // Delete the image file from the server
+//                         fs.unlink(imagePath, (errUnlink) => {
+//                             if (errUnlink) {
+//                                 console.error('Error deleting image file:', errUnlink);
+//                                 res.status(500).json({ error: 'Internal Server Error' });
+//                             } else {
+//                                 res.status(200).json({
+//                                     success: true,
+//                                     message: 'Property image deleted successfully',
+//                                 });
+//                             }
+//                         });
+//                     }
+//                 });
+//             } else {
+//                 res.status(404).json({ success: false, error: 'Property image not found', message: 'Property image not found' });
+//             }
+//         }
+//     });
+// };
+
+
+
+
+//method to get suggested property.
+
+
+//Method to get one property by Id
+
+// const getPropertyById = (req, res) => {
+//     const propertyId = req.params.propertyId;
+//      // Assuming the parameter name in the route is 'propertyId'
+//     const sql = 'SELECT * FROM properties WHERE id = ?'; // Replace properties with your actual table name
+
+//     db.query(sql, [propertyId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching property from MySQL:', err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//         } else {
+//             if (results.length > 0) {
+//                 res.status(200).json({success:true, data: results[0], message: 'Property fetched successfully' });
+//             } else {
+//                 res.status(404).json({success:false, error: 'Property not found' , message:"Property not found" });
+//             }
+//         }
+//     });
+// }
+
+
+
+// const addProperty =  (req, res) => {
+//     try {
+//         const formData = req.body;
+
+//         // Check if all required fields are present
+//         const requiredFields = [
+//             "property_location",
+//             "property_address",
+//             "property_city",
+//             "property_description",
+//             "property_type",
+//             "bhk",
+//             "new_resale",
+//             "structure",
+//             "price",
+//             "square_ft",
+//             "dimension",
+//             "car_parking",
+//             "year_built",
+//             "facing",
+//             'furnishing',
+//             "carpet_area",
+//             "bathroom",
+//             'property_on_floor',
+//             'flooring',
+//             'age_of_property',
+//             'parking',
+//             'lift'
+//         ];
+//         const missingFields = requiredFields.filter(field => !formData.hasOwnProperty(field));
+//         if (missingFields.length > 0) {
+//             return res.status(400).json({ error: `All fields are required` });
+//         }
+
+//         // Insert the form data into the MySQL database
+//         const sql = 'INSERT INTO properties SET ?'; // Replace your_table_name with the actual table name
+//         const [result] = await db.query(sql, formData);
+
+//         const insertedData = { ...formData, id: result.insertId }; // Assuming 'id' is the primary key in your table
+//         console.log('Form data inserted successfully');
+
+//         // Send the inserted data back to the frontend
+//         res.status(200).json({ data: insertedData, message: 'Form submitted successfully' });
+//     } catch (error) {
+//         console.error('Error inserting data into MySQL:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// };
