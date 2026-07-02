@@ -22,6 +22,8 @@ import PrivateRoute from './components/PrivateRoute';
 import SoldProperties from './components/SoldProperties';
 import SuggestedProperty from './components/SuggestedProperty';
 import ResetPassword from './pages/ResetPassword';
+import AllBlogs from './components/AllBlogs';
+import AddBlog from './components/AddBlog';
 
 
 
@@ -56,8 +58,8 @@ function App() {
         <Route path="/property/:propertyId" element={currentAdmin ?<SingleProperty/>:<Navigate to="/admin_login"/>} />
         <Route path="/property/edit-property/:propertyId" element={currentAdmin ?<EditProperty/>:<Navigate to="/admin_login"/>} />
         <Route path="/property/edit-property-images/:propertyId" element={currentAdmin ?<EditImages/>:<Navigate to="/admin_login"/>} />
-
-       
+        <Route path="/admin/all-blogs" element={currentAdmin ? <AllBlogs/> : <Navigate to="/admin_login"/>} />
+        <Route path="/admin/add-blog" element={currentAdmin ? <AddBlog/> : <Navigate to="/admin_login"/>} />
 
       </Routes>
       {/* <FooterAd /> */}

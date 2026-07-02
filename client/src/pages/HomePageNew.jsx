@@ -155,7 +155,6 @@ export default function HomePageNew() {
         label="New Listings"
         title="Recently"
         titleEm="Posted"
-        viewAllLink="/properties?filter=recent"
         properties={recentlyPosted}
         images={images}
       />
@@ -164,7 +163,7 @@ export default function HomePageNew() {
         label="For Rent"
         title="Rent"
         titleEm="Properties"
-        viewAllLink="/properties?type=rent"
+        viewAllLink="/property/propertiesForRent"
         properties={rentProperties}
         images={images}
       />
@@ -173,7 +172,6 @@ export default function HomePageNew() {
         label="Suggested for You"
         title="You May"
         titleEm="Like"
-        viewAllLink="/properties?filter=suggested"
         properties={suggestions}
         images={images}
       />
@@ -182,7 +180,6 @@ export default function HomePageNew() {
         label="Trending"
         title="Most"
         titleEm="Viewed"
-        viewAllLink="/properties?filter=mostviewed"
         properties={mostViewed}
         images={images}
       />
@@ -191,7 +188,7 @@ export default function HomePageNew() {
         label="Premium Collection"
         title="Posh"
         titleEm="House"
-        viewAllLink="/properties?filter=posh"
+        viewAllLink="/property/propertyType/villa"
         properties={poshHouse}
         images={images}
         emptyText="No posh properties available at the moment."
@@ -201,7 +198,7 @@ export default function HomePageNew() {
         label="Business Spaces"
         title="Commercial"
         titleEm="Properties"
-        viewAllLink="/properties?type=commercial"
+        viewAllLink="/property/propertyType/commercial"
         properties={commercial}
         images={images}
         emptyText="No commercial properties available at the moment."
@@ -211,7 +208,6 @@ export default function HomePageNew() {
         label="Best Deals"
         title="Price"
         titleEm="Drop"
-        viewAllLink="/properties?filter=pricedrop"
         properties={priceDrop}
         images={images}
         priceDrop={true}
@@ -222,7 +218,7 @@ export default function HomePageNew() {
         label="Elite Living"
         title="Luxury"
         titleEm="House"
-        viewAllLink="/properties?filter=luxury"
+        viewAllLink="/property/propertyType/farmHouse"
         properties={luxuryHouse}
         images={images}
         emptyText="No luxury houses available at the moment."

@@ -127,6 +127,23 @@ useEffect(() => {
              
             </li>
             <li>
+                <a className="nav-link px-0 align-middle d-flex gap-2">
+                  <i className="fs-4 bi bi-journal-text"></i>
+                  <br />
+                  <span className=" d-sm-inline" id="navleft">
+                  <Dropdown>
+          <Dropdown.Toggle variant="" id="dropdown-basic">
+            Blogs
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item ><Link to="/admin/all-blogs">All Blogs</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to="/admin/add-blog">Add Blog</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+    </span>
+                </a>
+            </li>
+            <li>
             
                 <a className="nav-link px-0 align-middle d-flex gap-2" onClick={handleLogout}>
                 <i className="fs-4 bi bi-power"></i>

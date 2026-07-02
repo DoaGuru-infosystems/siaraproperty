@@ -63,7 +63,7 @@ export default function PropertySection({
   label = "Section",
   title = "Properties",
   titleEm = "",
-  viewAllLink = "/properties",
+  viewAllLink,
   properties = null,
   images = null,
   emptyText = "No properties available at the moment.",
@@ -156,9 +156,11 @@ export default function PropertySection({
               {title} {titleEm && <em>{titleEm}</em>}
             </h2>
           </div>
-          <Link to={viewAllLink} className="link-arrow">
-            View All
-          </Link>
+          {viewAllLink && (
+            <Link to={viewAllLink} className="link-arrow">
+              View All
+            </Link>
+          )}
         </div>
 
         {isLoading ? (

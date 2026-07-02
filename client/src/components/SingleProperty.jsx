@@ -11,11 +11,11 @@ import axios from "axios";
 import placeholder_img from "../images/placeholder-image.jpeg";
 import StickyNavbar from "../components/Navbar";
 import NavbarMob from "./NavbarMob";
-import SideBlog1 from "./Blogs/SideBlogs/SideBlog1";
-import SideBlog2 from "./Blogs/SideBlogs/SideBlog2";
-import SideBlog3 from "./Blogs/SideBlogs/SideBlog3";
-import SideBlog4 from "./Blogs/SideBlogs/SideBlog4";
-import SideBlog5 from "./Blogs/SideBlogs/SideBlog5";
+import { BiCategoryAlt } from "react-icons/bi";
+
+
+
+
 import { Carousel } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css"; // Don't forget to import the styles
@@ -45,6 +45,7 @@ function SingleProperty() {
   const [property, setProperty] = useState(null);
   const [propertyImages, setPropertyImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [latestBlogs, setLatestBlogs] = useState([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const currentUrl = window.location.href;
@@ -229,6 +230,17 @@ function SingleProperty() {
     };
 
     fetchPropertyData();
+    const fetchLatestBlogs = async () => {
+      try {
+        const response = await axios.get("/api/property/blogs/all");
+        if (response.data.success) {
+          setLatestBlogs(response.data.data.slice(0, 5));
+        }
+      } catch (error) {
+        console.error("Error fetching latest blogs:", error);
+      }
+    };
+    fetchLatestBlogs();
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
       window.scrollTo(0, 0);
@@ -1041,11 +1053,45 @@ function SingleProperty() {
                   <div className="row d-flex justify-content-center mt-5">
                     <div className="col-12">
                       <h5 className="mb-3">Interesting Blogs</h5>
-                      <SideBlog1 />
-                      <SideBlog2 />
-                      <SideBlog3 />
-                      <SideBlog4 />
-                      <SideBlog5 />
+                      {latestBlogs.length === 0 ? (
+                        <p className="text-muted small">No blogs available.</p>
+                      ) : (
+                        latestBlogs.map((blog) => (
+                          <div className="card mb-3" style={{ border: "none" }} key={blog.id}>
+                            <div className="row g-0 d-flex align-items-center">
+                              <div className="col-md-4 mt-2">
+                                <Link to={`/blog/${blog.slug}`}>
+                                  <img 
+                                    src={blog.image || 'https://via.placeholder.com/150x100?text=Blog'} 
+                                    className="img-fluid rounded" 
+                                    alt={blog.title}
+                                    style={{ width: '100%', height: '65px', objectFit: 'cover' }}
+                                  />
+                                </Link>
+                              </div>
+                              <div className="col-md-8">
+                                <div className="card-body py-0 px-0 px-sm-3">
+                                  <p className="card-text d-inline mb-1">
+                                    <small className="text-muted"><BiCategoryAlt className="me-1" />{blog.category}</small>
+                                  </p>
+                                  <Link style={{ textDecoration: 'none' }} to={`/blog/${blog.slug}`}>
+                                    <h6 className="card-title mb-0 text-dark fw-bold" style={{ fontSize: '0.88rem', lineHeight: '1.3' }}>{blog.title}</h6>
+                                  </Link>
+                                  <p className="card-text mb-0">
+                                    <small className="text-muted" style={{ fontSize: '0.75rem' }}>
+                                      {new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </small>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+
+
+
+
                     </div>
                   </div>
                 </div>

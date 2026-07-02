@@ -17,21 +17,6 @@ const css = `
   .lenis.lenis-stopped{overflow:hidden;}
   body{font-family:var(--fb);background:var(--cream);color:var(--charcoal);overflow-x:hidden;font-size:15px;line-height:1.6;}
 
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,243,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--sand-dark);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s;}
-  .nav.scrolled{box-shadow:0 2px 24px rgba(44,44,40,.08);}
-  .nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--fd);font-size:22px;font-weight:500;color:var(--charcoal);text-decoration:none;letter-spacing:.02em;}
-  .nav-mark{width:36px;height:36px;background:var(--terra);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-family:var(--fd);font-size:18px;font-weight:500;}
-  .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
-  .nav-links a{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--charcoal-mid);text-decoration:none;transition:color .2s;position:relative;}
-  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:100%;height:1px;background:var(--terra);transition:right .3s;}
-  .nav-links a.active,.nav-links a:hover{color:var(--charcoal);}
-  .nav-links a.active::after,.nav-links a:hover::after{right:0;}
-  .nav-actions{display:flex;gap:10px;align-items:center;}
-  .btn-o{padding:8px 20px;border:1px solid var(--charcoal);background:transparent;color:var(--charcoal);font-family:var(--fb);font-size:13px;letter-spacing:.05em;cursor:pointer;transition:all .25s;border-radius:2px;text-transform:uppercase;}
-  .btn-o:hover{background:var(--charcoal);color:white;}
-  .btn-f{padding:8px 20px;border:1px solid var(--terra);background:var(--terra);color:white;font-family:var(--fb);font-size:13px;letter-spacing:.05em;cursor:pointer;transition:all .25s;border-radius:2px;text-transform:uppercase;}
-  .btn-f:hover{background:var(--terra-dark);}
 
   /* HERO */
   .hero{height:72vh;min-height:520px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:64px 0 8vh;}
