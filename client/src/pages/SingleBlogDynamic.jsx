@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
-import Navbar from "../components/UpdatedCode/Navbar";
 import useLenis from "../hooks/useLenis";
 
 export default function SingleBlogDynamic() {
@@ -90,8 +89,7 @@ export default function SingleBlogDynamic() {
         <meta name="description" content={blog.title} />
       </Helmet>
       
-      <Navbar />
-      
+            
       <div className="container content-wrapper mb-5">
         <nav aria-label="breadcrumb" className="mb-4">
           <ol className="breadcrumb">

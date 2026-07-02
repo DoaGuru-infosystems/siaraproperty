@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
-import Navbar from "../components/UpdatedCode/Navbar";
+
 
 /* ─── STYLE ─── */
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
-
   :root{
     --cream:#FAF8F3;--warm-white:#FFFEF9;--sand:#F0EBE1;--sand-dark:#E2D9CC;
     --terra:#B8895A;--terra-dark:#8C6340;--terra-light:#F5EDE3;
@@ -611,7 +609,7 @@ export default function AboutPageNew() {
       <style>{css}</style>
       {/* NAV */}
       {/* ── NAVIGATION ── */}
-      <Navbar />
+      
       {/* <nav ref={navRef} className="nav">
         <a href="/" className="nav-logo">
           <div className="nav-mark">B</div>

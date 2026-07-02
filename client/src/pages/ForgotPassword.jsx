@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link, useNavigate } from "react-router-dom";
-import NavbarMob from "../components/NavbarMob";
+
 import axios from "axios";
 import cogoToast from "cogo-toast";
 import ReactGA from "react-ga4";
@@ -55,10 +55,10 @@ const ForgotPassword = () => {
     <>
       <Container>
         <div className="nav1">
-          <Navbar isScrolled={isScrolled} />
+          
         </div>
         <div className="nav2">
-          <NavbarMob />{" "}
+          {" "}
         </div>
         <div>
           <div className="boxContainer">

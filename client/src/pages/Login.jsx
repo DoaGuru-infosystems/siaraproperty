@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import cogoToast from "cogo-toast";
@@ -10,7 +10,7 @@ import {
   signInSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import NavbarMob from "../components/NavbarMob";
+
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
@@ -85,10 +85,10 @@ const Login = () => {
             <link rel="canonical" href={canonicalUrl} />
           </Helmet>
           <div className="nav1">
-            <Navbar isScrolled={isScrolled} />
+            
           </div>
           <div className="nav2">
-            <NavbarMob />{" "}
+            {" "}
           </div>
           <div>
             <div className="boxContainer">

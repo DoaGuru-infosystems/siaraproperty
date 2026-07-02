@@ -15,6 +15,7 @@ import logo from "../../images/Real-Estate-Logo.png";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user || {});
   const dispatch = useDispatch();
 
@@ -71,8 +72,8 @@ export default function Navbar() {
         <div className="nav-actions desktop-only">
           {currentUser ? (
             <div className="user-dropdown">
-              <button className="btn-user">{currentUser?.user?.name} ▾</button>
-              <div className="dropdown-menu">
+              <button className="btn-user" onClick={() => setDropdownOpen(!dropdownOpen)}>{currentUser?.user?.name} ▾</button>
+              <div className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             </div>
@@ -276,9 +277,6 @@ const NavBar = styled.nav`
   /* user dropdown */
   .user-dropdown {
     position: relative;
-    &:hover .dropdown-menu {
-      display: flex;
-    }
   }
   .btn-user {
     padding: 8px 16px;
@@ -292,6 +290,9 @@ const NavBar = styled.nav`
   }
   .dropdown-menu {
     display: none;
+    &.show {
+      display: flex;
+    }
     flex-direction: column;
     position: absolute;
     top: calc(100% + 8px);

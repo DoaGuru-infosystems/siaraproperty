@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
 // import styled from "styled-components";
-// import Navbar from "../components/Navbar";
+// 
 // import {useNavigate, Link } from "react-router-dom";
 // import { useDispatch, useSelector } from 'react-redux';
 // import cogoToast from "cogo-toast";
@@ -188,7 +188,7 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from "cogo-toast";

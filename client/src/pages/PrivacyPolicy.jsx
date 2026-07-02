@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from "../components/Navbar";
+
 import styled from "styled-components";
-import NavbarMob from '../components/NavbarMob';
+
 import ReactGA from "react-ga4";
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
@@ -25,8 +25,8 @@ const PrivacyPolicy = () => {
     <Helmet>
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
-    <div className="nav1"><Navbar/></div>
-        <div className="nav2"><NavbarMob /> </div>
+    <div className="nav1"></div>
+        <div className="nav2"> </div>
         <div className="container mt-5">
       <h1 className="mb-4 mt-5 text-center">Privacy Policy</h1>
        

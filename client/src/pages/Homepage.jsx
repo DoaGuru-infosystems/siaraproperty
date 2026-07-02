@@ -8,8 +8,8 @@ import MostViewed from "../components/MostViewed";
 import Poshhouse from "../components/Poshhouse";
 import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
-import Navbar from "../components/Navbar";
-import NavbarMob from "../components/NavbarMob";
+
+
 import axios from "axios";
 import CommercialProperty from "../components/CommercialProperty";
 import RentProperty from "../components/RentProperty";
@@ -60,10 +60,10 @@ export default function Homepage() {
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
       <div className="nav1">
-        <Navbar isScrolled={isScrolled} />
+        
       </div>
       <div className="nav2">
-        <NavbarMob />{" "}
+        {" "}
       </div>
       <div>
         <div className="container-fluid">

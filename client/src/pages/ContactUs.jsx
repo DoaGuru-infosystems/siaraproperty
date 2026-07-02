@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidContact } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
-import NavbarMob from "../components/NavbarMob";
+
 import cogoToast from "cogo-toast";
 import axios from "axios";
 import ReactGA from "react-ga4";
@@ -80,10 +80,10 @@ function ContactUs() {
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div className="nav1">
-          <Navbar isScrolled={isScrolled} />
+          
         </div>
         <div className="nav2">
-          <NavbarMob />{" "}
+          {" "}
         </div>
         <div className="container boxContainer mt-5">
           <div className="row">

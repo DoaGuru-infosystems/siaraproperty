@@ -8,8 +8,8 @@ import honer from "../images/tm1.bbe99f34.png";
 import Happy from "../images/mantra.1e357178.png";
 import logo from "../images/logo.png";
 import profile from "../images/dummy-profile.jpg";
-import Navbar from "../components/Navbar";
-import NavbarMob from "../components/NavbarMob";
+
+
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
@@ -35,10 +35,10 @@ function About() {
         </Helmet>
 
         <div className="nav1">
-          <Navbar />
+          
         </div>
         <div className="nav2">
-          <NavbarMob />{ " " }
+          { " " }
         </div>
         <div>
           <div className="mt-5 container-fluid">

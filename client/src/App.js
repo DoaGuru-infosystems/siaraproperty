@@ -29,6 +29,7 @@ import AboutPageNew from "./pages/AboutPageNew";
 import ContactPageNew from "./pages/ContactPageNew";
 import ServicesPage from "./pages/ServicesPage";
 import AllProperties from "./pages/AllProperties";
+import Navbar from "./components/UpdatedCode/Navbar";
 
 const Tracking_Id = "G-0XYJQVFWDJ";
 ReactGA.initialize(Tracking_Id);
@@ -38,6 +39,7 @@ function App() {
   return (
     <>
       <div style={{ overflowX: "hidden" }}>
+        <Navbar />
         <Routes>
           {/* Main Website Routes */}
           <Route path="/" element={<HomePageNew />} />

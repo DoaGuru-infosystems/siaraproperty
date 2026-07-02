@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../../Navbar";
+
 import { Link } from "react-router-dom";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
 import blog2 from "../../../images/blog2.avif";
-import NavbarMob from "../../NavbarMob";
+
 import ReactGA from "react-ga4";
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
@@ -29,8 +29,8 @@ function Singleblog2() {
       <Helmet>
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
-      <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
-          <div className="nav2"><NavbarMob /> </div>
+      <div className="nav1"></div>
+          <div className="nav2"> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">

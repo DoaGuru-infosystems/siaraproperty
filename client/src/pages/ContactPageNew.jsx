@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
-import Navbar from "../components/UpdatedCode/Navbar";
+
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -130,7 +130,7 @@ export default function ContactPageNew() {
 
   return (
     <PageWrapper ref={pageRef}>
-      <Navbar />
+      
 
       <PageContent>
         {/* Decorative elements */}

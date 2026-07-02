@@ -9,7 +9,6 @@ import { responsive } from "../components/responsive";
 import CarouselPlaceholder from "../components/CarouselPlaceholder";
 import { FaRupeeSign } from "react-icons/fa";
 import StickyNavbar from "../components/Navbar";
-import NavbarMob from "../components/NavbarMob";
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
 import ReactGA from "react-ga4";
@@ -60,8 +59,7 @@ export default function AllProperties() {
         <StickyNavbar />
       </div>
       <div className="nav2">
-        <NavbarMob />
-      </div>
+              </div>
 
       <div className="mb-4 mt-5 pt-5">
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">

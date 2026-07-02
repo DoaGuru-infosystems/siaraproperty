@@ -25,7 +25,7 @@ import ReactGA from "react-ga4";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import Navbar from "../components/UpdatedCode/Navbar";
+
 import Hero from "../components/UpdatedCode/Hero";
 import MarqueeStrip from "../components/UpdatedCode/MarqueeStrip";
 import WelcomeSection from "../components/UpdatedCode/WelcomeSection";
@@ -119,21 +119,10 @@ export default function HomePageNew() {
     <Wrapper>
       <Helmet>
         <link rel="canonical" href={canonicalUrl} />
-        {/* Google Fonts for the new design */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
-          rel="stylesheet"
-        />
       </Helmet>
 
       {/* ── NAVIGATION ── */}
-      <Navbar />
+      
 
       {/* ── HERO (Banner + Search) ── */}
       <Hero />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link, useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
@@ -10,7 +10,7 @@ import RelatedProperty from "./RelatedProperty";
 import axios from "axios";
 import placeholder_img from "../images/placeholder-image.jpeg";
 import StickyNavbar from "../components/Navbar";
-import NavbarMob from "./NavbarMob";
+
 import { BiCategoryAlt } from "react-icons/bi";
 
 
@@ -276,7 +276,7 @@ function SingleProperty() {
           <StickyNavbar />
         </div>
         <div className="nav2">
-          <NavbarMob />{" "}
+          {" "}
         </div>
         {loading ? (
           // Loading...

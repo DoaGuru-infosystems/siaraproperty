@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link, useParams,useNavigate } from "react-router-dom";
-import NavbarMob from "../components/NavbarMob";
+
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
@@ -58,8 +58,8 @@ const ResetPassword = () => {
     return (
       <>
         <Container>
-        <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
-          <div className="nav2"><NavbarMob /> </div>
+        <div className="nav1"></div>
+          <div className="nav2"> </div>
           <div>
             <div className="boxContainer">
               <div className="formcontent">

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-import Navbar from "../components/UpdatedCode/Navbar";
+
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -365,7 +365,7 @@ export default function ServicesPage() {
 
   return (
     <PageWrapper ref={pageRef}>
-      <Navbar />
+      
 
       {/* ── BANNER ── */}
       <Banner>

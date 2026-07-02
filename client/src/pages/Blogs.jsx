@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/UpdatedCode/Navbar";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation, Link } from "react-router-dom";
@@ -45,8 +44,7 @@ function Blogs() {
         </Helmet>
         
         {/* Replaced both nav1 and nav2 with the unified responsive Navbar */}
-        <Navbar />
-
+        
         <div className="container-fluid content-wrapper mb-5">
           <div className="row">
             <div className="col-12 text-center mt-5 mb-4">
