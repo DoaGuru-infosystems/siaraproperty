@@ -50,7 +50,10 @@ const {
   addBlog,
   getAllBlogs,
   getBlogBySlug,
+  getBlogById,
+  editBlog,
   deleteBlog,
+  uploadBlogImage
 } = require("../controller/BlogController.js");
 
 const { upload, uploadBlog } = require("../utils/multerupload.js");
@@ -134,6 +137,9 @@ router.delete(
 router.post("/blogs/add", authenticate, uploadBlog.single("image"), addBlog);
 router.get("/blogs/all", getAllBlogs);
 router.get("/blogs/post/:slug", getBlogBySlug);
+router.get("/blogs/get/:id", getBlogById);
+router.put("/blogs/edit/:id", authenticate, uploadBlog.single("image"), editBlog);
+router.post("/blogs/upload-image", authenticate, uploadBlog.single("image"), uploadBlogImage);
 router.delete("/blogs/delete/:id", authenticate, deleteBlog);
 
 module.exports = router;

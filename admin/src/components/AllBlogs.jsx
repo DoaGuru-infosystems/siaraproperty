@@ -123,6 +123,13 @@ export default function AllBlogs() {
                           <td>{blog.views || 0}</td>
                           <td>{new Date(blog.created_at).toLocaleDateString()}</td>
                           <td className="text-end">
+                            <Link 
+                              to={`/admin/edit-blog/${blog.id}`} 
+                              className="btn btn-sm btn-outline-primary me-2"
+                              title="Edit Blog"
+                            >
+                              <i className="bi bi-pencil-square"></i> Edit
+                            </Link>
                             <button 
                               onClick={() => handleDelete(blog.id, blog.title)} 
                               className="btn btn-sm btn-outline-danger"

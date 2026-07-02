@@ -24,6 +24,7 @@ import SuggestedProperty from './components/SuggestedProperty';
 import ResetPassword from './pages/ResetPassword';
 import AllBlogs from './components/AllBlogs';
 import AddBlog from './components/AddBlog';
+import EditBlog from './components/EditBlog';
 
 
 
@@ -60,6 +61,7 @@ function App() {
         <Route path="/property/edit-property-images/:propertyId" element={currentAdmin ?<EditImages/>:<Navigate to="/admin_login"/>} />
         <Route path="/admin/all-blogs" element={currentAdmin ? <AllBlogs/> : <Navigate to="/admin_login"/>} />
         <Route path="/admin/add-blog" element={currentAdmin ? <AddBlog/> : <Navigate to="/admin_login"/>} />
+        <Route path="/admin/edit-blog/:id" element={currentAdmin ? <EditBlog/> : <Navigate to="/admin_login"/>} />
 
       </Routes>
       {/* <FooterAd /> */}

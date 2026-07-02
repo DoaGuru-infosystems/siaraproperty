@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import NavbarAd from './NavbarAd';
 import Sidebar from './Sidebar';
@@ -7,24 +7,58 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { BASE_URL } from '../config';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default function AddBlog() {
+export default function EditBlog() {
   const { currentAdmin } = useSelector((state) => state.admin);
   const navigate = useNavigate();
+  const { id } = useParams();
   const quillRef = useRef(null);
 
-  const [editorMode, setEditorMode] = useState('visual'); // 'visual' or 'html'
   const [formData, setFormData] = useState({
     title: '',
     category: 'Real Estate',
-    author: currentAdmin?.user?.name || 'Siara Properties',
+    author: '',
     description: ''
   });
+  const [currentImage, setCurrentImage] = useState(null);
   const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [editorMode, setEditorMode] = useState('visual'); // 'visual' or 'html'
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/property/blogs/get/${id}`);
+        if (response.data.success) {
+          const blog = response.data.data;
+          setFormData({
+            title: blog.title || '',
+            category: blog.category || 'Real Estate',
+            author: blog.author || '',
+            description: blog.description || ''
+          });
+          setCurrentImage(blog.image);
+        } else {
+          cogoToast.error('Blog not found');
+          navigate('/admin/all-blogs');
+        }
+      } catch (error) {
+        console.error('Error fetching blog:', error);
+        cogoToast.error('Failed to load blog data');
+        navigate('/admin/all-blogs');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchBlog();
+    }
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,7 +128,6 @@ export default function AddBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     let isDescriptionEmpty = false;
     if (editorMode === 'visual') {
       isDescriptionEmpty = formData.description.replace(/<(.|\n)*?>/g, '').trim().length === 0 && !formData.description.includes('<img');
@@ -102,21 +135,23 @@ export default function AddBlog() {
       isDescriptionEmpty = !formData.description.trim();
     }
     
-    if (!formData.title || isDescriptionEmpty || !image) {
-      cogoToast.warn('Please fill in Title, Description, and select a Banner Image.');
+    if (!formData.title || isDescriptionEmpty) {
+      cogoToast.warn('Please fill in Title and Description.');
       return;
     }
 
-    setLoading(true);
+    setSubmitting(true);
     const data = new FormData();
     data.append('title', formData.title);
     data.append('category', formData.category);
     data.append('author', formData.author);
     data.append('description', formData.description); 
-    data.append('image', image);
+    if (image) {
+      data.append('image', image);
+    }
 
     try {
-      const response = await axios.post(`${BASE_URL}/api/property/blogs/add`, data, {
+      const response = await axios.put(`${BASE_URL}/api/property/blogs/edit/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${currentAdmin?.token}`
@@ -124,18 +159,36 @@ export default function AddBlog() {
       });
 
       if (response.data.success) {
-        cogoToast.success('Blog added successfully!');
+        cogoToast.success('Blog updated successfully!');
         navigate('/admin/all-blogs');
       } else {
-        cogoToast.error(response.data.error || 'Failed to add blog');
+        cogoToast.error(response.data.error || 'Failed to update blog');
       }
     } catch (error) {
       console.error(error);
-      cogoToast.error(error.response?.data?.error || 'An error occurred while adding the blog');
+      cogoToast.error(error.response?.data?.error || 'An error occurred while updating the blog');
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <NavbarAd />
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-2 p-0 d-none d-lg-block"><Sidebar /></div>
+            <div className="col-lg-10 pt-4 px-4 text-center mt-5">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
@@ -149,7 +202,7 @@ export default function AddBlog() {
             <SiderbarMob />
           </div>
           <div className="col-lg-10 pt-4 px-4">
-            <h3 className="post-heading fw-semibold mb-4 mt-5 mt-lg-3">Add New Blog</h3>
+            <h3 className="post-heading fw-semibold mb-4 mt-5 mt-lg-3">Edit Blog</h3>
             
             <div className="card shadow-sm border-0 p-4 mb-5">
               <form onSubmit={handleSubmit}>
@@ -196,13 +249,17 @@ export default function AddBlog() {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label fw-medium">Banner Image</label>
+                    <label className="form-label fw-medium">Banner Image (Leave empty to keep current)</label>
+                    {currentImage && (
+                      <div className="mb-2">
+                        <img src={currentImage} alt="Current Banner" style={{ height: '80px', borderRadius: '4px' }} />
+                      </div>
+                    )}
                     <input 
                       type="file" 
                       className="form-control" 
                       accept="image/*"
                       onChange={handleImageChange}
-                      required 
                     />
                   </div>
 
@@ -247,14 +304,14 @@ export default function AddBlog() {
                   </div>
 
                   <div className="col-md-12">
-                    <button type="submit" className="btn btn-primary px-4 py-2 fw-semibold" disabled={loading}>
-                      {loading ? (
+                    <button type="submit" className="btn btn-primary px-4 py-2 fw-semibold" disabled={submitting}>
+                      {submitting ? (
                         <>
                           <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                          Publishing...
+                          Updating...
                         </>
                       ) : (
-                        'Publish Blog'
+                        'Update Blog'
                       )}
                     </button>
                   </div>

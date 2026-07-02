@@ -153,9 +153,110 @@ const deleteBlog = (req, res) => {
     }
 };
 
+// Get Blog by ID (for Edit form)
+const getBlogById = (req, res) => {
+    try {
+        const id = req.params.id;
+        const sqlSelect = 'SELECT * FROM blogs WHERE id = ?';
+
+        db.query(sqlSelect, [id], (err, results) => {
+            if (err) {
+                console.error('Error fetching blog:', err);
+                return res.status(500).json({ success: false, error: 'Internal Server Error', message: err.message });
+            }
+
+            if (results.length > 0) {
+                const blog = results[0];
+                blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
+                res.status(200).json({ success: true, data: blog, message: 'Blog fetched successfully' });
+            } else {
+                res.status(404).json({ success: false, error: 'Blog not found', message: 'Blog not found' });
+            }
+        });
+    } catch (error) {
+        console.error('Get Blog Error:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error', message: error.message });
+    }
+};
+
+// Edit Blog
+const editBlog = (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const { title, description, category, author } = req.body;
+        
+        if (!title || !description) {
+            return res.status(400).json({ success: false, error: 'Title and description are required' });
+        }
+
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const newImage = req.file ? req.file.filename : null;
+
+        let updateQuery = `
+            UPDATE blogs 
+            SET title = ?, slug = ?, description = ?, author = ?, category = ?
+        `;
+        let values = [title, slug, description, author || 'Siara Properties', category || 'Real Estate'];
+
+        if (newImage) {
+            updateQuery += `, image = ?`;
+            values.push(newImage);
+            
+            // Delete old image
+            db.query('SELECT image FROM blogs WHERE id = ?', [blogId], (err, results) => {
+                if (!err && results.length > 0 && results[0].image) {
+                    const filePath = path.join(__dirname, '..', 'uploads', 'blog', results[0].image);
+                    if (fs.existsSync(filePath)) {
+                        try { fs.unlinkSync(filePath); } catch (e) { console.error("Error unlinking old image:", e); }
+                    }
+                }
+            });
+        }
+
+        updateQuery += ` WHERE id = ?`;
+        values.push(blogId);
+
+        db.query(updateQuery, values, (err, result) => {
+            if (err) {
+                console.error('Error updating blog:', err);
+                if (err.code === 'ER_DUP_ENTRY') {
+                    return res.status(409).json({ success: false, error: 'A blog with this title/slug already exists' });
+                }
+                return res.status(500).json({ success: false, error: 'Internal Server Error', message: err.message });
+            }
+
+            if (result.affectedRows === 0) {
+                 return res.status(404).json({ success: false, error: 'Blog not found' });
+            }
+
+            res.status(200).json({ success: true, message: 'Blog updated successfully' });
+        });
+    } catch (error) {
+        console.error('Edit Blog Error:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error', message: error.message });
+    }
+};
+
+// Upload Image (for React-Quill)
+const uploadBlogImage = (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ success: false, error: 'No image uploaded' });
+        }
+        const imageUrl = `${process.env.BACKEND_BASE_URL}/uploads/blog/${req.file.filename}`;
+        res.status(200).json({ success: true, url: imageUrl });
+    } catch (error) {
+        console.error('Upload Image Error:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error', message: error.message });
+    }
+};
+
 module.exports = {
     addBlog,
     getAllBlogs,
     getBlogBySlug,
-    deleteBlog
+    getBlogById,
+    editBlog,
+    deleteBlog,
+    uploadBlogImage
 };
