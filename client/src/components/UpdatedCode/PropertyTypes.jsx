@@ -9,83 +9,141 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import axios from "axios";
+import { 
+  FaHome, 
+  FaBuilding, 
+  FaTree, 
+  FaTractor, 
+  FaCity, 
+  FaKey, 
+  FaVectorSquare 
+} from "react-icons/fa";
+import { MdOutlineVilla, MdOutlineHolidayVillage } from "react-icons/md";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const TYPES = [
-  {
-    icon: "🏠",
-    name: "House",
-    count: "24 Properties",
-    slug: "house",
-    className: "",
-  },
-  {
-    icon: "🏡",
-    name: "Villa",
-    count: "12 Properties",
-    slug: "villa",
-    className: "",
-  },
-  {
-    icon: "📐",
-    name: "Plot",
-    count: "38 Properties",
-    slug: "plot",
-    className: "",
-  },
-  {
-    icon: "🏢",
-    name: "Flat",
-    count: "19 Properties",
-    slug: "flat",
-    className: "",
-  },
-  {
-    icon: "🌿",
-    name: "Land",
-    count: "15 Properties",
-    slug: "land",
-    className: "",
-  },
-  {
-    icon: "🌾",
-    name: "Farm Land",
-    count: "9 Properties",
-    slug: "farmland",
-    className: "",
-  },
-  {
-    icon: "🏘️",
-    name: "Farm House",
-    count: "7 Properties",
-    slug: "farmhouse",
-    className: "",
-  },
-  {
-    icon: "🏪",
-    name: "Commercial",
-    count: "22 Properties",
-    slug: "commercial",
-    className: "",
-  },
-  {
-    icon: "🔑",
-    name: "For Rent",
-    count: "41 Properties",
-    slug: "rent",
-    className: "rent-card",
-  },
-];
 
 export default function PropertyTypes() {
   const [active, setActive] = useState(0);
   const trackRef = useRef(null);
   const cardsRef = useRef([]);
+  const [counts, setCounts] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/api/property/getAllProperty")
+      .then((r) => {
+        const data = r.data?.data || [];
+        const newCounts = {
+          house: 0,
+          villa: 0,
+          plot: 0,
+          flat: 0,
+          land: 0,
+          farmland: 0,
+          farmhouse: 0,
+          commercial: 0,
+          rent: 0,
+        };
+
+        data.forEach((p) => {
+          // Exclude sold properties
+          if (p.isSold == "1" || p.isSold === 1) return;
+
+          const pFor = (p.property_for || "").toLowerCase();
+          const t = (p.property_type || "").toLowerCase();
+
+          // Count For Rent
+          if (pFor === "rent") {
+            newCounts.rent++;
+          } 
+          // Count categories for sale
+          else if (pFor === "sale") {
+            if (t === "house") newCounts.house++;
+            if (t === "villa") newCounts.villa++;
+            if (t === "plot") newCounts.plot++;
+            if (t === "flat") newCounts.flat++;
+            if (t === "land") newCounts.land++;
+            if (t === "farmland" || t === "farm land") newCounts.farmland++;
+            if (t === "farmhouse" || t === "farm house") newCounts.farmhouse++;
+            if (t === "commercial") newCounts.commercial++;
+          }
+        });
+        setCounts(newCounts);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+  const TYPES = [
+    {
+      icon: <FaHome />,
+      name: "House",
+      count: `${counts.house || 0} Properties`,
+      link: "/property/propertyType/house",
+      className: "",
+    },
+    {
+      icon: <MdOutlineVilla />,
+      name: "Villa",
+      count: `${counts.villa || 0} Properties`,
+      link: "/property/propertyType/villa",
+      className: "",
+    },
+    {
+      icon: <FaVectorSquare />,
+      name: "Plot",
+      count: `${counts.plot || 0} Properties`,
+      link: "/property/propertyType/plot",
+      className: "",
+    },
+    {
+      icon: <FaBuilding />,
+      name: "Flat",
+      count: `${counts.flat || 0} Properties`,
+      link: "/property/propertyType/flat",
+      className: "",
+    },
+    {
+      icon: <FaTree />,
+      name: "Land",
+      count: `${counts.land || 0} Properties`,
+      link: "/property/propertyType/land",
+      className: "",
+    },
+    {
+      icon: <FaTractor />,
+      name: "Farm Land",
+      count: `${counts.farmland || 0} Properties`,
+      link: "/property/propertyType/farmLand",
+      className: "",
+    },
+    {
+      icon: <MdOutlineHolidayVillage />,
+      name: "Farm House",
+      count: `${counts.farmhouse || 0} Properties`,
+      link: "/property/propertyType/farmHouse",
+      className: "",
+    },
+    {
+      icon: <FaCity />,
+      name: "Commercial",
+      count: `${counts.commercial || 0} Properties`,
+      link: "/property/propertyType/commercial",
+      className: "",
+    },
+    {
+      icon: <FaKey />,
+      name: "For Rent",
+      count: `${counts.rent || 0} Properties`,
+      link: "/property/propertiesForRent",
+      className: "rent-card",
+    },
+  ];
 
   // ── drag to scroll ──
   useEffect(() => {
     const track = trackRef.current;
+    if (!track) return;
     let isDragging = false,
       startX = 0,
       scrollLeft = 0;
@@ -127,34 +185,36 @@ export default function PropertyTypes() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean);
-      gsap.fromTo(
-        cards,
-        { opacity: 0, x: 40, scale: 0.93 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 0.55,
-          ease: "back.out(1.4)",
-          stagger: 0.06,
-          scrollTrigger: {
-            trigger: trackRef.current,
-            start: "top 86%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, x: 40, scale: 0.93 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.55,
+            ease: "back.out(1.4)",
+            stagger: 0.06,
+            scrollTrigger: {
+              trigger: trackRef.current,
+              start: "top 86%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
     });
     return () => ctx.revert();
-  }, []);
+  }, [counts]); // re-run animation on data change if needed
 
   const handleCardClick = (i, e) => {
-    e.preventDefault();
+    // Note: Do not preventDefault here, so the link actually navigates.
     setActive(i);
     gsap.fromTo(
       cardsRef.current[i],
       { scale: 0.95 },
-      { scale: 1, duration: 0.3, ease: "back.out(2)" },
+      { scale: 1, duration: 0.3, ease: "back.out(2)" }
     );
   };
 
@@ -168,24 +228,27 @@ export default function PropertyTypes() {
           </h2>
         </div>
         <Link to="/properties" className="link-arrow reveal">
-          Sab dekhein
+          View All
         </Link>
       </div>
 
       <div className="types-track-wrap" ref={trackRef}>
         <div className="types-track">
           {TYPES.map((type, i) => (
-            <a
-              key={type.slug}
-              href={`/properties?type=${type.slug}`}
-              className={`type-card${type.className ? ` ${type.className}` : ""}${active === i ? " active" : ""}`}
+            <Link
+              key={type.name}
+              to={type.link}
+              className={`type-card${type.className ? ` ${type.className}` : ""}${
+                active === i ? " active" : ""
+              }`}
               ref={(el) => (cardsRef.current[i] = el)}
               onClick={(e) => handleCardClick(i, e)}
+              draggable="false"
             >
               <div className="type-icon-wrap">{type.icon}</div>
               <div className="type-name">{type.name}</div>
               <div className="type-count">{type.count}</div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -28,6 +28,7 @@ import HomePageNew from "./pages/HomePageNew";
 import AboutPageNew from "./pages/AboutPageNew";
 import ContactPageNew from "./pages/ContactPageNew";
 import ServicesPage from "./pages/ServicesPage";
+import AllProperties from "./pages/AllProperties";
 
 const Tracking_Id = "G-0XYJQVFWDJ";
 ReactGA.initialize(Tracking_Id);
@@ -56,6 +57,7 @@ function App() {
           <Route path="/blog/:slug" element={<SingleBlogDynamic />} />
 
           {/* Properties Routes */}
+          <Route path="/properties" element={<AllProperties />} />
           <Route path="/property/:propertyId" element={<SingleProperty />} />
           <Route
             path="/property/propertyType/:propertyType"
