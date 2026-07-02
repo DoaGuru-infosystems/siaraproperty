@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const JWT = require('jsonwebtoken');
 dotenv.config();
-var nodemailer = require('nodemailer');
+const { sendEmail } = require("./sendEmail");
 
 const userRegistration = (req, res) => {
   try {
@@ -339,30 +339,12 @@ const forgotPassword = (req, res) => {
         expiresIn: "1d",
       });
 
-      var transporter = nodemailer.createTransport({
-        host: "mail.SiaraProperties.com",
-        port: 465,
-        secure: true, // Use SSL
-        auth: {
-          user: "info@SiaraProperties.com",
-          pass: "SiaraProperties@123",
-        },
-      });
-
-      var mailOptions = {
-        from: "info@SiaraProperties.com",
+      const resetLink = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset-password/${user.uid}/${token}`;
+      sendEmail({
         to: email,
         subject: "Password reset link",
-        text: `Click this link to reset password  http://localhost:4000/reset-password/${user.uid}/${token}`,
-      };
-
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      });
+        text: `Click this link to reset password: ${resetLink}`
+      }).catch(err => console.error("Error sending forgotPassword email:", err));
 
       res
         .cookie("access_token", token, { httpOnly: true })
@@ -487,30 +469,12 @@ const adminForgotPassword = (req, res) => {
         expiresIn: "1d",
       });
 
-      var transporter = nodemailer.createTransport({
-        host: "mail.SiaraProperties.com",
-        port: 465,
-        secure: true, // Use SSL
-        auth: {
-          user: "info@SiaraProperties.com",
-          pass: "SiaraProperties@123",
-        },
-      });
-
-      var mailOptions = {
-        from: "info@SiaraProperties.com",
+      const resetLink = `${process.env.ADMIN_URL || 'http://localhost:3001'}/reset-password/${user.id}/${token}`;
+      sendEmail({
         to: email,
         subject: "Password reset link",
-        text: `Click this link to reset password  https://admin.SiaraProperties.com/reset-password/${user.id}/${token}`,
-      };
-
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      });
+        text: `Click this link to reset password: ${resetLink}`
+      }).catch(err => console.error("Error sending adminForgotPassword email:", err));
 
       res
         .cookie("access_token", token, { httpOnly: true })
@@ -590,10 +554,19 @@ const adminResetPassword = (req, res) => {
   });
 };
 
-
-
-
-
-
 module.exports = {
-  userRegistration, loginController,interestedUser,getInterestedUsers, getRegisterUsers,contactedUser, getContactedUsers,forgotPassword,resetPassword,adminForgotPassword,adminResetPassword,deleteContactedUser,deleteIntrestedUser,deleteRegisteredUser}
+  userRegistration,
+  loginController,
+  interestedUser,
+  getInterestedUsers,
+  getRegisterUsers,
+  contactedUser,
+  getContactedUsers,
+  forgotPassword,
+  resetPassword,
+  adminForgotPassword,
+  adminResetPassword,
+  deleteContactedUser,
+  deleteIntrestedUser,
+  deleteRegisteredUser
+};

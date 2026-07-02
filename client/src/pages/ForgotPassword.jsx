@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     }
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/property/forgot-password",
+        "/api/property/forgot-password",
         { email: email },
       );
       if (res?.data && res?.data?.success === true) {

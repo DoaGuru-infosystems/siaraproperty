@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NavbarAd from './NavbarAd';
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
+import { BASE_URL } from '../config';
 
 function AddProperty() {
     // const [propertyType, setPropertyType] = useState('');
@@ -102,7 +103,7 @@ function AddProperty() {
          e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:4000/api/property/addproperty', {
+            const response = await fetch(`${BASE_URL}/api/property/addproperty`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

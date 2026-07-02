@@ -1,318 +1,318 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 		<!--	created with www.mysitemapgenerator.com	-->
 		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-	<loc>http://localhost:4000/</loc>
+	<loc>__BASE_URL__/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/info/terms-and-conditions</loc>
+	<loc>__BASE_URL__/info/terms-and-conditions</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/info/privacy-policy</loc>
+	<loc>__BASE_URL__/info/privacy-policy</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/register</loc>
+	<loc>__BASE_URL__/api/property/register</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/login</loc>
+	<loc>__BASE_URL__/api/property/login</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/forgot-password</loc>
+	<loc>__BASE_URL__/api/property/forgot-password</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/contacted</loc>
+	<loc>__BASE_URL__/api/property/contacted</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/interestedUser</loc>
+	<loc>__BASE_URL__/api/property/interestedUser</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyByType/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyByType/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyById/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyById/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyImagesById/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyImagesById/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyByTypeAndBhk/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyByTypeAndBhk/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyForRentByType/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyForRentByType/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/getPropertyForResaleByType/</loc>
+	<loc>__BASE_URL__/api/property/getPropertyForResaleByType/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/api/property/reset-password/</loc>
+	<loc>__BASE_URL__/api/property/reset-password/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/</loc>
+	<loc>__BASE_URL__/property/</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/house</loc>
+	<loc>__BASE_URL__/property/propertyType/house</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/villa</loc>
+	<loc>__BASE_URL__/property/propertyType/villa</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/plot</loc>
+	<loc>__BASE_URL__/property/propertyType/plot</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/flat</loc>
+	<loc>__BASE_URL__/property/propertyType/flat</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/land</loc>
+	<loc>__BASE_URL__/property/propertyType/land</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/farmLand</loc>
+	<loc>__BASE_URL__/property/propertyType/farmLand</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/farmHouse</loc>
+	<loc>__BASE_URL__/property/propertyType/farmHouse</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertyType/commercial</loc>
+	<loc>__BASE_URL__/property/propertyType/commercial</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent</loc>
+	<loc>__BASE_URL__/property/propertiesForRent</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/about</loc>
+	<loc>__BASE_URL__/about</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/contact</loc>
+	<loc>__BASE_URL__/contact</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blog</loc>
+	<loc>__BASE_URL__/blog</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/register</loc>
+	<loc>__BASE_URL__/register</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/login</loc>
+	<loc>__BASE_URL__/login</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/flat/1</loc>
+	<loc>__BASE_URL__/property/flat/1</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/flat/2</loc>
+	<loc>__BASE_URL__/property/flat/2</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/flat/3</loc>
+	<loc>__BASE_URL__/property/flat/3</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/flat/4</loc>
+	<loc>__BASE_URL__/property/flat/4</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/house/1</loc>
+	<loc>__BASE_URL__/property/house/1</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/house/2</loc>
+	<loc>__BASE_URL__/property/house/2</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/house/3</loc>
+	<loc>__BASE_URL__/property/house/3</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/house/4</loc>
+	<loc>__BASE_URL__/property/house/4</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/house</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/house</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/villa</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/villa</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/plot</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/plot</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/flat</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/flat</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/land</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/land</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/farmLand</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/farmLand</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/farmHouse</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/farmHouse</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForRent/commercial</loc>
+	<loc>__BASE_URL__/property/propertiesForRent/commercial</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/house</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/house</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/villa</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/villa</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/plot</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/plot</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/flat</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/flat</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/land</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/land</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/farmLand</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/farmLand</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/farmHouse</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/farmHouse</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/property/propertiesForResale/commercial</loc>
+	<loc>__BASE_URL__/property/propertiesForResale/commercial</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/forgot-password</loc>
+	<loc>__BASE_URL__/forgot-password</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog1</loc>
+	<loc>__BASE_URL__/blogs/single-blog1</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog2</loc>
+	<loc>__BASE_URL__/blogs/single-blog2</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog3</loc>
+	<loc>__BASE_URL__/blogs/single-blog3</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog4</loc>
+	<loc>__BASE_URL__/blogs/single-blog4</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog5</loc>
+	<loc>__BASE_URL__/blogs/single-blog5</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog6</loc>
+	<loc>__BASE_URL__/blogs/single-blog6</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog7</loc>
+	<loc>__BASE_URL__/blogs/single-blog7</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>http://localhost:4000/blogs/single-blog8</loc>
+	<loc>__BASE_URL__/blogs/single-blog8</loc>
 	<lastmod>2024-01-31T09:16:08+01:00</lastmod>
 	<priority>0.8</priority>
 </url>

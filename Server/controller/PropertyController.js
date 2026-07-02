@@ -262,7 +262,7 @@ const uploadImages =  (req, res) => {
 
     // Process each image and save its path to the database
     images.forEach((image, index, array) => {
-        const imagePath = 'http://localhost:4000/uploads/' + image.filename; // Store the path relative to the 'uploads' directory
+        const imagePath = image.filename; // Store only the filename
 
         // Insert the image path into the database
         db.query(
@@ -452,7 +452,11 @@ const getAllPropertyImages = (req, res) =>{
             console.error('Error fetching properties from MySQL:', err);
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
-            res.status(200).json({ data: results, message: 'Properties images fetched successfully' });
+            const updatedResults = results.map(row => ({
+                ...row,
+                image: `${process.env.BACKEND_BASE_URL}/uploads/${path.basename(row.image)}`
+            }));
+            res.status(200).json({ data: updatedResults, message: 'Properties images fetched successfully' });
         }
     });
 
@@ -526,7 +530,11 @@ const getPropertyImagesById = (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
             if (results.length > 0) {
-                res.status(200).json({success:true, data: results, message: 'Property images fetched successfully' });
+                const updatedResults = results.map(row => ({
+                    ...row,
+                    image: `${process.env.BACKEND_BASE_URL}/uploads/${path.basename(row.image)}`
+                }));
+                res.status(200).json({success:true, data: updatedResults, message: 'Property images fetched successfully' });
             } else {
                 res.status(404).json({success:false, error: 'Property not found' ,message:"Property not found" });
             }
@@ -638,7 +646,11 @@ const getSuggestedPropertyImages = (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
             if (results.length > 0) {
-                res.status(200).json({ success:true, data: results, message: 'suggested Property fetched successfully' });
+                const updatedResults = results.map(row => ({
+                    ...row,
+                    image: `${process.env.BACKEND_BASE_URL}/uploads/${path.basename(row.image)}`
+                }));
+                res.status(200).json({ success:true, data: updatedResults, message: 'suggested Property fetched successfully' });
             } else {
                 res.status(404).json({success:false, error: 'Property not found' ,message:"Property not found" });
             }

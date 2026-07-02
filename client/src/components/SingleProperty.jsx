@@ -37,6 +37,7 @@ import {
 } from "react-share";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 function SingleProperty() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,13 +49,13 @@ function SingleProperty() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const currentUrl = window.location.href;
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   // Function to fetch property details by propertyId
   const fetchPropertyDetails = async (propertyId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/property/getPropertyById/${propertyId}`,
+        `/api/property/getPropertyById/${propertyId}`,
       );
       return response.data.data;
     } catch (error) {
@@ -67,7 +68,7 @@ function SingleProperty() {
   const fetchPropertyImages = async (propertyId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`,
+        `/api/property/getPropertyImagesById/${propertyId}`,
       );
       return response.data.data;
     } catch (error) {
@@ -172,7 +173,7 @@ function SingleProperty() {
   //   // Fetch property details using propertyId
   //   const fetchProperty = async () => {
   //     try {
-  //       const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+  //       const response = await axios.get(`/api/property/getPropertyById/${propertyId}`);
   //       console.log(response.data);
   //       setProperty(response.data.data); // Set property in state
   //       setLoading(false); // Set loading to false
@@ -192,8 +193,8 @@ function SingleProperty() {
   //   const fetchData = async () => {
   //     try {
   //       const [propertyResponse, imagesResponse] = await Promise.all([
-  //         axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`),
-  //         axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`),
+  //         axios.get(`/api/property/getPropertyById/${propertyId}`),
+  //         axios.get(`/api/property/getPropertyImagesById/${propertyId}`),
   //       ]);
 
   //       setProperty(propertyResponse.data.data);

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
 import NavbarAd from './NavbarAd';
+import { BASE_URL } from '../config';
 
 const AddsuggestedProperty = () => {
 
@@ -29,7 +30,7 @@ const AddsuggestedProperty = () => {
         //   formData.append('property_id', property);
          
       
-          const response = await axios.post('http://localhost:4000/api/property/addSuggestedProperty',{ property_id: property }, {
+          const response = await axios.post(`${BASE_URL}/api/property/addSuggestedProperty`,{ property_id: property }, {
             headers: {
                 'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`

@@ -11,6 +11,7 @@ import RelatedProperty from "./RelatedProperty";
 import axios from 'axios';
 import placeholder_img from '../../images/placeholder-image.jpeg';
 import { Carousel } from 'react-bootstrap';
+import { BASE_URL } from "../../config";
 
 import NavbarAd from "../NavbarAd";
 import Lightbox from 'react-image-lightbox';
@@ -30,7 +31,7 @@ function SingleProperty() {
   // Function to fetch property details by propertyId
 const fetchPropertyDetails = async (propertyId) => {
   try {
-    const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    const response = await axios.get(`${BASE_URL}/api/property/getPropertyById/${propertyId}`);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching property details:', error);
@@ -41,7 +42,7 @@ const fetchPropertyDetails = async (propertyId) => {
 // Function to fetch property images by propertyId
 const fetchPropertyImages = async (propertyId) => {
   try {
-    const response = await axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`);
+    const response = await axios.get(`${BASE_URL}/api/property/getPropertyImagesById/${propertyId}`);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching property images:', error);
@@ -115,7 +116,7 @@ const fetchPropertyImages = async (propertyId) => {
     //   // Fetch property details using propertyId
     //   const fetchProperty = async () => {
     //     try {
-    //       const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    //       const response = await axios.get(`${BASE_URL}/api/property/getPropertyById/${propertyId}`);
     //       console.log(response.data);
     //       setProperty(response.data.data); // Set property in state
     //       setLoading(false); // Set loading to false
@@ -136,8 +137,8 @@ const fetchPropertyImages = async (propertyId) => {
   //   const fetchData = async () => {
   //     try {
   //       const [propertyResponse, imagesResponse] = await Promise.all([
-  //         axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`),
-  //         axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`),
+  //         axios.get(`${BASE_URL}/api/property/getPropertyById/${propertyId}`),
+  //         axios.get(`${BASE_URL}/api/property/getPropertyImagesById/${propertyId}`),
   //       ]);
 
   //       setProperty(propertyResponse.data.data);

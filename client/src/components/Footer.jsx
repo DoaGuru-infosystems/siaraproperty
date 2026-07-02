@@ -8,6 +8,7 @@ import { BiLogoInstagramAlt, BiLogoWhatsappSquare } from "react-icons/bi";
 import logo from "../images/Real-Estate-Logo.png";
 import { Link } from "react-router-dom";
 import { hover } from "@testing-library/user-event/dist/hover";
+import { getAppUrl } from "../config/axios";
 
 const Footer = () => {
   return (
@@ -250,7 +251,7 @@ const Footer = () => {
                 <p className="text-white text-center fs-6">
                   { " " }
                   <a
-                    href="http://localhost:4000/info/terms-and-conditions"
+                    href={getAppUrl("/info/terms-and-conditions")}
                     target="blank"
                     className="terms"
                   >
@@ -258,7 +259,7 @@ const Footer = () => {
                   </a>{ " " }
                   |{ " " }
                   <a
-                    href="http://localhost:4000/info/privacy-policy"
+                    href={getAppUrl("/info/privacy-policy")}
                     target="blank"
                     className="terms"
                   >

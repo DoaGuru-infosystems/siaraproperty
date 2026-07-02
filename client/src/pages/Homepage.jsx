@@ -16,24 +16,25 @@ import RentProperty from "../components/RentProperty";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([]);
   const [propertiesImages, setPropertiesImages] = useState([]);
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
   console.log(canonicalUrl);
 
   const getAllPropeties = async () => {
     const response = await axios.get(
-      "http://localhost:4000/api/property/getAllProperty",
+      "/api/property/getAllProperty",
     );
     setProperties(response.data);
   };
   const getAllPropetiesImages = async () => {
     const response = await axios.get(
-      "http://localhost:4000/api/property/getAllPropertyImages",
+      "/api/property/getAllPropertyImages",
     );
     setPropertiesImages(response.data);
   };

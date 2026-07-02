@@ -11,11 +11,12 @@ import axios from "axios";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 function ContactUs() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -44,7 +45,7 @@ function ContactUs() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/property/contacted",
+        "/api/property/contacted",
         formData,
       );
 

@@ -105,12 +105,13 @@ import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 function Blogs() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
   // useEffect(() => {
   //     // Fetch data from your backend API
   //     fetch('your-backend-api-url')

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { BASE_URL } from '../config';
 
 
 function Cards() {
@@ -14,7 +15,7 @@ function Cards() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getAllProperty/`);
+      const response = await axios.get(`${BASE_URL}/api/property/getAllProperty/`);
       
       setProperties(response?.data);
     } catch (error) {
@@ -25,7 +26,7 @@ function Cards() {
   const fetchRegisteredUser = async() =>{
 
     try{
-      const res = await axios.get('http://localhost:4000/api/property/getRegisterUsers');
+      const res = await axios.get(`${BASE_URL}/api/property/getRegisterUsers`);
 
       console.log(res);
       if(res?.data.success){
@@ -44,7 +45,7 @@ function Cards() {
   const fetchInterestedUser = async() =>{
 
     try{
-      const res = await axios.get('http://localhost:4000/api/property/getInterestedUsers');
+      const res = await axios.get(`${BASE_URL}/api/property/getInterestedUsers`);
 
       console.log(res);
       if(res?.data.success){
@@ -63,7 +64,7 @@ function Cards() {
 const fetchContadedUser = async() =>{
 
   try{
-    const res = await axios.get('http://localhost:4000/api/property/getContactedUsers');
+    const res = await axios.get(`${BASE_URL}/api/property/getContactedUsers`);
 
     console.log(res);
     if(res?.data.success){

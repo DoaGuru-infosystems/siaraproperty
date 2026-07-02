@@ -20,7 +20,7 @@ export default function Luxuaryhouse() {
   const getAllProperties = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getPropertyByType/farmHouse",
+        "/api/property/getPropertyByType/farmHouse",
       );
       setProperties(response.data);
     } catch (error) {
@@ -31,7 +31,7 @@ export default function Luxuaryhouse() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getAllPropertyImages",
+        "/api/property/getAllPropertyImages",
       );
       setPropertiesImages(response.data);
     } catch (error) {

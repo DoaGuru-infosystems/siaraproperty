@@ -20,7 +20,7 @@ export default function CommercialProperty() {
   const getAllProperties = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getPropertyByType/commercial",
+        "/api/property/getPropertyByType/commercial",
       );
       setProperties(response.data);
     } catch (error) {
@@ -31,7 +31,7 @@ export default function CommercialProperty() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getAllPropertyImages",
+        "/api/property/getAllPropertyImages",
       );
       setPropertiesImages(response.data);
     } catch (error) {

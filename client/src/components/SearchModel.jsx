@@ -22,7 +22,7 @@ const SearchModel = () => {
 
   //     const getAllPropertiesImages = async () => {
   //         try {
-  //           const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+  //           const response = await axios.get('/api/property/getAllPropertyImages');
   //           setPropertiesImages(response.data);
   //         } catch (error) {
   //           console.error('Error fetching property images:', error);
@@ -33,7 +33,7 @@ const SearchModel = () => {
 
   //   const getAllProperties = async () => {
   //        try{
-  //           const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+  //           const response = await axios.get('/api/property/getAllProperty');
 
   //           setProperties(response.data);
   //        }
@@ -48,7 +48,7 @@ const SearchModel = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/property/getAllProperty",
+          "/api/property/getAllProperty",
         );
         setProperties(response.data);
       } catch (error) {
@@ -65,7 +65,7 @@ const SearchModel = () => {
     const getAllPropertiesImages = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/property/getAllPropertyImages",
+          "/api/property/getAllPropertyImages",
         );
         setPropertiesImages(response.data);
       } catch (error) {

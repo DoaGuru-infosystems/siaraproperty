@@ -7,6 +7,7 @@ import axios from 'axios'
 import moment from "moment";
 import cogoToast from 'cogo-toast';
 import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from '../../config';
 
 function Interested_User() {
   const {currentAdmin} = useSelector((state) => state.admin);
@@ -18,7 +19,7 @@ function Interested_User() {
       const fetchUser = async() =>{
 
           try{
-            const res = await axios.get('http://localhost:4000/api/property/getInterestedUsers');
+            const res = await axios.get(`${BASE_URL}/api/property/getInterestedUsers`);
 
             console.log(res);
             if(res?.data.success){
@@ -45,7 +46,7 @@ function Interested_User() {
       return;
     }
       try{
-        const res = await axios.delete(`http://localhost:4000/api/property/deleteIntrestedUser/${id}`,
+        const res = await axios.delete(`${BASE_URL}/api/property/deleteIntrestedUser/${id}`,
         {
           headers:{
             Authorization: `Bearer ${token}`,

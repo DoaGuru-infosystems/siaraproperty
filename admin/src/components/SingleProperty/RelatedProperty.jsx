@@ -10,6 +10,7 @@ import "react-multi-carousel/lib/styles.css";
 import { responsive } from "../responsive";
 import CarouselPlaceholder from "../CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
+import { BASE_URL } from "../../config";
 
 export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
  
@@ -21,18 +22,18 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
     try {
       if(propertyType && propertyFor){
         if(propertyFor=="rent"){
-          const response = await axios.get('http://localhost:4000/api/property/getPropertyForRent/');
+          const response = await axios.get(`${BASE_URL}/api/property/getPropertyForRent/`);
           setProperties(response.data);
         }
         else{
-          const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
+          const response = await axios.get(`${BASE_URL}/api/property/getPropertyByType/${propertyType}`);
           setProperties(response.data);
         }
 
         
       }
       else{
-        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        const response = await axios.get(`${BASE_URL}/api/property/getAllProperty`);
         setProperties(response.data);
       }
       
@@ -43,7 +44,7 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get(`${BASE_URL}/api/property/getAllPropertyImages`);
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);

@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const morgen = require("morgan");
 dotenv.config();
 var cookieParser = require('cookie-parser')
 const path = require('path');
@@ -8,7 +9,7 @@ const path = require('path');
 const propertyRouter = require('./routes/propertyRouter.js')
 
 const app = express();
-
+app.use(morgen("dev"));
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors());

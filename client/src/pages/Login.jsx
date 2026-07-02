@@ -14,6 +14,7 @@ import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 const Login = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,7 +25,7 @@ const Login = () => {
     (state) => state.user || {},
   );
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,7 +36,7 @@ const Login = () => {
     try {
       dispatch(signInStart());
       const res = await axios.post(
-        "http://localhost:4000/api/property/login",
+        "/api/property/login",
         formData,
       );
 

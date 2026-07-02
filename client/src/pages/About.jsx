@@ -13,10 +13,11 @@ import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 function About() {
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
   console.log(canonicalUrl);
 
   useEffect(() => {

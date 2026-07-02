@@ -16,18 +16,19 @@ import { FaLocationDot } from "react-icons/fa6";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 export default function RentedProperties() {
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const getAllProperties = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/property/getPropertyForRent/`,
+        `/api/property/getPropertyForRent/`,
       );
       setProperties(response.data);
     } catch (error) {
@@ -38,7 +39,7 @@ export default function RentedProperties() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getAllPropertyImages",
+        "/api/property/getAllPropertyImages",
       );
       setPropertiesImages(response.data);
     } catch (error) {

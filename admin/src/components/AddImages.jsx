@@ -8,6 +8,7 @@ import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
 import NavbarAd from './NavbarAd';
 import CarouselPlaceholder from './CarouselPlaceholder';
+import { BASE_URL } from '../config';
 
 function AddImages() {
     const [selectedFiles, setSelectedFiles] = useState(null);
@@ -53,7 +54,7 @@ function AddImages() {
       formData.append('property_id', property);
       
       setLoading(true); // Set loading to true before making the request
-      const response = await axios.post('http://localhost:4000/api/property/upload-images', formData, {
+      const response = await axios.post(`${BASE_URL}/api/property/upload-images`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`

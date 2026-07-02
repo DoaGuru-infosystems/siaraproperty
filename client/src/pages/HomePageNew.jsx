@@ -44,7 +44,7 @@ function useAllImages() {
   const [images, setImages] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/property/getAllPropertyImages")
+      .get("/api/property/getAllPropertyImages")
       .then((r) => setImages(r.data))
       .catch(() => setImages({ data: [] }));
   }, []);
@@ -56,7 +56,7 @@ function useSectionData(endpoint) {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:4000${endpoint}`)
+      .get(endpoint)
       .then((r) => setData(r.data))
       .catch(() => setData({ data: [] }));
   }, [endpoint]);
@@ -107,13 +107,13 @@ export default function HomePageNew() {
   const recentlyPosted = useSectionData(
     "/api/property/getRecentlyPostedProperties",
   );
-  const rentProperties = useSectionData("/api/property/getRentProperties");
-  const suggestions = useSectionData("/api/property/getSuggestions");
-  const mostViewed = useSectionData("/api/property/getMostViewedProperties");
-  const poshHouse = useSectionData("/api/property/getPoshHouseProperties");
-  const commercial = useSectionData("/api/property/getCommercialProperties");
-  const priceDrop = useSectionData("/api/property/getPriceDropProperties");
-  const luxuryHouse = useSectionData("/api/property/getLuxuaryHouseProperties");
+  const rentProperties = useSectionData("/api/property/getPropertyForRent");
+  const suggestions = useSectionData("/api/property/getSuggestedProperty");
+  const mostViewed = useSectionData("/api/property/getMostVisitedProperties");
+  const poshHouse = useSectionData("/api/property/getPropertyByType/villa");
+  const commercial = useSectionData("/api/property/getPropertyByType/commercial");
+  const priceDrop = useSectionData("/api/property/getAllProperty");
+  const luxuryHouse = useSectionData("/api/property/getPropertyByType/farmHouse");
 
   return (
     <Wrapper>

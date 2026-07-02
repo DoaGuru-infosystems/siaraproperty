@@ -7,6 +7,7 @@ import NavbarAd from './NavbarAd';
 import axios from 'axios';
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
+import { BASE_URL } from '../config';
 
 
 function EditProperty() {
@@ -29,7 +30,7 @@ function EditProperty() {
         // Fetch property data using property ID when component mounts
         const fetchPropertyData = async () => {
           try {
-            const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+            const response = await axios.get(`${BASE_URL}/api/property/getPropertyById/${propertyId}`);
               console.log(response)
             if (response?.data.success == true) {
               setPropertyData(response?.data.data); // Assuming the property data is in the 'data' field
@@ -203,7 +204,7 @@ function EditProperty() {
          e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:4000/api/property/editproperty/${propertyId}`, {
+            const response = await fetch(`${BASE_URL}/api/property/editproperty/${propertyId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

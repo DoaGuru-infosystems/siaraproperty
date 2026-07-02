@@ -150,6 +150,7 @@ import axios from 'axios'
 import moment from "moment";
 import cogoToast from 'cogo-toast';
 import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from '../../config';
 
 function Registered_User() {
   const {currentAdmin} = useSelector((state) => state.admin);
@@ -161,7 +162,7 @@ function Registered_User() {
       const fetchUser = async() =>{
 
           try{
-            const res = await axios.get('http://localhost:4000/api/property/getRegisterUsers');
+            const res = await axios.get(`${BASE_URL}/api/property/getRegisterUsers`);
 
             console.log(res);
             if(res?.data.success){
@@ -191,7 +192,7 @@ function Registered_User() {
       return;
     }
       try{
-        const res = await axios.delete(`http://localhost:4000/api/property/deleteRegisteredUser/${id}`,
+        const res = await axios.delete(`${BASE_URL}/api/property/deleteRegisteredUser/${id}`,
         {
           headers:{
             Authorization: `Bearer ${token}`,

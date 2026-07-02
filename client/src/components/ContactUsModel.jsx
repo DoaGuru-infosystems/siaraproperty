@@ -29,7 +29,7 @@
 
 //     try{
 
-//       const res = await axios.post("http://localhost:4000/api/auth/interestedUser" , formData)
+//       const res = await axios.post("/api/auth/interestedUser" , formData)
 
 //       console.log(res)
 //       if(res.data.success === true){
@@ -226,7 +226,7 @@ function ContactUsModel({ propertyId, propertyName }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/property/interestedUser",
+        "/api/property/interestedUser",
         formData,
       );
 

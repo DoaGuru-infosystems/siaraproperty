@@ -20,7 +20,7 @@ export default function Suggestions() {
   const getAllProperties = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getSuggestedProperty",
+        "/api/property/getSuggestedProperty",
       );
       setProperties(response.data);
     } catch (error) {
@@ -31,7 +31,7 @@ export default function Suggestions() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/property/getSuggestedPropertyImages",
+        "/api/property/getSuggestedPropertyImages",
       );
       setPropertiesImages(response.data);
     } catch (error) {

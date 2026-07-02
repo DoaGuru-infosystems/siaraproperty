@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import cogoToast from 'cogo-toast';
 import { FaLocationDot } from "react-icons/fa6";
 import moment from "moment";
+import { BASE_URL } from "../config";
 
 
 
@@ -38,7 +39,7 @@ export default function SoldProperties() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getAllPropertyAdmin/`);
+      const response = await axios.get(`${BASE_URL}/api/property/getAllPropertyAdmin/`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -47,7 +48,7 @@ export default function SoldProperties() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get(`${BASE_URL}/api/property/getAllPropertyImages`);
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -58,7 +59,7 @@ export default function SoldProperties() {
 
   const getSuggestedProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getSuggestedPropertyAdmin');
+      const response = await axios.get(`${BASE_URL}/api/property/getSuggestedPropertyAdmin`);
       setSuggestedProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -74,7 +75,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+      const response = await axios.delete(`${BASE_URL}/api/property/deleteproperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
@@ -108,7 +109,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.put(`http://localhost:4000/api/property/removeAsSold/${propertyId}`,
+      const response = await axios.put(`${BASE_URL}/api/property/removeAsSold/${propertyId}`,
       {},
       {
              headers:{
@@ -149,7 +150,7 @@ export default function SoldProperties() {
 
      
   
-      const response = await axios.post('http://localhost:4000/api/property/addSuggestedProperty',{ property_id: propertyId }, {
+      const response = await axios.post(`${BASE_URL}/api/property/addSuggestedProperty`,{ property_id: propertyId }, {
         headers: {
             'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -179,7 +180,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/removeSuggestedProperty/${propertyId}`,{
+      const response = await axios.delete(`${BASE_URL}/api/property/removeSuggestedProperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',

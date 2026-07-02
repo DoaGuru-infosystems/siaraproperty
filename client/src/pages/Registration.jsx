@@ -8,6 +8,7 @@ import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 const Registration = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,7 +17,7 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const canonicalUrl = "http://localhost:4000" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +28,7 @@ const Registration = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:4000/api/property/register",
+        "/api/property/register",
         formData,
       );
       setLoading(false);
