@@ -368,6 +368,16 @@ export default function ContactPageNew() {
             </FormContainer>
           </FormSide>
         </MainGrid>
+
+        <MapWrapper>
+          <iframe
+            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1815%20Wright%20Town,%20Jabalpur,%20Madhya%20Pradesh%20INDIA%20482002+(Siara%20Properties)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Google Map"
+          ></iframe>
+        </MapWrapper>
       </PageContent>
     </PageWrapper>
   );
@@ -828,5 +838,21 @@ const BackButton = styled.button`
     svg {
       transform: translateX(-4px);
     }
+  }
+`;
+
+const MapWrapper = styled.div`
+  margin-top: 80px;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid ${BORDER};
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 450px;
+    border: none;
   }
 `;
