@@ -12,7 +12,7 @@ function LoginAd() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { currentAdmin, loading } = useSelector((state) => state.admin);
+  const { loading } = useSelector((state) => state.admin);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

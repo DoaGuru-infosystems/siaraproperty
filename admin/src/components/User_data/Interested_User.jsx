@@ -6,7 +6,7 @@ import NavbarAd from '../NavbarAd'
 import axios from 'axios'
 import moment from "moment";
 import cogoToast from 'cogo-toast';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { BASE_URL } from '../../config';
 
 function Interested_User() {

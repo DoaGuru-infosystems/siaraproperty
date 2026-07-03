@@ -2,20 +2,20 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Link , useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BiCategoryAlt } from "react-icons/bi";
+
 import { CgCalendarDates } from "react-icons/cg";
 import axios from 'axios';
-import Carousel from "react-multi-carousel";
+
 import "react-multi-carousel/lib/styles.css";
-import { responsive } from "./responsive";
+
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 import NavbarAd from "./NavbarAd";
 import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import cogoToast from 'cogo-toast';
 import { FaLocationDot } from "react-icons/fa6";
 import moment from "moment";
