@@ -28,7 +28,7 @@ export default function Footer() {
             <a href="#" className="social-btn" aria-label="YouTube">
               <FaYoutube />
             </a>
-            <a href="#" className="social-btn" aria-label="WhatsApp">
+            <a href="https://wa.me/919243066371" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="WhatsApp">
               <FaWhatsapp />
             </a>
           </div>
@@ -116,7 +116,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2024 SiaraProperties.com · All Rights Reserved</p>
+        <p>© {new Date().getFullYear()} SiaraProperties.com · All Rights Reserved</p>
         <div className="footer-bottom-links">
           <a href="/terms">Terms &amp; Conditions</a>
           <a href="/privacy">Privacy Policy</a>
