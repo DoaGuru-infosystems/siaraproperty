@@ -86,33 +86,33 @@ export default function Hero() {
   };
 
   return (
-    <HeroSection ref={sectionRef}>
-      <div className="hero-bg" ref={bgRef} />
+    <HeroSection ref={ sectionRef }>
+      <div className="hero-bg" ref={ bgRef } />
 
       <div className="hero-content">
-        <p className="hero-eyebrow" ref={eyebrowRef}>
+        <p className="hero-eyebrow" ref={ eyebrowRef }>
           Siara Properties
         </p>
 
-        <h1 className="hero-title" ref={titleRef}>
+        <h1 className="hero-title" ref={ titleRef }>
           <br />
           <em className="wavy-text">
-            {"Your Trusted Partner in Property".split("").map((char, idx) => (
-              <span key={idx} style={{ animationDelay: `${idx * 0.08}s` }}>
-                {char === " " ? "\u00A0" : char}
+            { "Your Trusted Partner in Property".split("").map((char, idx) => (
+              <span key={ idx } style={ { animationDelay: `${idx * 0.08}s` } }>
+                { char === " " ? "\u00A0" : char }
               </span>
-            ))}
+            )) }
           </em>
           <br />
-          <span style={{ display: "inline-block" }}>Buying & Selling</span>
+          <span style={ { display: "inline-block" } }>Buying & Selling</span>
         </h1>
 
-        <p className="hero-sub" ref={subRef}>
+        <p className="hero-sub" ref={ subRef }>
           <strong>Jabalpur's most trusted property service.</strong> Buying a
           home just got easier.
         </p>
 
-        <form className="search-bar" ref={searchRef} onSubmit={handleSearch}>
+        <form className="search-bar" ref={ searchRef } onSubmit={ handleSearch }>
           <input
             className="search-input"
             name="query"
@@ -139,7 +139,7 @@ export default function Hero() {
         </form>
       </div>
 
-      <div className="scroll-indicator" ref={indicatorRef}>
+      <div className="scroll-indicator" ref={ indicatorRef }>
         <div className="scroll-line" />
         <span className="scroll-text">Scroll</span>
       </div>
@@ -220,13 +220,14 @@ const HeroSection = styled.section`
 
     em.wavy-text {
       font-style: italic;
-      color: #d4a574;
+      color: #7b4209;
       font-weight: 400;
       text-shadow:
         0 2px 4px rgba(44, 44, 40, 0.4),
         0 4px 12px rgba(44, 44, 40, 0.3),
         0 8px 24px rgba(0, 0, 0, 0.25),
-        2px 2px 0px rgba(255, 255, 255, 0.3);
+        0 0 24px rgba(79, 74, 74, 0.9),
+        0 0 40px rgba(141, 131, 131, 0.7);
       filter: drop-shadow(0 2px 2px rgba(44, 44, 40, 0.2));
       // display: block;
 
@@ -242,11 +243,11 @@ const HeroSection = styled.section`
     0%,
     100% {
       transform: translateY(0);
-      color: #d4a574;
+      color: #7b4209;
     }
     50% {
       transform: translateY(-4px);
-      color: #8b6f47;
+      color: #b8895a;
     }
   }
 
