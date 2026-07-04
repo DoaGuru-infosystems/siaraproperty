@@ -7,29 +7,29 @@ import { CgCalendarDates } from "react-icons/cg";
 import blog7 from "../../../images/blog7.avif";
 
 import ReactGA from "react-ga4";
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 function Singleblog7() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
-  useEffect(()=>{
+  const canonicalUrl =
+    "https://siaraproperty.siarasystems.com/" + location.pathname;
+  useEffect(() => {
     const handleTop = () => {
       ReactGA.send({ hitType: "pageview", page: window.location.pathname });
       window.scrollTo(0, 0);
     };
     handleTop();
-  },[])
+  }, []);
   return (
     <>
       <Container>
-      <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
-      </Helmet>
-      <div className="nav1"></div>
-          <div className="nav2"> </div>
+        <Helmet>
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
+        <div className="nav1"></div>
+        <div className="nav2"> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">
@@ -113,40 +113,42 @@ function Singleblog7() {
             </div>
 
             <div className="col-12">
-              <h3>Navigating the Rental Process
-</h3>
+              <h3>Navigating the Rental Process</h3>
               <h4>
-              Conducting thorough research via online platforms, contacting landlords or agencies, and understanding lease terms are crucial steps in this process.
+                Conducting thorough research via online platforms, contacting
+                landlords or agencies, and understanding lease terms are crucial
+                steps in this process.
               </h4>
-              <h5>Tips for a Successful Search
-</h5>
+              <h5>Tips for a Successful Search</h5>
 
               <p className="Content text-secondary lh-lg ">
-              Utilizing reliable online platforms, seeking recommendations from acquaintances, and personally inspecting properties enhance the efficiency of the search.
-
+                Utilizing reliable online platforms, seeking recommendations
+                from acquaintances, and personally inspecting properties enhance
+                the efficiency of the search.
               </p>
-              <h5 className="subtitle mt-4">Dealing with Negotiations
-</h5>
+              <h5 className="subtitle mt-4">Dealing with Negotiations</h5>
               <p className="Content text-secondary lh-lg ">
-              Understanding prevailing rental rates and negotiating terms and conditions can potentially lead to a more favorable agreement.
-
+                Understanding prevailing rental rates and negotiating terms and
+                conditions can potentially lead to a more favorable agreement.
               </p>
 
-              <h5 className="subtitle mt-4">Finalizing the Rental Agreement
-</h5>
+              <h5 className="subtitle mt-4">Finalizing the Rental Agreement</h5>
               <p className="Content text-secondary lh-lg ">
-              Before committing, ensure the rental agreement is clear, covers all necessary aspects, and aligns with tenant rights and responsibilities.
-
+                Before committing, ensure the rental agreement is clear, covers
+                all necessary aspects, and aligns with tenant rights and
+                responsibilities.
               </p>
             </div>
 
-          
             <div className="col-12">
               <h4>Conclusion</h4>
 
               <p className="Content text-secondary lh-lg ">
-              Securing a 1 BHK flat on rent involves careful consideration of various factors and diligent navigation through the rental process. However, with strategic planning, research, and negotiation skills, finding the perfect abode becomes a rewarding experience.
-
+                Securing a 1 BHK flat on rent involves careful consideration of
+                various factors and diligent navigation through the rental
+                process. However, with strategic planning, research, and
+                negotiation skills, finding the perfect abode becomes a
+                rewarding experience.
               </p>
             </div>
           </div>
@@ -156,39 +158,34 @@ function Singleblog7() {
               <h4 className="mt-4">FAQ’s</h4>
               <h5 className="subtitle mt-4">
                 1. Is it necessary to visit the property before renting?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Yes, visiting the property allows for firsthand evaluation and ensures it meets your requirements.
-
+                Yes, visiting the property allows for firsthand evaluation and
+                ensures it meets your requirements.
               </p>
               <h5 className="subtitle mt-4">
                 2. What are common lease terms for 1 BHK flats?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Lease terms typically span 6 to 12 months but can vary based on the landlord's preferences.
-
+                Lease terms typically span 6 to 12 months but can vary based on
+                the landlord's preferences.
               </p>
 
               <h5 className="subtitle mt-4">
                 3. Can I negotiate the rent for a 1 BHK flat?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Yes, it's often possible to negotiate rental rates or other terms; however, it depends on the landlord's flexibility.
-
+                Yes, it's often possible to negotiate rental rates or other
+                terms; however, it depends on the landlord's flexibility.
               </p>
 
               <h5 className="subtitle mt-4">
                 4. What documents are usually required for renting a 1 BHK flat?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Documents such as ID proof, address proof, income statements, and references are commonly requested by landlords or agencies.
-
+                Documents such as ID proof, address proof, income statements,
+                and references are commonly requested by landlords or agencies.
               </p>
-              
             </div>
           </div>
         </div>
@@ -211,21 +208,17 @@ const Container = styled.div`
     } */
     border-radius: 10px;
   }
-  .nav1{
+  .nav1 {
     display: block;
     @media screen and (max-width: 1000px) {
-    
-    display: none;
-    
+      display: none;
+    }
   }
-}
-  .nav2{
+  .nav2 {
     display: none;
-  
+
     @media screen and (max-width: 1000px) {
-   display: block;
-   
- }
-   
+      display: block;
+    }
   }
 `;

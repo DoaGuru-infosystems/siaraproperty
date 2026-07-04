@@ -1,102 +1,99 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Link, useParams,useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
-import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import axios from "axios";
+import cogoToast from "cogo-toast";
 
 const ResetPassword = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [password,setPassword] = useState("");
-    const {id,token} = useParams();
-    const navigate = useNavigate();
-    
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [password, setPassword] = useState("");
+  const { id, token } = useParams();
+  const navigate = useNavigate();
 
- const handleChange =  (e) =>{
-      setPassword(e.target.value)
- } 
+  const handleChange = (e) => {
+    setPassword(e.target.value);
+  };
 
- const handleSubmit = async(e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!password){
-        return cogoToast.error(`Please enter password`);
+    if (!password) {
+      return cogoToast.error(`Please enter password`);
     }
-    try{
-        
-      const res = await axios.post(`https://siaraproperties.com//api/property/reset-password/${id}/${token}`, { password: password });
-       if (res?.data && res?.data?.success === true) {
-        
+    try {
+      const res = await axios.post(
+        `https://siaraproperty.siarasystems.com//api/property/reset-password/${id}/${token}`,
+        { password: password },
+      );
+      if (res?.data && res?.data?.success === true) {
         console.log(res?.data);
         cogoToast.success(`${res?.data?.message}`);
-        navigate("/login")
-       
+        navigate("/login");
+
         return;
       }
       if (res.data && res.data.success === false) {
-       
         cogoToast.error(`${res?.data?.message}`);
         return;
       }
+    } catch (err) {
+      if (err?.response && err.response?.data) {
+        console.log(err);
+        cogoToast.error(`${err.response?.data?.message}`);
+      }
     }
-    catch(err){
-        if (err?.response && err.response?.data) {
-          
-            console.log(err);
-            cogoToast.error(`${err.response?.data?.message}`);
-          }  
-    }
+  };
 
- }
-  
-    useEffect(()=>{
-      const handleTop = () => {
-        window.scrollTo(0, 0);
-      };
-      handleTop();
-    },[])
-    return (
-      <>
-        <Container>
+  useEffect(() => {
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  }, []);
+  return (
+    <>
+      <Container>
         <div className="nav1"></div>
-          <div className="nav2"> </div>
-          <div>
-            <div className="boxContainer">
-              <div className="formcontent">
-                <h1>Reset Password</h1>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
+        <div className="nav2"> </div>
+        <div>
+          <div className="boxContainer">
+            <div className="formcontent">
+              <h1>Reset Password</h1>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
                   New Password
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter your Password"
-                    name="password"
-                    value={password}
-                    onChange={handleChange}
-                    className="form-control"
-                  />
-                </div>
-                <div className="d-flex justify-content-center">
-                  <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
-                </div>
-                <p className="text-center">
-                  
-                  <span>
-                    <Link to="/login">Return to login</Link>
-                  </span>
-                </p>
+                </label>
+                <input
+                  type="password"
+                  placeholder="Enter your Password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                  className="form-control"
+                />
               </div>
+              <div className="d-flex justify-content-center">
+                <button className="btn btn-success" onClick={handleSubmit}>
+                  Submit
+                </button>
+              </div>
+              <p className="text-center">
+                <span>
+                  <Link to="/login">Return to login</Link>
+                </span>
+              </p>
             </div>
           </div>
-        </Container>
-      </>
-    );
-  };
-  
-  export default ResetPassword;
+        </div>
+      </Container>
+    </>
+  );
+};
 
-  const Container = styled.div`
+export default ResetPassword;
+
+const Container = styled.div`
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 0%,
@@ -123,22 +120,17 @@ const ResetPassword = () => {
       }
     }
   }
-  .nav1{
+  .nav1 {
     display: block;
     @media screen and (max-width: 1000px) {
-    
-    display: none;
-    
+      display: none;
+    }
   }
-}
-  .nav2{
+  .nav2 {
     display: none;
-  
+
     @media screen and (max-width: 1000px) {
-   display: block;
-   
- }
-   
+      display: block;
+    }
   }
 `;
-

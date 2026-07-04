@@ -7,30 +7,30 @@ import { CgCalendarDates } from "react-icons/cg";
 import blog2 from "../../../images/blog2.avif";
 
 import ReactGA from "react-ga4";
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 function Singleblog2() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
- 
-  useEffect(()=>{
+  const canonicalUrl =
+    "https://siaraproperty.siarasystems.com/" + location.pathname;
+
+  useEffect(() => {
     const handleTop = () => {
       ReactGA.send({ hitType: "pageview", page: window.location.pathname });
       window.scrollTo(0, 0);
     };
     handleTop();
-  },[])
+  }, []);
   return (
     <>
       <Container>
-      <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
-      </Helmet>
-      <div className="nav1"></div>
-          <div className="nav2"> </div>
+        <Helmet>
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
+        <div className="nav1"></div>
+        <div className="nav2"> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">
@@ -123,64 +123,58 @@ function Singleblog2() {
                 New construction homes often come at a premium compared to
                 similar-sized resale properties in the same area.
               </p>
-              <h5 className="subtitle mt-4">
-              Completion Time: 
-              </h5>
+              <h5 className="subtitle mt-4">Completion Time:</h5>
               <p className="Content text-secondary lh-lg ">
-              Construction delays are possible, leading to extended wait times before moving in.
+                Construction delays are possible, leading to extended wait times
+                before moving in.
               </p>
 
               <h5 className="subtitle mt-4">
-              Restricted Character and Mature Landscaping: 
+                Restricted Character and Mature Landscaping:
               </h5>
               <p className="Content text-secondary lh-lg ">
-              Recently assembled homes could lack the unique charm and laid-out finishing viewed as in more established, resale properties.
-
+                Recently assembled homes could lack the unique charm and
+                laid-out finishing viewed as in more established, resale
+                properties.
               </p>
 
-              <h5 className="subtitle mt-4">Potential for Unknown Development: </h5>
+              <h5 className="subtitle mt-4">
+                Potential for Unknown Development:{" "}
+              </h5>
               <p className="Content text-secondary lh-lg ">
-              Purchasing in another space could mean vulnerability about future improvements that could affect your way of life or property estimation.
-
+                Purchasing in another space could mean vulnerability about
+                future improvements that could affect your way of life or
+                property estimation.
               </p>
             </div>
           </div>
           <div className="row">
-           
-
             <div className="col-12">
-              <h3 className="mt-5">
-              Pros and Cons of Buying Resale Homes:-
-              </h3>
+              <h3 className="mt-5">Pros and Cons of Buying Resale Homes:-</h3>
               <h4>Pros:</h4>
 
-              <h5 className="subtitle mt-4">
-              Established neighborhoods:
-              </h5>
+              <h5 className="subtitle mt-4">Established neighborhoods:</h5>
               <p className="Content text-secondary lh-lg ">
-              Resale houses are typically located in established communities, with grown trees beautifully landscaped surroundings, and a strong sense of community.
-
+                Resale houses are typically located in established communities,
+                with grown trees beautifully landscaped surroundings, and a
+                strong sense of community.
               </p>
-              <h5 className="subtitle mt-4">
-              Price bargaining: 
-              </h5>
+              <h5 className="subtitle mt-4">Price bargaining:</h5>
               <p className="Content text-secondary lh-lg ">
-              When it comes to resale homes there is usually flexibility to negotiate the price compared to constructed properties.
-
+                When it comes to resale homes there is usually flexibility to
+                negotiate the price compared to constructed properties.
               </p>
 
-              <h5 className="subtitle mt-4">
-              Charm and history: 
-              </h5>
+              <h5 className="subtitle mt-4">Charm and history:</h5>
               <p className="Content text-secondary lh-lg ">
-              Older homes often showcase one-of-a-kind elements and carry a rich historical background that adds allure and character.
-
+                Older homes often showcase one-of-a-kind elements and carry a
+                rich historical background that adds allure and character.
               </p>
 
               <h5 className="subtitle mt-4">Immediate move-in:</h5>
               <p className="Content text-secondary lh-lg ">
-              Unlike constructions, resale homes are typically ready for occupancy, after the purchase.
-
+                Unlike constructions, resale homes are typically ready for
+                occupancy, after the purchase.
               </p>
             </div>
           </div>
@@ -190,29 +184,27 @@ function Singleblog2() {
 
               <h5 className="subtitle mt-4">Potential Maintenance: </h5>
               <p className="Content text-secondary lh-lg ">
-              Older houses may need repairs or renovations, in the future, which can increase the overall expenses
+                Older houses may need repairs or renovations, in the future,
+                which can increase the overall expenses
               </p>
               <h5 className="subtitle mt-4">
-              Outdated Systems and Energy Inefficiency:
+                Outdated Systems and Energy Inefficiency:
               </h5>
               <p className="Content text-secondary lh-lg ">
-              These homes might need energy features and could have older systems that would benefit from upgrades.
-
+                These homes might need energy features and could have older
+                systems that would benefit from upgrades.
               </p>
 
-              <h5 className="subtitle mt-4">
-              Limited Personalization: 
-              </h5>
+              <h5 className="subtitle mt-4">Limited Personalization:</h5>
               <p className="Content text-secondary lh-lg ">
-              Unlike constructed properties, there might be limitations, in customizing owned homes according to your specific preferences.
-
+                Unlike constructed properties, there might be limitations, in
+                customizing owned homes according to your specific preferences.
               </p>
 
               <h5 className="subtitle mt-4">Chance of Competitive Offers:</h5>
               <p className="Content text-secondary lh-lg ">
-              In competitive markets buying a resale home could potentially result in bidding wars driving up the final cost.
-
-
+                In competitive markets buying a resale home could potentially
+                result in bidding wars driving up the final cost.
               </p>
             </div>
           </div>
@@ -220,38 +212,39 @@ function Singleblog2() {
             <div className="col-12">
               <h4 className="mt-4">FAQ’s</h4>
               <h5 className="subtitle mt-4">
-              1. Which option tends to increase in value over time?
-
+                1. Which option tends to increase in value over time?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              The appreciation, in value relies on factors, such as the location, market trends and the overall condition and appeal of the property.
-
+                The appreciation, in value relies on factors, such as the
+                location, market trends and the overall condition and appeal of
+                the property.
               </p>
               <h5 className="subtitle mt-4">
-              2. Is it possible to negotiate the price of a built home?
-
+                2. Is it possible to negotiate the price of a built home?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              While there may be some room for negotiation builders typically have flexibility when it comes to pricing compared to sellers of pre-owned properties.
-
-              </p>
-
-              <h5 className="subtitle mt-4">
-              3. Are constructed homes more energy efficient?
-
-              </h5>
-              <p className="Content text-secondary lh-lg mx-3">
-              In general constructed homes are designed with energy efficiency in mind; however, existing homes can also be retrofitted with energy-saving features.
-
+                While there may be some room for negotiation builders typically
+                have flexibility when it comes to pricing compared to sellers of
+                pre-owned properties.
               </p>
 
               <h5 className="subtitle mt-4">
-              4. Which option is more favorable for investment purposes?
-
+                3. Are constructed homes more energy efficient?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Both built homes and pre-owned properties have the potential to yield profits as investments. Conducting market research and understanding your investment goals are essential, in making a decision.
+                In general constructed homes are designed with energy efficiency
+                in mind; however, existing homes can also be retrofitted with
+                energy-saving features.
+              </p>
 
+              <h5 className="subtitle mt-4">
+                4. Which option is more favorable for investment purposes?
+              </h5>
+              <p className="Content text-secondary lh-lg mx-3">
+                Both built homes and pre-owned properties have the potential to
+                yield profits as investments. Conducting market research and
+                understanding your investment goals are essential, in making a
+                decision.
               </p>
             </div>
           </div>
@@ -276,21 +269,17 @@ const Container = styled.div`
     border-radius: 10px;
     width: 100%;
   }
-  .nav1{
+  .nav1 {
     display: block;
     @media screen and (max-width: 1000px) {
-    
-    display: none;
-    
+      display: none;
+    }
   }
-}
-  .nav2{
+  .nav2 {
     display: none;
-  
+
     @media screen and (max-width: 1000px) {
-   display: block;
-   
- }
-   
+      display: block;
+    }
   }
 `;

@@ -7,30 +7,30 @@ import { CgCalendarDates } from "react-icons/cg";
 import blog5 from "../../../images/blog5.jpg";
 
 import ReactGA from "react-ga4";
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 function Singleblog5() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
-  
-  useEffect(()=>{
+  const canonicalUrl =
+    "https://siaraproperty.siarasystems.com/" + location.pathname;
+
+  useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
       window.scrollTo(0, 0);
     };
     handleTop();
-  },[])
+  }, []);
   return (
     <>
       <Container>
-      <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
-      </Helmet>
-      <div className="nav1"></div>
-          <div className="nav2"> </div>
+        <Helmet>
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
+        <div className="nav1"></div>
+        <div className="nav2"> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">
@@ -197,85 +197,90 @@ function Singleblog5() {
               </p>
             </div>
             <div className="col-12">
-              <h4>The Future of 1 BHK Apartments
-</h4>
+              <h4>The Future of 1 BHK Apartments</h4>
 
-              <h5 className="subtitle mt-4">Growing Demand
-</h5>
+              <h5 className="subtitle mt-4">Growing Demand</h5>
               <p className="Content text-secondary lh-lg ">
-              As urban spaces evolve, the demand for compact yet practical living spaces continues to rise. The affordability and adaptability of 1 BHK apartments cater to the evolving lifestyles of individuals seeking convenience without sacrificing comfort.
-
+                As urban spaces evolve, the demand for compact yet practical
+                living spaces continues to rise. The affordability and
+                adaptability of 1 BHK apartments cater to the evolving
+                lifestyles of individuals seeking convenience without
+                sacrificing comfort.
               </p>
-              <h5 className="subtitle mt-4">Adaptability in Changing Lifestyles
-</h5>
+              <h5 className="subtitle mt-4">
+                Adaptability in Changing Lifestyles
+              </h5>
               <p className="Content text-secondary lh-lg ">
-              These apartments align with the changing lifestyles of modern individuals, emphasizing simplicity and functionality. Their flexibility appeals to a diverse demographic, ensuring sustained interest in the real estate market.
-
+                These apartments align with the changing lifestyles of modern
+                individuals, emphasizing simplicity and functionality. Their
+                flexibility appeals to a diverse demographic, ensuring sustained
+                interest in the real estate market.
               </p>
             </div>
 
             <div className="col-12">
-            <h4>Conclusion
-
-</h4> 
-<p className="Content text-secondary lh-lg ">
-In conclusion, a 1 BHK apartment presents an enticing opportunity for those seeking a comfortable and affordable living space or a promising investment. Despite their compact size, these units offer functionality, convenience, and the potential to transform into stylish homes.
-
-
+              <h4>Conclusion</h4>
+              <p className="Content text-secondary lh-lg ">
+                In conclusion, a 1 BHK apartment presents an enticing
+                opportunity for those seeking a comfortable and affordable
+                living space or a promising investment. Despite their compact
+                size, these units offer functionality, convenience, and the
+                potential to transform into stylish homes.
               </p>
             </div>
-
           </div>
-      
-      
-  
+
           <div className="row">
             <div className="col-12">
               <h4 className="mt-4">FAQ’s</h4>
               <h5 className="subtitle mt-4">
                 1. Are 1 BHK apartments suitable for families?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              While 1 BHK apartments offer a cozy living space, they might be more suitable for smaller families or individuals. Larger families might find space constraints, but for couples or small families, they can serve as a comfortable living arrangement.
-
+                While 1 BHK apartments offer a cozy living space, they might be
+                more suitable for smaller families or individuals. Larger
+                families might find space constraints, but for couples or small
+                families, they can serve as a comfortable living arrangement.
               </p>
               <h5 className="subtitle mt-4">
-                2. How can I make the most of a small living space in a 1 BHK apartment?
-
+                2. How can I make the most of a small living space in a 1 BHK
+                apartment?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Maximizing space in a 1 BHK apartment involves smart organization and furniture choices. Utilize multifunctional furniture, employ creative storage solutions, and keep the design minimalistic to optimize the available area.
-
+                Maximizing space in a 1 BHK apartment involves smart
+                organization and furniture choices. Utilize multifunctional
+                furniture, employ creative storage solutions, and keep the
+                design minimalistic to optimize the available area.
               </p>
 
               <h5 className="subtitle mt-4">
-                3. What are the key factors to consider before purchasing a 1 BHK apartment?
-
+                3. What are the key factors to consider before purchasing a 1
+                BHK apartment?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Location, amenities, and budget are crucial factors. Assess the neighborhood, proximity to essential facilities, evaluate available amenities, and ensure the investment aligns with your financial plans.
-
+                Location, amenities, and budget are crucial factors. Assess the
+                neighborhood, proximity to essential facilities, evaluate
+                available amenities, and ensure the investment aligns with your
+                financial plans.
               </p>
 
               <h5 className="subtitle mt-4">
                 4. Do 1 BHK apartments have resale value?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Yes, 1 BHK apartments can have good resale value, especially in areas with high demand or good connectivity. However, factors like location, market trends, and property maintenance also influence resale value.
-
+                Yes, 1 BHK apartments can have good resale value, especially in
+                areas with high demand or good connectivity. However, factors
+                like location, market trends, and property maintenance also
+                influence resale value.
               </p>
               <h5 className="subtitle mt-4">
                 5. Are 1 BHK apartments a good investment for rental purposes?
-
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              They can be a viable investment for rental purposes, especially in areas with high demand for smaller living spaces. Their affordability often attracts young professionals or couples looking for rental accommodations.
-
-
-
+                They can be a viable investment for rental purposes, especially
+                in areas with high demand for smaller living spaces. Their
+                affordability often attracts young professionals or couples
+                looking for rental accommodations.
               </p>
             </div>
           </div>
@@ -300,21 +305,17 @@ const Container = styled.div`
 
     border-radius: 10px;
   }
-  .nav1{
+  .nav1 {
     display: block;
     @media screen and (max-width: 1000px) {
-    
-    display: none;
-    
+      display: none;
+    }
   }
-}
-  .nav2{
+  .nav2 {
     display: none;
-  
+
     @media screen and (max-width: 1000px) {
-   display: block;
-   
- }
-   
+      display: block;
+    }
   }
 `;

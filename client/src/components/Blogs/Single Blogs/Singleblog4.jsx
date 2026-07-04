@@ -7,29 +7,29 @@ import { CgCalendarDates } from "react-icons/cg";
 import blog4 from "../../../images/blog4.avif";
 
 import ReactGA from "react-ga4";
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 function Singleblog4() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const canonicalUrl = 'https://siaraproperties.com/' + location.pathname;
-  useEffect(()=>{
+  const canonicalUrl =
+    "https://siaraproperty.siarasystems.com/" + location.pathname;
+  useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
       window.scrollTo(0, 0);
     };
     handleTop();
-  },[])
+  }, []);
   return (
     <>
       <Container>
-      <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
-      </Helmet>
-      <div className="nav1"></div>
-          <div className="nav2"> </div>
+        <Helmet>
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
+        <div className="nav1"></div>
+        <div className="nav2"> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">
@@ -154,12 +154,13 @@ function Singleblog4() {
             </div>
 
             <div className="col-12">
-              <h4 className="mt-4">Conclusion
-</h4>
-             
-              <p className="Content text-secondary lh-lg">
-              Navigating the labyrinth of real estate budgeting demands a blend of adaptability, strategic planning, and technological prowess. By understanding and harnessing the power of budget allocations, the industry can forge a resilient path forward.
+              <h4 className="mt-4">Conclusion</h4>
 
+              <p className="Content text-secondary lh-lg">
+                Navigating the labyrinth of real estate budgeting demands a
+                blend of adaptability, strategic planning, and technological
+                prowess. By understanding and harnessing the power of budget
+                allocations, the industry can forge a resilient path forward.
               </p>
             </div>
           </div>
@@ -168,48 +169,46 @@ function Singleblog4() {
               <h4 className="mt-4">FAQ’s</h4>
               <h5 className="subtitle mt-4">
                 1. How often should real estate budgets be reassessed?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Regular reassessment, typically annually, is advisable. However, during volatile economic periods, more frequent reviews may be necessary.
-
+                Regular reassessment, typically annually, is advisable. However,
+                during volatile economic periods, more frequent reviews may be
+                necessary.
               </p>
               <h5 className="subtitle mt-4">
                 2. What role does market research play in real estate budgeting?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Market research is pivotal; it helps in understanding consumer demands, market trends, and competitive landscapes, shaping budget allocations accordingly.
-
+                Market research is pivotal; it helps in understanding consumer
+                demands, market trends, and competitive landscapes, shaping
+                budget allocations accordingly.
               </p>
 
               <h5 className="subtitle mt-4">
                 3. Can budgeting software benefit small real estate businesses?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Absolutely! Budgeting software streamlines financial management, offering insights and organization crucial for small businesses' growth.
-
+                Absolutely! Budgeting software streamlines financial management,
+                offering insights and organization crucial for small businesses'
+                growth.
               </p>
 
               <h5 className="subtitle mt-4">
                 4. How can real estate investors mitigate budgetary risks?
-
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Diversification, contingency planning, and thorough risk assessments are essential to mitigate budgetary risks in real estate investments.
-
+                Diversification, contingency planning, and thorough risk
+                assessments are essential to mitigate budgetary risks in real
+                estate investments.
               </p>
               <h5 className="subtitle mt-4">
-                5. Are there specialized professionals for real estate budgeting?
-
-
+                5. Are there specialized professionals for real estate
+                budgeting?
               </h5>
               <p className="Content text-secondary lh-lg mx-3">
-              Yes, financial analysts specializing in real estate, as well as property accountants, play pivotal roles in crafting and managing real estate budgets.
-
-
-
+                Yes, financial analysts specializing in real estate, as well as
+                property accountants, play pivotal roles in crafting and
+                managing real estate budgets.
               </p>
             </div>
           </div>
@@ -233,21 +232,17 @@ const Container = styled.div`
     } */
     border-radius: 10px;
   }
-  .nav1{
+  .nav1 {
     display: block;
     @media screen and (max-width: 1000px) {
-    
-    display: none;
-    
+      display: none;
+    }
   }
-}
-  .nav2{
+  .nav2 {
     display: none;
-  
+
     @media screen and (max-width: 1000px) {
-   display: block;
-   
- }
-   
+      display: block;
+    }
   }
 `;
