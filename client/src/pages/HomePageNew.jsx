@@ -25,7 +25,6 @@ import ReactGA from "react-ga4";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
 import Hero from "../components/UpdatedCode/Hero";
 import MarqueeStrip from "../components/UpdatedCode/MarqueeStrip";
 import WelcomeSection from "../components/UpdatedCode/WelcomeSection";
@@ -111,9 +110,13 @@ export default function HomePageNew() {
   const suggestions = useSectionData("/api/property/getSuggestedProperty");
   const mostViewed = useSectionData("/api/property/getMostVisitedProperties");
   const poshHouse = useSectionData("/api/property/getPropertyByType/villa");
-  const commercial = useSectionData("/api/property/getPropertyByType/commercial");
+  const commercial = useSectionData(
+    "/api/property/getPropertyByType/commercial",
+  );
   const priceDrop = useSectionData("/api/property/getAllProperty");
-  const luxuryHouse = useSectionData("/api/property/getPropertyByType/farmHouse");
+  const luxuryHouse = useSectionData(
+    "/api/property/getPropertyByType/farmHouse",
+  );
 
   return (
     <Wrapper>
@@ -122,7 +125,6 @@ export default function HomePageNew() {
       </Helmet>
 
       {/* ── NAVIGATION ── */}
-      
 
       {/* ── HERO (Banner + Search) ── */}
       <Hero />
