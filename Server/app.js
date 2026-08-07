@@ -18,6 +18,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter );
 
+app.get("/", (req, res) => {
+  res.send("api is working")
+})
+
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {

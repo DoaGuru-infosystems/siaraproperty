@@ -31,6 +31,8 @@ const EditImages = () => {
     const fetchPropertyImages = async (propertyId) => {
       try {
         const response = await axios.get(`${BASE_URL}/api/property/getPropertyImagesById/${propertyId}`);
+        const images = response?.data.data;
+        console.log(images)
         return response?.data.data;
       } catch (error) {
         console.error('Error fetching property images:', error);
