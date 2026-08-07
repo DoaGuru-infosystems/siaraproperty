@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import axios from "axios";
 
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -122,10 +123,23 @@ export default function ContactPageNew() {
       return;
     }
     setLoading(true);
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 1400));
-    setLoading(false);
-    setSent(true);
+    try {
+      const res = await axios.post("/api/property/contacted", form);
+      if (res.data.success) {
+        setSent(true);
+        setForm({ name: "", email: "", phone: "", message: "" });
+      } else {
+        alert(res.data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert(
+        error?.response?.data?.error ||
+          "Failed to send message. Please try again later."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
