@@ -203,7 +203,7 @@ const Footer = () => {
                     <div className="d-flex gap-4 mt-3">
                       <Link
                         to={ "https://www.facebook.com/profile.php?id=61590581714128" }
-                        target="blank"
+                        target="_blank" rel="noopener noreferrer"
                       >
                         { " " }
                         <BsFacebook
@@ -216,7 +216,7 @@ const Footer = () => {
                         to={
                           "https://www.instagram.com/siaraproperties/"
                         }
-                        target="blank"
+                        target="_blank" rel="noopener noreferrer"
                       >
                         { " " }
                         <BsInstagram size={ 30 } style={ { color: "#E4405F" } } />
@@ -224,7 +224,7 @@ const Footer = () => {
                       <Link
                         className=""
                         to={ "https://wa.me/+918839280515" }
-                        target="blank"
+                        target="_blank" rel="noopener noreferrer"
                       >
                         <BsWhatsapp
                           size={ 30 }

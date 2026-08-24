@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -92,6 +94,8 @@ const stats = [
 
 /* ── COMPONENT ── */
 export default function ServicesPage() {
+  const location = useLocation();
+  const canonicalUrl = getAppUrl(location.pathname);
   const pageRef = useRef(null);
   const bannerTextRef = useRef(null);
   const statsRef = useRef(null);
@@ -365,7 +369,9 @@ export default function ServicesPage() {
 
   return (
     <PageWrapper ref={pageRef}>
-      
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
 
       {/* ── BANNER ── */}
       <Banner>

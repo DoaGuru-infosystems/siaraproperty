@@ -30,6 +30,8 @@ export default function Footer() {
               href="https://www.facebook.com/profile.php?id=61590581714128"
               className="social-btn"
               aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FaFacebookF />
             </a>
@@ -37,10 +39,12 @@ export default function Footer() {
               href="https://www.instagram.com/siaraproperties/"
               className="social-btn"
               aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <FaInstagram />
             </a>
-            <a href="#" className="social-btn" aria-label="YouTube">
+            <a href="#" className="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
               <FaYoutube />
             </a>
             <a

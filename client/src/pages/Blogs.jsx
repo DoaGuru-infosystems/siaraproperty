@@ -12,6 +12,10 @@ function Blogs() {
   const location = useLocation();
   const canonicalUrl = getAppUrl(location.pathname);
 
+
+       console.log(canonicalUrl)
+
+
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
@@ -39,12 +43,12 @@ function Blogs() {
     <>
       <Container>
         <Helmet>
-          <link rel="canonical" href={canonicalUrl} />
+          <link rel="canonical" href={ canonicalUrl } />
           <title>Blogs - Siara Properties</title>
         </Helmet>
-        
-        {/* Replaced both nav1 and nav2 with the unified responsive Navbar */}
-        
+
+        {/* Replaced both nav1 and nav2 with the unified responsive Navbar */ }
+
         <div className="container-fluid content-wrapper mb-5">
           <div className="row">
             <div className="col-12 text-center mt-5 mb-4">
@@ -55,7 +59,7 @@ function Blogs() {
 
           <div className="container">
             <div className="row mt-4 cardBox">
-              {loading ? (
+              { loading ? (
                 <div className="col-12 text-center my-5">
                   <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
@@ -67,32 +71,32 @@ function Blogs() {
                 </div>
               ) : (
                 blogPosts.map((blog) => (
-                  <div key={blog.id} className="col-lg-4 col-md-6 mb-5 d-flex align-items-stretch">
-                    <Link to={`/blog/${blog.slug}`} className="text-decoration-none w-100">
+                  <div key={ blog.id } className="col-lg-4 col-md-6 mb-5 d-flex align-items-stretch">
+                    <Link to={ `/blog/${blog.slug}` } className="text-decoration-none w-100">
                       <div className="card h-100 shadow-sm border-0 blog-card">
-                        <img 
-                          src={blog.image || 'https://via.placeholder.com/400x250?text=Blog'} 
-                          className="card-img-top" 
-                          alt={blog.title} 
-                          style={{ height: '220px', objectFit: 'cover' }}
+                        <img
+                          src={ blog.image || 'https://via.placeholder.com/400x250?text=Blog' }
+                          className="card-img-top"
+                          alt={ blog.title }
+                          style={ { height: '220px', objectFit: 'cover' } }
                         />
                         <div className="card-body d-flex flex-column">
-                          <span className="badge bg-secondary mb-2 align-self-start">{blog.category}</span>
-                          <h5 className="card-title text-dark fw-bold mb-3">{blog.title}</h5>
-                          <p className="card-text text-muted mb-4 text-truncate" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', whiteSpace: 'normal' }}>
-                            {/* Stripping HTML for the excerpt snippet */}
-                            {blog.description.replace(/<[^>]+>/g, '')}
+                          <span className="badge bg-secondary mb-2 align-self-start">{ blog.category }</span>
+                          <h5 className="card-title text-dark fw-bold mb-3">{ blog.title }</h5>
+                          <p className="card-text text-muted mb-4 text-truncate" style={ { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', whiteSpace: 'normal' } }>
+                            {/* Stripping HTML for the excerpt snippet */ }
+                            { blog.description.replace(/<[^>]+>/g, '') }
                           </p>
                           <div className="mt-auto d-flex justify-content-between align-items-center text-muted small">
-                            <span><i className="bi bi-person me-1"></i> {blog.author}</span>
-                            <span><i className="bi bi-calendar me-1"></i> {new Date(blog.created_at).toLocaleDateString()}</span>
+                            <span><i className="bi bi-person me-1"></i> { blog.author }</span>
+                            <span><i className="bi bi-calendar me-1"></i> { new Date(blog.created_at).toLocaleDateString() }</span>
                           </div>
                         </div>
                       </div>
                     </Link>
                   </div>
                 ))
-              )}
+              ) }
             </div>
           </div>
         </div>

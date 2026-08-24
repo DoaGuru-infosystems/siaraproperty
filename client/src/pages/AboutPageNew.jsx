@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 /* ─── STYLE ─── */
 const css = `
   :root{
@@ -378,6 +379,8 @@ function loadScript(src) {
 
 /* ─── COMPONENT ─── */
 export default function AboutPageNew() {
+  const location = useLocation();
+  const canonicalUrl = getAppUrl(location.pathname);
   const navRef = useRef(null);
   const heroBgRef = useRef(null);
   const eyeRef = useRef(null);
@@ -606,6 +609,9 @@ export default function AboutPageNew() {
 
   return (
     <>
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
       <style>{css}</style>
       {/* NAV */}
       {/* ── NAVIGATION ── */}

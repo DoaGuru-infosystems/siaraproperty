@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import axios from "axios";
-
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ── COMPONENT ── */
 export default function ContactPageNew() {
+  const location = useLocation();
+  const canonicalUrl = getAppUrl(location.pathname);
   const pageRef = useRef(null);
   const headerRef = useRef(null);
   const infoRef = useRef(null);
@@ -144,8 +148,10 @@ export default function ContactPageNew() {
 
   return (
     <PageWrapper ref={pageRef}>
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
       
-
       <PageContent>
         {/* Decorative elements */}
         <BgPattern />

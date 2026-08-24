@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import useLenis from "../hooks/useLenis";
+import { getAppUrl } from "../config/axios";
 
 export default function SingleBlogDynamic() {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const location = useLocation();
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const [iframeHeight, setIframeHeight] = useState('600px');
 
@@ -85,6 +89,7 @@ export default function SingleBlogDynamic() {
   return (
     <Wrapper>
       <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
         <title>{blog.title} - Siara Properties</title>
         <meta name="description" content={blog.title} />
       </Helmet>
