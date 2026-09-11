@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
-import { getAppUrl } from "../config/axios";
+import rajeshImg from "../images/Artboard 1@3x.jpg.jpeg";
+import priyaImg from "../images/Artboard 2@3x.png";
 /* ─── STYLE ─── */
 const css = `
   :root{
@@ -109,8 +109,8 @@ const css = `
     line-height:1.35;
     color:var(--charcoal);
   }
-  .team-g{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .team-card{border-radius:16px;overflow:hidden;background:white;border:1px solid var(--sand-dark);transition:box-shadow .3s,transform .3s;opacity:0;transform:translateY(40px);}
+  .team-g{display:flex;justify-content:center;flex-wrap:wrap;gap:40px;}
+  .team-card{width:380px;max-width:100%;border-radius:16px;overflow:hidden;background:white;border:1px solid var(--sand-dark);transition:box-shadow .3s,transform .3s;opacity:0;transform:translateY(40px);}
   .team-card:hover{box-shadow:0 16px 48px rgba(44,44,40,.12);transform:translateY(-6px)!important;}
   .team-img{aspect-ratio:1/1;overflow:hidden;}
   .team-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
@@ -308,23 +308,23 @@ const values = [
 
 const team = [
   {
-    name: "Rajesh Sharma",
-    role: "Founder & CEO",
-    bio: "15+ saal ka real estate experience. Jabalpur ki property market ke sabse jaankar log mein se ek.",
-    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&facepad=3",
+    name: "Mr. Abhinav Pandey",
+    role: "Co - Founder",
+    bio: "Handles digital operations at Siara Properties.",
+    img: rajeshImg,
   },
   {
-    name: "Priya Verma",
-    role: "Head of Operations",
-    bio: "Client relations aur operations ki expert. Har deal ko seamless banana inki zimmedari hai.",
-    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&facepad=3",
+    name: "Mr Deepak Shivhare",
+    role: "Co - Founder",
+    bio: "15+ years of experience. Expert in client relations and operations, responsible for making every deal seamless.",
+    img: priyaImg,
   },
-  {
-    name: "Amit Patel",
-    role: "Property Advisor",
-    bio: "Residential aur commercial properties mein specialist. Har budget ke liye sahi property dhundhna inki kala hai.",
-    img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&auto=format&fit=crop&facepad=3",
-  },
+  // {
+  //   name: "Amit Patel",
+  //   role: "Property Advisor",
+  //   bio: "Residential aur commercial properties mein specialist. Har budget ke liye sahi property dhundhna inki kala hai.",
+  //   img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&auto=format&fit=crop&facepad=3",
+  // },
 ];
 
 const testimonials = [
@@ -379,8 +379,6 @@ function loadScript(src) {
 
 /* ─── COMPONENT ─── */
 export default function AboutPageNew() {
-  const location = useLocation();
-  const canonicalUrl = getAppUrl(location.pathname);
   const navRef = useRef(null);
   const heroBgRef = useRef(null);
   const eyeRef = useRef(null);
@@ -610,12 +608,28 @@ export default function AboutPageNew() {
   return (
     <>
       <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
+        <title>
+          About Siara Properties | Trusted Property Dealer in Jabalpur
+        </title>
+        <meta
+          name="description"
+          content="Know more about Siara Properties – a trusted property dealer in Jabalpur offering honest service, local expertise & genuine real estate deals since day one."
+        />
+        <link rel="canonical" href="https://siaraproperties.com/about" />
+        <meta
+          property="og:title"
+          content="About Siara Properties | Trusted Property Dealer in Jabalpur"
+        />
+        <meta
+          property="og:description"
+          content="Know more about Siara Properties – a trusted property dealer in Jabalpur offering honest service, local expertise & genuine real estate deals since day one."
+        />
+        <meta property="og:url" content="https://siaraproperties.com/about" />
       </Helmet>
       <style>{css}</style>
       {/* NAV */}
       {/* ── NAVIGATION ── */}
-      
+
       {/* <nav ref={navRef} className="nav">
         <a href="/" className="nav-logo">
           <div className="nav-mark">B</div>
@@ -654,7 +668,7 @@ export default function AboutPageNew() {
           <div className="scroll-line" />
         </div>
       </section>
-      {/* WHO WE ARE */ }
+      {/* WHO WE ARE */}
       <section className="who">
         <div>
           <p className="sec-label reveal">About Us</p>
@@ -690,6 +704,49 @@ export default function AboutPageNew() {
             </div>
             <div className="badge-l">Satisfied Clients</div>
           </div>
+        </div>
+      </section>
+      {/* TEAM */}
+      <section className="team">
+        <div className="team-h">
+          <div>
+            <p className="sec-label reveal">
+              Our <em>Team</em>
+            </p>
+            <h2 className="sec-title clip-r">
+              People who handle every <em>property journey with care</em>
+            </h2>
+
+            <p className="team-intro reveal">
+              Our team consists of enthusiastic, dedicated, and honest
+              professionals who believe that every property transaction should
+              be handled with integrity and responsibility. At SIARA Properties,
+              we focus on understanding our clients' needs and delivering
+              solutions with sincerity, professionalism, and attention to
+              detail.
+            </p>
+          </div>
+          <a href="#" className="link-arrow reveal">
+            More About
+          </a>
+        </div>
+        <div className="team-g">
+          {team.map((m, i) => (
+            <div
+              className="team-card"
+              key={i}
+              ref={(el) => (teamRefs.current[i] = el)}
+            >
+              <div className="team-img">
+                <img src={m.img} alt={m.name} loading="lazy" />
+              </div>
+              <div className="team-info">
+                <div className="team-name">{m.name}</div>
+                <div className="team-role">{m.role}</div>
+                <p className="team-bio">{m.bio}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
       <div className="divider" />
@@ -773,49 +830,7 @@ export default function AboutPageNew() {
         </div>
       </section>
       <div className="divider" />
-      {/* TEAM */}
-      <section className="team">
-        <div className="team-h">
-          <div>
-            <p className="sec-label reveal">
-              Our <em>Team</em>
-            </p>
-            <h2 className="sec-title clip-r">
-              People who handle every <em>property journey with care</em>
-            </h2>
 
-            <p className="team-intro reveal">
-              Our team consists of enthusiastic, dedicated, and honest
-              professionals who believe that every property transaction should
-              be handled with integrity and responsibility. At SIARA Properties,
-              we focus on understanding our clients' needs and delivering
-              solutions with sincerity, professionalism, and attention to
-              detail.
-            </p>
-          </div>
-          <a href="#" className="link-arrow reveal">
-            More About
-          </a>
-        </div>
-        <div className="team-g">
-          {team.map((m, i) => (
-            <div
-              className="team-card"
-              key={i}
-              ref={(el) => (teamRefs.current[i] = el)}
-            >
-              <div className="team-img">
-                <img src={m.img} alt={m.name} loading="lazy" />
-              </div>
-              <div className="team-info">
-                <div className="team-name">{m.name}</div>
-                <div className="team-role">{m.role}</div>
-                <p className="team-bio">{m.bio}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
       {/* TESTIMONIALS */}
       <section className="testimonials">
         <div className="testimonials-h">
@@ -839,7 +854,7 @@ export default function AboutPageNew() {
         </div>
       </section>
       {/* CAREERS */}
-      <section className="careers">
+      {/* <section className="careers">
         <div>
           <p className="sec-label reveal">Join Us</p>
           <h2 className="sec-title reveal" style={{ margin: "12px 0 20px" }}>
@@ -866,7 +881,7 @@ export default function AboutPageNew() {
             loading="lazy"
           />
         </div>
-      </section>
+      </section> */}
       {/* CONTACT */}
       <section className="contact">
         <div className="contact-g">
@@ -963,35 +978,6 @@ export default function AboutPageNew() {
         </div>
       </section>
       {/* FOOTER */}
-      {/* <footer>
-        <div className="footer-g">
-          <div>
-            <div className="f-logo">SiaraProperties</div>
-            <p className="f-desc">Jabalpur ki sabse trusted real estate platform. Ghar kharidna, bechna, ya kiraye par lena — sab kuch ek jagah.</p>
-            <div className="f-socials">
-              {["f","in","yt","wa"].map(s => <a key={s} href="#" className="soc">{s}</a>)}
-            </div>
-          </div>
-          {[
-            { h: "Residential", links: ["Houses in Jabalpur","Villas in Jabalpur","Plots in Jabalpur","Flats in Jabalpur","Farm House","Farm Land","Commercial"] },
-            { h: "BHK Searches", links: ["1 BHK Flats","2 BHK Flats","3 BHK Flats","4 BHK Flats","1 BHK House","2 BHK House","3 BHK House"] },
-            { h: "For Rent",     links: ["Houses for Rent","Villas for Rent","Plots for Rent","Flats for Rent","Land for Rent","Farm Lands","Commercial Rent"] },
-            { h: "Resale",       links: ["House Resale","Villa Resale","Plot Resale","Flat Resale","Land Resale","Farm Lands","Farm Houses"] },
-          ].map((col, i) => (
-            <div className="f-col" key={i}>
-              <h4>{col.h}</h4>
-              <ul>{col.links.map(l => <li key={l}><a href="#">{l}</a></li>)}</ul>
-            </div>
-          ))}
-        </div>
-        <div className="f-bot">
-          <p>© 2024 SiaraProperties.com · All Rights Reserved</p>
-          <div className="f-links">
-            <a href="#">Terms &amp; Conditions</a>
-            <a href="#">Privacy Policy</a>
-          </div>
-        </div>
-      </footer> */}
     </>
   );
 }

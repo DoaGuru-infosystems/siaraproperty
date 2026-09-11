@@ -64,16 +64,15 @@ function useSectionData(endpoint) {
 
 export default function HomePageNew() {
   const location = useLocation();
-  const canonicalUrl = `${window.location.origin}${location.pathname}`;
 
   // Initialize Lenis smooth scroll
   useLenis();
 
   // Analytics + scroll-to-top
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+    ReactGA.send({ hitType: "pageview", page: location.pathname });
     window.scrollTo(0, 0);
-  }, []);
+  }, [location.pathname]);
 
   // Scroll reveal animation for elements with class '.reveal'
   useEffect(() => {
@@ -121,7 +120,23 @@ export default function HomePageNew() {
   return (
     <Wrapper>
       <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
+        <title>
+          Property Dealer in Jabalpur | Buy, Sell & Rent - Siara Properties
+        </title>
+        <meta
+          name="description"
+          content="Siara Properties – top property dealer in Jabalpur for residential & commercial properties. Genuine listings, best prices, trusted service. Enquire now!"
+        />
+        <link rel="canonical" href="https://siaraproperties.com/" />
+        <meta
+          property="og:title"
+          content="Property Dealer in Jabalpur | Buy, Sell & Rent - Siara Properties"
+        />
+        <meta
+          property="og:description"
+          content="Siara Properties – top property dealer in Jabalpur for residential & commercial properties. Genuine listings, best prices, trusted service. Enquire now!"
+        />
+        <meta property="og:url" content="https://siaraproperties.com/" />
       </Helmet>
 
       {/* ── NAVIGATION ── */}
@@ -225,6 +240,8 @@ export default function HomePageNew() {
 const Wrapper = styled.div`
   /* push content below fixed navbar */
   padding-top: 64px;
+  overflow-x: hidden;
+  width: 100%;
 
   /* CSS variables available to all children */
   --cream: #faf8f3;

@@ -27,43 +27,40 @@ export default function Hero() {
         searchRef.current,
       ];
 
-      // ── Step 1: GSAP se initial state SET karo (inline style override hoga) ──
       gsap.set(els, { opacity: 0, y: 30 });
       gsap.set(indicatorRef.current, { opacity: 0 });
 
-      // ── Step 2: fromTo se animate karo ──
       const tl = gsap.timeline({ delay: 0.3 });
       tl.fromTo(
         eyebrowRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
       )
         .fromTo(
           titleRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-          "-=0.4",
+          "-=0.4"
         )
         .fromTo(
           subRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.5",
+          "-=0.5"
         )
         .fromTo(
           searchRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.4",
+          "-=0.4"
         )
         .fromTo(
           indicatorRef.current,
           { opacity: 0 },
           { opacity: 1, duration: 0.6 },
-          "-=0.2",
+          "-=0.2"
         );
 
-      // ── Step 3: Parallax ──
       ScrollTrigger.create({
         animation: gsap.to(bgRef.current, {
           yPercent: 30,
@@ -86,60 +83,67 @@ export default function Hero() {
   };
 
   return (
-    <HeroSection ref={ sectionRef }>
-      <div className="hero-bg" ref={ bgRef } />
+    <HeroSection ref={sectionRef}>
+      <div className="hero-bg" ref={bgRef} />
 
       <div className="hero-content">
-        <p className="hero-eyebrow" ref={ eyebrowRef }>
+        <p className="hero-eyebrow" ref={eyebrowRef}>
           Siara Properties
         </p>
 
-        <h1 className="hero-title" ref={ titleRef }>
+        <h1 className="hero-title" ref={titleRef}>
+          <span className="title-lead">Your Trusted Partner in</span>
           <br />
-          <em className="wavy-text">
-            { "Your Trusted Partner in Property".split("").map((char, idx) => (
-              <span key={ idx } style={ { animationDelay: `${idx * 0.08}s` } }>
-                { char === " " ? "\u00A0" : char }
+          <em className="title-highlight wavy-text">
+            {"Property Buying & Selling".split("").map((char, idx) => (
+              <span key={idx} style={{ animationDelay: `${idx * 0.08}s` }}>
+                {char === " " ? "\u00A0" : char}
               </span>
-            )) }
+            ))}
           </em>
-          <br />
-          <span style={ { display: "inline-block" } }>Buying & Selling</span>
         </h1>
 
-        <p className="hero-sub" ref={ subRef }>
+        <p className="hero-sub" ref={subRef}>
           <strong>Jabalpur's most trusted property service.</strong> Buying a
           home just got easier.
         </p>
 
-        <form className="search-bar" ref={ searchRef } onSubmit={ handleSearch }>
-          <input
-            className="search-input"
-            name="query"
-            type="text"
-            placeholder="Enter location or project name…"
-          />
-          <div className="search-divider" />
-          <select className="search-select" name="type">
-            <option value="buy">Buy</option>
-            <option value="rent">Rent</option>
-          </select>
-          <div className="search-divider" />
-          <select className="search-select" name="category">
-            <option value="">All Types</option>
-            <option value="house">House</option>
-            <option value="flat">Flat</option>
-            <option value="plot">Plot</option>
-            <option value="villa">Villa</option>
-            <option value="commercial">Commercial</option>
-          </select>
+        <form className="search-bar" ref={searchRef} onSubmit={handleSearch}>
+          <div className="search-input-wrap">
+            <i className="bi bi-geo-alt search-icon" />
+            <input
+              className="search-input"
+              name="query"
+              type="text"
+              placeholder="Enter location or project name…"
+            />
+          </div>
+
+          <div className="search-divider desktop-only" />
+
+          <div className="search-selects-row">
+            <select className="search-select" name="type">
+              <option value="buy">Buy</option>
+              <option value="rent">Rent</option>
+            </select>
+            <div className="search-divider" />
+            <select className="search-select" name="category">
+              <option value="">All Types</option>
+              <option value="house">House</option>
+              <option value="flat">Flat</option>
+              <option value="plot">Plot</option>
+              <option value="villa">Villa</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+
           <button className="search-btn" type="submit">
             Search
           </button>
         </form>
       </div>
 
-      <div className="scroll-indicator" ref={ indicatorRef }>
+      <div className="scroll-indicator" ref={indicatorRef}>
         <div className="scroll-line" />
         <span className="scroll-text">Scroll</span>
       </div>
@@ -157,6 +161,13 @@ const HeroSection = styled.section`
   align-items: flex-end;
   padding-bottom: calc(10vh + 80px);
 
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: calc(100svh - 64px);
+    align-items: center;
+    padding: 60px 0 50px;
+  }
+
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -170,11 +181,21 @@ const HeroSection = styled.section`
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(44, 44, 40, 0.15) 0%,
-        rgba(44, 44, 40, 0.05) 40%,
-        rgba(250, 248, 243, 0.88) 80%,
+        rgba(44, 44, 40, 0.2) 0%,
+        rgba(44, 44, 40, 0.08) 30%,
+        rgba(250, 248, 243, 0.88) 75%,
         rgba(250, 248, 243, 1) 100%
       );
+
+      @media (max-width: 768px) {
+        background: linear-gradient(
+          180deg,
+          rgba(250, 248, 243, 0.88) 0%,
+          rgba(250, 248, 243, 0.76) 35%,
+          rgba(250, 248, 243, 0.95) 75%,
+          #faf8f3 100%
+        );
+      }
     }
   }
 
@@ -183,100 +204,151 @@ const HeroSection = styled.section`
     z-index: 1;
     padding: 0 8%;
     max-width: 1100px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+      padding: 0 6%;
+    }
   }
 
   .hero-eyebrow {
-    font-size: 20px;
-    letter-spacing: 0.2em;
+    font-size: 13px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #7b4209ff;
-    font-weight: 500;
-    text-shadow:
-      0 2px 10px rgba(250, 248, 243, 0.9),
-      0 1px 3px rgba(44, 44, 40, 0.2);
-    margin-bottom: 20px;
+    color: #8c6340;
+    font-weight: 600;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 12px;
 
     &::before {
       content: "";
-      width: 40px;
+      width: 32px;
       height: 1px;
       background: #b8895a;
       display: inline-block;
-      box-shadow: 0 1px 3px rgba(44, 44, 40, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      font-size: 11.5px;
+      margin-bottom: 12px;
     }
   }
 
   .hero-title {
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-size: clamp(2.8rem, 5.5vw, 5.2rem);
     font-weight: 300;
-    line-height: 1.05;
+    line-height: 1.08;
     color: #2c2c28;
     letter-spacing: -0.01em;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
 
-    em.wavy-text {
+    .title-lead {
+      display: inline-block;
+      background: linear-gradient(135deg, #5c3513 0%, #9e6932 40%, #c89552 70%, #7d491a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 16px rgba(200, 149, 82, 0.35));
+    }
+
+    em.title-highlight {
       font-style: italic;
-      color: #7b4209;
+      color: #b8895a;
       font-weight: 400;
-      text-shadow:
-        0 2px 4px rgba(44, 44, 40, 0.4),
-        0 4px 12px rgba(44, 44, 40, 0.3),
-        0 8px 24px rgba(0, 0, 0, 0.25),
-        0 0 24px rgba(79, 74, 74, 0.9),
-        0 0 40px rgba(141, 131, 131, 0.7);
-      filter: drop-shadow(0 2px 2px rgba(44, 44, 40, 0.2));
-      // display: block;
+      display: inline-block;
+      filter: drop-shadow(0 0 20px rgba(184, 137, 90, 0.45));
 
-      span {
-        // display: inline-block;
-        animation: waveAnim 2s infinite ease-in-out;
+      &.wavy-text span {
+        display: inline-block;
+        animation: waveAnim 2.2s infinite ease-in-out;
         will-change: transform, color;
       }
     }
-  }
 
-  @keyframes waveAnim {
-    0%,
-    100% {
-      transform: translateY(0);
-      color: #7b4209;
+    @keyframes waveAnim {
+      0%,
+      100% {
+        transform: translateY(0);
+        color: #b8895a;
+        text-shadow: 0 0 16px rgba(184, 137, 90, 0.5);
+      }
+      50% {
+        transform: translateY(-5px);
+        color: #8c5523;
+        text-shadow: 0 0 24px rgba(217, 163, 102, 0.65);
+      }
     }
-    50% {
-      transform: translateY(-4px);
-      color: #b8895a;
+
+    @media (max-width: 768px) {
+      font-size: clamp(2rem, 7.8vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
     }
   }
 
   .hero-sub {
-    font-size: 16px;
+    font-size: 15.5px;
     color: #5a5a54;
-    max-width: 420px;
-    margin-bottom: 40px;
+    max-width: 480px;
+    margin-bottom: 34px;
     font-weight: 300;
+    line-height: 1.6;
+
+    strong {
+      color: #2c2c28;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
   }
 
   .search-bar {
     background: white;
     border: 1px solid #e2d9cc;
-    border-radius: 4px;
+    border-radius: 12px;
     display: flex;
     align-items: stretch;
+    box-shadow: 0 8px 32px rgba(44, 44, 40, 0.1);
+    max-width: 720px;
+    width: 100%;
     overflow: hidden;
-    box-shadow: 0 4px 32px rgba(44, 44, 40, 0.1);
-    max-width: 680px;
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       flex-direction: column;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(44, 44, 40, 0.12);
+    }
+  }
+
+  .search-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    min-height: 52px;
+
+    .search-icon {
+      color: #b8895a;
+      font-size: 16px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 14px;
+      min-height: 48px;
     }
   }
 
   .search-input {
-    flex: 1;
-    padding: 16px 20px;
+    width: 100%;
+    padding: 14px 0;
     border: none;
     outline: none;
     font-family: "DM Sans", sans-serif;
@@ -288,15 +360,31 @@ const HeroSection = styled.section`
     }
   }
 
+  .search-selects-row {
+    display: flex;
+    align-items: stretch;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      border-top: 1px solid #f0ece4;
+      border-bottom: 1px solid #f0ece4;
+      background: #faf8f5;
+    }
+  }
+
   .search-divider {
     width: 1px;
-    background: #e2d9cc;
+    background: #f0ece4;
     margin: 10px 0;
 
-    @media (max-width: 600px) {
-      width: 100%;
-      height: 1px;
-      margin: 0;
+    @media (max-width: 768px) {
+      margin: 8px 0;
+    }
+
+    &.desktop-only {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
@@ -313,22 +401,40 @@ const HeroSection = styled.section`
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9A94' stroke-width='1.5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+      flex: 1;
+      min-width: 0;
+      padding: 13px 26px 13px 12px;
+      font-size: 12.5px;
+      background-position: right 8px center;
+    }
   }
 
   .search-btn {
-    padding: 16px 32px;
-    background: #b8895a;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, #b8895a, #a67545);
     color: white;
     border: none;
     cursor: pointer;
     font-family: "DM Sans", sans-serif;
     font-size: 13px;
-    letter-spacing: 0.08em;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    transition: background 0.2s;
+    transition: all 0.25s ease;
     white-space: nowrap;
+
     &:hover {
-      background: #8c6340;
+      background: linear-gradient(135deg, #a67545, #8c6340);
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 14px 20px;
+      text-align: center;
+      letter-spacing: 0.14em;
     }
   }
 
@@ -341,6 +447,10 @@ const HeroSection = styled.section`
     align-items: center;
     gap: 10px;
     z-index: 2;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .scroll-line {
@@ -376,15 +486,5 @@ const HeroSection = styled.section`
     text-transform: uppercase;
     color: #5a5a54;
     writing-mode: vertical-lr;
-  }
-
-  @media (max-width: 600px) {
-    padding-bottom: calc(8vh + 80px);
-    .hero-content {
-      padding: 0 5%;
-    }
-    .scroll-indicator {
-      display: none;
-    }
   }
 `;

@@ -65,7 +65,8 @@ const Strip = styled.div`
     font-size: 18px;
     font-weight: 300;
     font-style: italic;
-    color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    letter-spacing: 0.04em;
     white-space: nowrap;
   }
 

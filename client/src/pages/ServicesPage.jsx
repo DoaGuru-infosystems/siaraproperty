@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import styled, { keyframes, css } from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
-import { getAppUrl } from "../config/axios";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -85,6 +85,18 @@ const areas = [
   },
 ];
 
+const propertyCategories = [
+  { iconClass: "bi bi-house-door-fill", title: "House", key: "house", link: "/property/propertyType/house" },
+  { iconClass: "bi bi-houses", title: "Villa", key: "villa", link: "/property/propertyType/villa" },
+  { iconClass: "bi bi-bounding-box", title: "Plot", key: "plot", link: "/property/propertyType/plot" },
+  { iconClass: "bi bi-building", title: "Flat", key: "flat", link: "/property/propertyType/flat" },
+  { iconClass: "bi bi-tree-fill", title: "Land", key: "land", link: "/property/propertyType/land" },
+  { iconType: "tractor", title: "Farm Land", key: "farmland", link: "/property/propertyType/farmLand" },
+  { iconClass: "bi bi-house-door", title: "Farm House", key: "farmhouse", link: "/property/propertyType/farmHouse" },
+  { iconClass: "bi bi-buildings", title: "Commercial", key: "commercial", link: "/property/propertyType/commercial" },
+  { iconClass: "bi bi-key-fill", title: "For Rent", key: "rent", link: "/property/propertiesForRent" },
+];
+
 const stats = [
   { value: 500, suffix: "+", label: "Properties Sold" },
   { value: 1200, suffix: "+", label: "Happy Clients" },
@@ -94,8 +106,47 @@ const stats = [
 
 /* ── COMPONENT ── */
 export default function ServicesPage() {
-  const location = useLocation();
-  const canonicalUrl = getAppUrl(location.pathname);
+  const [counts, setCounts] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/api/property/getAllProperty")
+      .then((r) => {
+        const data = r.data?.data || [];
+        const newCounts = {
+          house: 0,
+          villa: 0,
+          plot: 0,
+          flat: 0,
+          land: 0,
+          farmland: 0,
+          farmhouse: 0,
+          commercial: 0,
+          rent: 0,
+        };
+
+        data.forEach((p) => {
+          if (String(p.isSold) === "1") return;
+          const pFor = (p.property_for || "").toLowerCase();
+          const t = (p.property_type || "").toLowerCase();
+
+          if (pFor === "rent") {
+            newCounts.rent++;
+          } else if (pFor === "sale") {
+            if (t === "house") newCounts.house++;
+            if (t === "villa") newCounts.villa++;
+            if (t === "plot") newCounts.plot++;
+            if (t === "flat") newCounts.flat++;
+            if (t === "land") newCounts.land++;
+            if (t === "farmland" || t === "farm land") newCounts.farmland++;
+            if (t === "farmhouse" || t === "farm house") newCounts.farmhouse++;
+            if (t === "commercial") newCounts.commercial++;
+          }
+        });
+        setCounts(newCounts);
+      })
+      .catch((e) => console.log(e));
+  }, []);
   const pageRef = useRef(null);
   const bannerTextRef = useRef(null);
   const statsRef = useRef(null);
@@ -118,7 +169,10 @@ export default function ServicesPage() {
     lenis.on("scroll", ScrollTrigger.update);
 
     /* ── Banner entrance animation ── */
-    const bannerTl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.3 });
+    const bannerTl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      delay: 0.3,
+    });
     if (bannerTextRef.current) {
       const textChildren = bannerTextRef.current.children;
       gsap.set(textChildren, { y: 50, opacity: 0 });
@@ -166,13 +220,14 @@ export default function ServicesPage() {
             trigger: statsRef.current,
             start: "top 85%",
           },
-        }
+        },
       );
 
-      const numberElements = statsRef.current.querySelectorAll('.stat-number');
+      const numberElements = statsRef.current.querySelectorAll(".stat-number");
       numberElements.forEach((el) => {
-        const targetValue = parseInt(el.getAttribute('data-target'), 10);
-        gsap.fromTo(el,
+        const targetValue = parseInt(el.getAttribute("data-target"), 10);
+        gsap.fromTo(
+          el,
           { innerText: 0 },
           {
             innerText: targetValue,
@@ -182,8 +237,8 @@ export default function ServicesPage() {
             scrollTrigger: {
               trigger: statsRef.current,
               start: "top 85%",
-            }
-          }
+            },
+          },
         );
       });
     }
@@ -203,7 +258,7 @@ export default function ServicesPage() {
             start: "top 88%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -221,7 +276,7 @@ export default function ServicesPage() {
             start: "top 88%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     });
 
@@ -242,7 +297,7 @@ export default function ServicesPage() {
               trigger: header,
               start: "top 85%",
             },
-          }
+          },
         );
       }
 
@@ -262,7 +317,7 @@ export default function ServicesPage() {
               trigger: card,
               start: "top 88%",
             },
-          }
+          },
         );
 
         const items = card.querySelectorAll("[data-anim='item']");
@@ -279,7 +334,7 @@ export default function ServicesPage() {
               trigger: card,
               start: "top 75%",
             },
-          }
+          },
         );
       });
     }
@@ -301,11 +356,13 @@ export default function ServicesPage() {
               trigger: areaHeader,
               start: "top 85%",
             },
-          }
+          },
         );
       }
 
-      const areaCards = areasRef.current.querySelectorAll("[data-anim='area-card']");
+      const areaCards = areasRef.current.querySelectorAll(
+        "[data-anim='area-card']",
+      );
       areaCards.forEach((card, i) => {
         gsap.fromTo(
           card,
@@ -321,7 +378,7 @@ export default function ServicesPage() {
               trigger: card,
               start: "top 88%",
             },
-          }
+          },
         );
       });
     }
@@ -341,7 +398,7 @@ export default function ServicesPage() {
             trigger: ctaRef.current,
             start: "top 85%",
           },
-        }
+        },
       );
     }
 
@@ -370,7 +427,23 @@ export default function ServicesPage() {
   return (
     <PageWrapper ref={pageRef}>
       <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
+        <title>
+          Residential, Commercial & Plots for Sale in Jabalpur | Siara Properties
+        </title>
+        <meta
+          name="description"
+          content="Siara Properties offers best residential, commercial & plots for sale in Jabalpur. Genuine listings, trusted deals. Contact us for expert property guidance today!"
+        />
+        <link rel="canonical" href="https://siaraproperties.com/services" />
+        <meta
+          property="og:title"
+          content="Residential, Commercial & Plots for Sale in Jabalpur | Siara Properties"
+        />
+        <meta
+          property="og:description"
+          content="Siara Properties offers best residential, commercial & plots for sale in Jabalpur. Genuine listings, trusted deals. Contact us for expert property guidance today!"
+        />
+        <meta property="og:url" content="https://siaraproperties.com/services" />
       </Helmet>
 
       {/* ── BANNER ── */}
@@ -387,12 +460,11 @@ export default function ServicesPage() {
           <BannerTextSide ref={bannerTextRef}>
             <Eyebrow>
               <EyebrowLine />
-             
-Siara Properties
+              Siara Properties
             </Eyebrow>
 
             <BannerTitle>
-             Where Trust Meets
+              Where Trust Meets
               <br />
               <BannerTitleGold>Real Estate</BannerTitleGold>
             </BannerTitle>
@@ -425,12 +497,52 @@ Siara Properties
 
       <Divider />
 
+      {/* ── BROWSE BY CATEGORY ── */}
+      <CategorySection>
+        <SectionHeader className="reveal">
+          <Eyebrow>
+            <EyebrowLine />
+            BROWSE BY CATEGORY
+          </Eyebrow>
+          <SectionTitle className="clip-r">
+            Explore <SectionTitleGold>Our Properties</SectionTitleGold>
+          </SectionTitle>
+        </SectionHeader>
+
+        <CategoryGrid>
+          {propertyCategories.map((cat, i) => (
+            <CategoryCard
+              key={cat.title}
+              as={Link}
+              to={cat.link}
+              className="reveal"
+              style={{ animationDelay: `${i * 0.04}s` }}
+            >
+              <CatIconWrap className="cat-icon-wrap">
+                {cat.iconType === "tractor" ? (
+                  <svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 16c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3zm-3-1c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-9 1c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-1c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm14.5-6h-2.5l-1-4H9.5L9.1 7.6 5.8 9H3v4h2c0-1.66 1.34-3 3-3s3 1.34 3 3h3c0-2.21 1.79-4 4-4 .69 0 1.32.18 1.88.49L20 10.5V10zM15 8.5l.6 2.5h-4.2l.6-2.5h3z" />
+                  </svg>
+                ) : (
+                  <i className={cat.iconClass}></i>
+                )}
+              </CatIconWrap>
+              <CatTitle>{cat.title}</CatTitle>
+              <CatCount>{counts[cat.key] ?? 0} Properties</CatCount>
+            </CategoryCard>
+          ))}
+        </CategoryGrid>
+      </CategorySection>
+
       {/* ── STATS BAR ── */}
       <StatsBar ref={statsRef}>
         {stats.map((s) => (
           <StatItem key={s.label}>
             <StatNumber>
-              <span className="stat-number" data-target={s.value}>0</span>{s.suffix}
+              <span className="stat-number" data-target={s.value}>
+                0
+              </span>
+              {s.suffix}
             </StatNumber>
             <StatLabel>{s.label}</StatLabel>
           </StatItem>
@@ -575,7 +687,8 @@ Siara Properties
       <CtaSection ref={ctaRef}>
         <CtaContent>
           <CtaTitle>
-            Ready to find your <SectionTitleGold>perfect property</SectionTitleGold>?
+            Ready to find your{" "}
+            <SectionTitleGold>perfect property</SectionTitleGold>?
           </CtaTitle>
           <CtaSub>
             Let's talk. Our team is ready to help you make the right move.
@@ -602,19 +715,9 @@ const MUTED = "#6a6a62";
 const BORDER = "#e2ddd4";
 
 /* Animations */
-const shimmer = keyframes`
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-`;
-
 const float = keyframes`
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
 `;
 
 /* Page */
@@ -645,8 +748,12 @@ const BannerBgImage = styled.img`
   animation: bannerZoom 20s ease-in-out infinite alternate;
 
   @keyframes bannerZoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.08); }
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.08);
+    }
   }
 `;
 
@@ -834,6 +941,119 @@ const Eyebrow = styled.p`
   text-transform: uppercase;
 `;
 
+/* ── CATEGORY SECTION STYLES ── */
+const CategorySection = styled.section`
+  padding: 80px 6%;
+  background: ${CREAM};
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+`;
+
+const CategoryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+`;
+
+const CategoryCard = styled.div`
+  width: 100%;
+  min-height: 180px;
+  border-radius: 16px;
+  border: 1px solid #e8e3dc;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  color: inherit;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    background: ${GOLD};
+    border-color: ${GOLD};
+    box-shadow: 0 16px 36px rgba(184, 137, 90, 0.3);
+    transform: translateY(-6px);
+
+    h4,
+    p,
+    i,
+    svg {
+      color: white !important;
+      fill: white !important;
+    }
+
+    .cat-icon-wrap {
+      background: rgba(255, 255, 255, 0.22) !important;
+    }
+  }
+`;
+
+const CatIconWrap = styled.div`
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(184, 137, 90, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 25px;
+    color: ${GOLD};
+    transition: all 0.3s ease;
+  }
+
+  svg {
+    color: ${GOLD};
+    fill: ${GOLD};
+    transition: all 0.3s ease;
+  }
+`;
+
+const CatTitle = styled.h4`
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: ${TEXT};
+  margin: 0 0 8px;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+`;
+
+const CatCount = styled.p`
+  font-size: 12px;
+  color: #8C827A;
+  margin: 0;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+`;
+
 /* ── STATS BAR ── */
 const StatsBar = styled.div`
   display: grid;
@@ -955,7 +1175,11 @@ const CardIconBox = styled.div`
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(184, 137, 90, 0.1), rgba(184, 137, 90, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(184, 137, 90, 0.1),
+    rgba(184, 137, 90, 0.05)
+  );
   border: 1px solid rgba(184, 137, 90, 0.2);
   display: flex;
   align-items: center;
@@ -1168,7 +1392,11 @@ const CtaSection = styled.section`
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(184, 137, 90, 0.08), transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(184, 137, 90, 0.08),
+      transparent 70%
+    );
     top: -150px;
     right: -100px;
     pointer-events: none;

@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
-import { getAppUrl } from "../config/axios";
+
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,8 +11,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ── COMPONENT ── */
 export default function ContactPageNew() {
-  const location = useLocation();
-  const canonicalUrl = getAppUrl(location.pathname);
   const pageRef = useRef(null);
   const headerRef = useRef(null);
   const infoRef = useRef(null);
@@ -149,7 +146,23 @@ export default function ContactPageNew() {
   return (
     <PageWrapper ref={pageRef}>
       <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
+        <title>
+          Contact Us | Siara Properties - Property Dealer in Jabalpur
+        </title>
+        <meta
+          name="description"
+          content="Contact Siara Properties, trusted property dealer in Jabalpur, for expert guidance on plots, homes, commercial & agricultural land deals today."
+        />
+        <link rel="canonical" href="https://siaraproperties.com/contact" />
+        <meta
+          property="og:title"
+          content="Contact Us | Siara Properties - Property Dealer in Jabalpur"
+        />
+        <meta
+          property="og:description"
+          content="Contact Siara Properties, trusted property dealer in Jabalpur, for expert guidance on plots, homes, commercial & agricultural land deals today."
+        />
+        <meta property="og:url" content="https://siaraproperties.com/contact" />
       </Helmet>
       
       <PageContent>

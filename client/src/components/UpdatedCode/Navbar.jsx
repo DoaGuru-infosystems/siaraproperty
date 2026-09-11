@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/user/userSlice";
 import styled from "styled-components";
-import logo from "../../images/Real-Estate-Logo.png";
-// import logo from "../images/Real-Estate-Logo.png";
+import logo from "../../images/siaralogo1.jpeg";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +44,16 @@ export default function Navbar() {
       <NavBar className={scrolled ? "scrolled" : ""}>
         {/* ── LOGO ── */}
         <Link to="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
-          <div className="nav-logo-mark">SP</div>
+          <img
+            src={logo}
+            alt="Siara Properties Logo"
+            style={{
+              height: "55px",
+              borderRadius: "8px",
+              objectFit: "cover",
+              marginRight: "10px",
+            }}
+          />
           <span>Siara Properties</span>
         </Link>
 
@@ -72,7 +80,12 @@ export default function Navbar() {
         <div className="nav-actions desktop-only">
           {currentUser ? (
             <div className="user-dropdown">
-              <button className="btn-user" onClick={() => setDropdownOpen(!dropdownOpen)}>{currentUser?.user?.name} ▾</button>
+              <button
+                className="btn-user"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                {currentUser?.user?.name} ▾
+              </button>
               <div className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
                 <button onClick={handleLogout}>Logout</button>
               </div>

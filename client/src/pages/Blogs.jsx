@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
-import { useLocation, Link } from "react-router-dom";
-import { getAppUrl } from "../config/axios";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function Blogs() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
-  const canonicalUrl = getAppUrl(location.pathname);
-
-
-       console.log(canonicalUrl)
 
 
   useEffect(() => {
@@ -43,8 +37,21 @@ function Blogs() {
     <>
       <Container>
         <Helmet>
-          <link rel="canonical" href={ canonicalUrl } />
-          <title>Blogs - Siara Properties</title>
+          <title>Jabalpur Real Estate Blog | Siara Properties</title>
+          <meta
+            name="description"
+            content="Get expert real estate tips & market insights on plots, homes, commercial & agricultural land in Jabalpur. Explore the Siara Properties blog today."
+          />
+          <link rel="canonical" href="https://siaraproperties.com/blog" />
+          <meta
+            property="og:title"
+            content="Jabalpur Real Estate Blog | Siara Properties"
+          />
+          <meta
+            property="og:description"
+            content="Get expert real estate tips & market insights on plots, homes, commercial & agricultural land in Jabalpur. Explore the Siara Properties blog today."
+          />
+          <meta property="og:url" content="https://siaraproperties.com/blog" />
         </Helmet>
 
         {/* Replaced both nav1 and nav2 with the unified responsive Navbar */ }
