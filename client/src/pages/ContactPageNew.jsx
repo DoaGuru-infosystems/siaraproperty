@@ -227,9 +227,9 @@ export default function ContactPageNew() {
               <InfoDetails>
                 <InfoLabel>Phone Number</InfoLabel>
                 <InfoValue>
-                  <InfoLink href="tel:+919243066371">+91 9243066371</InfoLink>
+                  <InfoLink href="tel:+9196308 11196">+91 96308 11196</InfoLink>
                   <br />
-                  <InfoLink href="tel:+917000102121">+91 7000102121</InfoLink>
+                  <InfoLink href="tel:+917974422502">+917974422502</InfoLink>
                 </InfoValue>
               </InfoDetails>
             </InfoCard>
