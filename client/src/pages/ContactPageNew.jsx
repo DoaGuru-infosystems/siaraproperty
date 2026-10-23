@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { toast } from "react-toastify";
 
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -102,12 +103,29 @@ export default function ContactPageNew() {
   /* ── Form Logic ── */
   const validate = () => {
     const e = {};
-    if (!form.name.trim()) e.name = "Name is required";
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))
-      e.email = "Valid email is required";
-    if (!form.phone.trim() || !/^\d{10}$/.test(form.phone))
-      e.phone = "Valid 10-digit mobile number is required";
-    if (!form.message.trim()) e.message = "Message is required";
+    if (!form.name.trim()) {
+      e.name = "Full name is required";
+    }
+
+    // Strict Email Regex: requires valid username, @, domain, and TLD (e.g. .com, .in, .org)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!form.email.trim()) {
+      e.email = "Email address is required";
+    } else if (!emailRegex.test(form.email.trim())) {
+      e.email = "Please enter a valid email address (e.g. name@example.com)";
+    }
+
+    // Strict 10-digit Phone Regex (starting with 6-9 in India or 10 digits)
+    const phoneClean = form.phone.trim().replace(/\D/g, "");
+    if (!form.phone.trim()) {
+      e.phone = "Phone number is required";
+    } else if (phoneClean.length !== 10) {
+      e.phone = "Please enter a valid 10-digit mobile number";
+    }
+
+    if (!form.message.trim()) {
+      e.message = "Message is required";
+    }
     return e;
   };
 
@@ -121,6 +139,7 @@ export default function ContactPageNew() {
     const errs = validate();
     if (Object.keys(errs).length) {
       setErrors(errs);
+      toast.error("Please fill in all fields with valid details.");
       return;
     }
     setLoading(true);
@@ -128,14 +147,18 @@ export default function ContactPageNew() {
       const res = await axios.post("/api/property/contacted", form);
       if (res.data.success) {
         setSent(true);
+        toast.success(
+          "Thank you! Your message has been sent successfully. Our team will contact you shortly."
+        );
         setForm({ name: "", email: "", phone: "", message: "" });
       } else {
-        alert(res.data.message || "Something went wrong. Please try again.");
+        toast.error(res.data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
       console.error(error);
-      alert(
+      toast.error(
         error?.response?.data?.error ||
+          error?.response?.data?.message ||
           "Failed to send message. Please try again later."
       );
     } finally {

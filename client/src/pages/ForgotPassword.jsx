@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import cogoToast from "cogo-toast";
+import { toast } from "react-toastify";
 import ReactGA from "react-ga4";
 
 const ForgotPassword = () => {
@@ -17,8 +17,12 @@ const ForgotPassword = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email.trim())) {
+      return toast.error("Please enter a valid email address (e.g. name@example.com).");
+    }
     if (!email) {
-      return cogoToast.error(`Please enter email`);
+      return;
     }
     try {
       const res = await axios.post(
@@ -27,19 +31,19 @@ const ForgotPassword = () => {
       );
       if (res?.data && res?.data?.success === true) {
         console.log(res?.data);
-        cogoToast.success(`${res?.data?.message}`);
+        toast.success(`${res?.data?.message}`);
         navigate("/login");
 
         return;
       }
       if (res.data && res.data.success === false) {
-        cogoToast.error(`${res?.data?.message}`);
+        toast.error(`${res?.data?.message}`);
         return;
       }
     } catch (err) {
       if (err?.response && err.response?.data) {
         console.log(err);
-        cogoToast.error(`${err.response?.data?.message}`);
+        toast.error(`${err.response?.data?.message}`);
       }
     }
   };

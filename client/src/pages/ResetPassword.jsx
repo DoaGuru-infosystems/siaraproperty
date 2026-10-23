@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import cogoToast from "cogo-toast";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,28 +19,28 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!password) {
-      return cogoToast.error(`Please enter password`);
+      return toast.error(`Please enter password`);
     }
     try {
       const res = await axios.post(
-        `https://siaraproperty.siarasystems.com//api/property/reset-password/${id}/${token}`,
-        { password: password },
+        `/api/property/reset-password/${id}/${token}`,
+        { password: password }
       );
       if (res?.data && res?.data?.success === true) {
         console.log(res?.data);
-        cogoToast.success(`${res?.data?.message}`);
+        toast.success(`${res?.data?.message}`);
         navigate("/login");
 
         return;
       }
       if (res.data && res.data.success === false) {
-        cogoToast.error(`${res?.data?.message}`);
+        toast.error(`${res?.data?.message}`);
         return;
       }
     } catch (err) {
       if (err?.response && err.response?.data) {
         console.log(err);
-        cogoToast.error(`${err.response?.data?.message}`);
+        toast.error(`${err.response?.data?.message}`);
       }
     }
   };

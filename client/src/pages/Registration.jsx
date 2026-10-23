@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import cogoToast from "cogo-toast";
+import { toast } from "react-toastify";
 
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
@@ -25,6 +25,24 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.name.trim()) {
+      return toast.error("Please enter your full name.");
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email || !emailRegex.test(formData.email.trim())) {
+      return toast.error("Please enter a valid email address (e.g. name@example.com).");
+    }
+
+    const cleanPhone = formData.phone ? formData.phone.trim().replace(/\D/g, "") : "";
+    if (cleanPhone.length !== 10) {
+      return toast.error("Please enter a valid 10-digit mobile number.");
+    }
+
+    if (!formData.password || formData.password.length < 6) {
+      return toast.error("Password must be at least 6 characters.");
+    }
     try {
       setLoading(true);
       const res = await axios.post(
@@ -34,7 +52,7 @@ const Registration = () => {
       setLoading(false);
       console.log(res);
       if (res.data.success === true) {
-        cogoToast.success(`${res.data.message}`);
+        toast.success(`${res.data.message}`);
         navigate("/login");
       }
       setError(false);
@@ -42,7 +60,7 @@ const Registration = () => {
       setLoading(false);
       setError(true);
       console.log(error.response);
-      cogoToast.error(`${error.response.data.error}`);
+      toast.error(`${error.response.data.error}`);
     }
   };
 

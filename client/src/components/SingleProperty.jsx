@@ -17,8 +17,8 @@ import { BiCategoryAlt } from "react-icons/bi";
 
 
 import { Carousel } from "react-bootstrap";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css"; // Don't forget to import the styles
+import ImageLightboxModal from "./ImageLightboxModal";
+
 import ReactGA from "react-ga4";
 import {
   FacebookIcon,
@@ -401,7 +401,10 @@ function SingleProperty() {
                           <Carousel.Item
                             key={image?.id}
                             active={index === 0}
-                            onClick={() => setLightboxOpen(true)}
+                            onClick={() => {
+                              setPhotoIndex(index);
+                              setLightboxOpen(true);
+                            }}
                             className="carousel-inner"
                           >
                             <img
@@ -413,43 +416,13 @@ function SingleProperty() {
                         ))}
                       </Carousel>
 
-                      {lightboxOpen && (
-                        <div className="lightbox-fullscreen">
-                          <Lightbox
-                            mainSrc={propertyImages[photoIndex]?.image}
-                            nextSrc={
-                              propertyImages[
-                                (photoIndex + 1) % propertyImages?.length
-                              ]?.image
-                            }
-                            prevSrc={
-                              propertyImages[
-                                (photoIndex + propertyImages?.length - 1) %
-                                  propertyImages?.length
-                              ]?.image
-                            }
-                            onCloseRequest={() => setLightboxOpen(false)}
-                            onMovePrevRequest={() =>
-                              setPhotoIndex(
-                                (photoIndex + propertyImages?.length - 1) %
-                                  propertyImages.length,
-                              )
-                            }
-                            onMoveNextRequest={() =>
-                              setPhotoIndex(
-                                (photoIndex + 1) % propertyImages?.length,
-                              )
-                            }
-                          />
-                          {/* Optional: Close button or any other elements inside the lightbox */}
-                          <div
-                            className="close-button"
-                            onClick={() => setLightboxOpen(false)}
-                          >
-                            ×
-                          </div>
-                        </div>
-                      )}
+                      <ImageLightboxModal
+                        isOpen={lightboxOpen}
+                        onClose={() => setLightboxOpen(false)}
+                        images={propertyImages}
+                        currentIndex={photoIndex}
+                        setCurrentIndex={setPhotoIndex}
+                      />
                     </>
                   ) : (
                     <img

@@ -4,39 +4,50 @@ const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
 const publicDir = path.join(rootDir, "public");
 const outputDir = path.resolve(rootDir, process.argv[2] || "build");
-const baseUrlVariable = "REACT_APP_BASE_URL";
+// Candidate env variables in order of priority:
+// 1. REACT_APP_Canonical_URL: Public site domain (https://siaraproperties.com)
+// 2. REACT_APP_SITE_URL: Alternate public site domain variable
+// 3. REACT_APP_BASE_URL: Backend or fallback URL
+const candidateVariables = [
+  "REACT_APP_Canonical_URL",
+  "REACT_APP_SITE_URL",
+  "REACT_APP_BASE_URL",
+];
 
 function readEnvBaseUrl() {
-  if (process.env[baseUrlVariable]) {
-    return process.env[baseUrlVariable];
+  // Check process.env first
+  for (const varName of candidateVariables) {
+    if (process.env[varName]) {
+      return process.env[varName];
+    }
   }
 
   const envPath = path.join(rootDir, ".env");
   if (!fs.existsSync(envPath)) {
-    return "";
+    return "https://siaraproperties.com";
   }
 
   const envFile = fs.readFileSync(envPath, "utf8");
-  const envLine = envFile
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .find((line) => line && !line.startsWith("#") && line.startsWith(`${baseUrlVariable}=`));
+  const envLines = envFile.split(/\r?\n/).map((line) => line.trim());
 
-  if (!envLine) {
-    return "";
+  for (const varName of candidateVariables) {
+    const match = envLines.find(
+      (line) => line && !line.startsWith("#") && line.startsWith(`${varName}=`)
+    );
+    if (match) {
+      return match
+        .slice(`${varName}=`.length)
+        .trim()
+        .replace(/^["']|["']$/g, "");
+    }
   }
 
-  return envLine
-    .slice(`${baseUrlVariable}=`.length)
-    .trim()
-    .replace(/^["']|["']$/g, "");
+  return "https://siaraproperties.com";
 }
 
-const baseUrl = readEnvBaseUrl().trim().replace(/\/+$/, "");
-
-if (!baseUrl) {
-  throw new Error(`${baseUrlVariable} is required to generate public files.`);
-}
+const baseUrl = (readEnvBaseUrl() || "https://siaraproperties.com")
+  .trim()
+  .replace(/\/+$/, "");
 
 function renderPublicFile(fileName) {
   const templatePath = path.join(publicDir, fileName);

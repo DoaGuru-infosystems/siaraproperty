@@ -191,7 +191,7 @@ import styled from "styled-components";
 
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import cogoToast from "cogo-toast";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function ContactUsModel({ propertyId, propertyName }) {
@@ -213,14 +213,25 @@ function ContactUsModel({ propertyId, propertyName }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if required fields are empty
     if (
-      !formData.name ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.message
+      !formData.name?.trim() ||
+      !formData.email?.trim() ||
+      !formData.phone?.trim() ||
+      !formData.message?.trim()
     ) {
-      cogoToast.error("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      toast.error("Please enter a valid email address (e.g. name@example.com).");
+      return;
+    }
+
+    const phoneClean = formData.phone.trim().replace(/\D/g, "");
+    if (phoneClean.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile number.");
       return;
     }
 
@@ -232,12 +243,12 @@ function ContactUsModel({ propertyId, propertyName }) {
 
       console.log(res);
       if (res.data.success === true) {
-        cogoToast.success(`${res.data.message}`);
+        toast.success(`${res.data.message}`);
         window.location.reload();
       }
     } catch (error) {
       console.log(error.response);
-      cogoToast.error(`${error.response.data.error}`);
+      toast.error(`${error.response.data.error}`);
     }
   };
 

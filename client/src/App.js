@@ -30,6 +30,10 @@ import ContactPageNew from "./pages/ContactPageNew";
 import ServicesPage from "./pages/ServicesPage";
 import AllProperties from "./pages/AllProperties";
 import Navbar from "./components/UpdatedCode/Navbar";
+import FloatingContactButtons from "./components/FloatingContactButtons";
+import AutoPopupModal from "./components/AutoPopupModal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Tracking_Id = "G-0XYJQVFWDJ";
 ReactGA.initialize(Tracking_Id);
@@ -39,6 +43,18 @@ function App() {
   return (
     <>
       <div style={{ overflowX: "hidden" }}>
+        <ToastContainer
+          position="top-right"
+          autoClose={3500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Navbar />
         <Routes>
           {/* Main Website Routes */}
@@ -79,15 +95,25 @@ function App() {
             element={<ResaleProperty />}
           />
           
-          {/* Info Pages */}
+          {/* Info & Legal Pages */}
+          <Route path="/terms" element={<TermsAndCondition />} />
+          <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
           <Route
             path="/info/terms-and-conditions"
             element={<TermsAndCondition />}
           />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/info/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
         {/* Footer */}
         <Footer />
+
+        {/* Global Floating Contact Buttons (WhatsApp & Call) */}
+        <FloatingContactButtons />
+
+        {/* Global Auto Popup Enquiry Modal (triggers 6 seconds after opening any page) */}
+        <AutoPopupModal />
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import cogoToast from "cogo-toast";
+import { toast } from "react-toastify";
 import {
   signInFailure,
   signInStart,
@@ -33,6 +33,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email || !emailRegex.test(formData.email.trim())) {
+      return toast.error("Please enter a valid email address (e.g. name@example.com).");
+    }
+    if (!formData.password) {
+      return toast.error("Please enter your password.");
+    }
     try {
       dispatch(signInStart());
       const res = await axios.post(
@@ -43,20 +50,20 @@ const Login = () => {
       if (res.data && res.data.success === true) {
         dispatch(signInSuccess(res.data));
         console.log(res.data);
-        cogoToast.success(`${res.data.message}`);
+        toast.success(`${res.data.message}`);
         navigate("/");
         return;
       }
       if (res.data && res.data.success === false) {
         dispatch(signInFailure(res.data));
-        cogoToast.error(`${res.data.message}`);
+        toast.error(`${res.data.message}`);
         return;
       }
     } catch (err) {
       if (err.response && err.response.data) {
         dispatch(signInFailure(err.response.data));
         console.log(error);
-        cogoToast.error(`${err.response.data.message}`);
+        toast.error(`${err.response.data.message}`);
       }
     }
   };
@@ -64,7 +71,7 @@ const Login = () => {
   useEffect(() => {
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     if (currentUser) {
-      cogoToast.error(`Already loged In`);
+      toast.error(`Already loged In`);
       navigate("/");
       const handleTop = () => {
         window.scrollTo(0, 0);

@@ -16,6 +16,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import ReactGA from "react-ga4";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../../config/axios";
 
 export default function Flats() {
   const [properties, setProperties] = useState(null);
@@ -23,13 +24,12 @@ export default function Flats() {
   const [loading, setLoading] = useState(true);
   const { propertyType, bhk } = useParams();
   const location = useLocation();
-  const canonicalUrl =
-    "https://siaraproperty.siarasystems.com/" + location.pathname;
+  const canonicalUrl = getAppUrl(location.pathname);
 
   const getAllProperties = async () => {
     try {
       const response = await axios.get(
-        `https://siaraproperty.siarasystems.com//api/property/getPropertyByTypeAndBhk/${propertyType}/${bhk}`,
+        `/api/property/getPropertyByTypeAndBhk/${propertyType}/${bhk}`
       );
       setProperties(response.data);
     } catch (error) {
@@ -40,7 +40,7 @@ export default function Flats() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get(
-        "https://siaraproperty.siarasystems.com//api/property/getAllPropertyImages",
+        "/api/property/getAllPropertyImages"
       );
       setPropertiesImages(response.data);
     } catch (error) {

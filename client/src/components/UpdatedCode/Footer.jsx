@@ -154,8 +154,8 @@ export default function Footer() {
           © {new Date().getFullYear()} SiaraProperties.com · All Rights Reserved
         </p>
         <div className="footer-bottom-links">
-          <a href="/terms">Terms &amp; Conditions</a>
-          <a href="/privacy">Privacy Policy</a>
+          <Link to="/terms">Terms &amp; Conditions</Link>
+          <Link to="/privacy">Privacy Policy</Link>
         </div>
       </div>
     </FooterWrap>
