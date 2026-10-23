@@ -29,11 +29,6 @@ const AutoPopupModal = () => {
 
   // 3-second timer after page opens
   useEffect(() => {
-    // If user has already submitted the enquiry in this session, don't interrupt
-    if (sessionStorage.getItem("siara_enquiry_submitted")) {
-      return;
-    }
-
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 3000); // 3 seconds
@@ -113,18 +108,16 @@ const AutoPopupModal = () => {
         name: formData.name.trim(),
         email: formData.email.trim() || "",
         phone: formData.phone.trim(),
-        message: `[Quick Enquiry - ${formData.propertyType}] ${
-          formData.message.trim() || "Interested in property consultation in Jabalpur."
-        }`,
+        propertyType: formData.propertyType,
+        message: formData.message.trim() || "Interested in property consultation in Jabalpur.",
       };
 
-      const res = await axios.post("/api/property/contacted", payload);
+      const res = await axios.post("/api/property/popup-lead", payload);
 
       if (res.data?.success) {
         toast.success(
           "Thank you! Your enquiry has been received. Our Jabalpur property expert will call you shortly."
         );
-        sessionStorage.setItem("siara_enquiry_submitted", "true");
         setIsOpen(false);
         setFormData({
           name: "",

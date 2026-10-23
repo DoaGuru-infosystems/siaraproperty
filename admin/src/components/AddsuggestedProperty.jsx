@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
@@ -38,14 +38,14 @@ const AddsuggestedProperty = () => {
           });
     
           
-          cogoToast.success(`${response.data.message}`);
+          toast.success(`${response.data.message}`);
           navigate("/")
           
     
           // Handle success (e.g., show a success message)
         } catch (error) {
           console.error('Error add suggestrd property', error);
-          cogoToast.error(`Error add suggestrd property: ${error.response.data.message}`);
+          toast.error(`Error add suggestrd property: ${error.response.data.message}`);
           // Handle error (e.g., show an error message to the user)
         }
       };

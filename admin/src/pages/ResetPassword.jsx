@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import NavbarAd from '../components/NavbarAd';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 
 function ResetPassword() {
@@ -19,7 +19,7 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!password) {
-      return cogoToast.error(`Please enter password`);
+      return toast.error(`Please enter password`);
     }
 
     try {
@@ -28,18 +28,18 @@ function ResetPassword() {
       setLoading(false);
       
       if (res?.data && res?.data?.success === true) {
-        cogoToast.success(`${res?.data?.message || 'Password reset successful!'}`);
+        toast.success(`${res?.data?.message || 'Password reset successful!'}`);
         navigate("/admin_login");
         return;
       }
       if (res.data && res.data.success === false) {
-        cogoToast.error(`${res?.data?.message || 'Password reset failed'}`);
+        toast.error(`${res?.data?.message || 'Password reset failed'}`);
         return;
       }
     } catch (err) {
       setLoading(false);
       const errorMsg = err.response?.data?.message || 'Something went wrong. Please try again.';
-      cogoToast.error(errorMsg);
+      toast.error(errorMsg);
     }
   };
 

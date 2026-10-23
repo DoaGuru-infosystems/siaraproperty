@@ -25,6 +25,8 @@ import ResetPassword from './pages/ResetPassword';
 import AllBlogs from './components/AllBlogs';
 import AddBlog from './components/AddBlog';
 import EditBlog from './components/EditBlog';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -33,6 +35,7 @@ function App() {
   const {currentAdmin} = useSelector((state) => state.admin)
   return (
     <>
+     <ToastContainer position="top-right" autoClose={3000} />
      <div className="" style={{overflowX:"hidden"}}>
      
       <Routes>

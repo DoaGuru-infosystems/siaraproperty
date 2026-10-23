@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NavbarAd from '../components/NavbarAd';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 
 function ForgotPassword() {
@@ -18,7 +18,7 @@ function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-      return cogoToast.error(`Please enter email`);
+      return toast.error(`Please enter email`);
     }
 
     try {
@@ -27,18 +27,18 @@ function ForgotPassword() {
       setLoading(false);
       
       if (res?.data && res?.data?.success === true) {
-        cogoToast.success(`${res?.data?.message || 'Reset link sent successfully!'}`);
+        toast.success(`${res?.data?.message || 'Reset link sent successfully!'}`);
         navigate("/admin_login");
         return;
       }
       if (res.data && res.data.success === false) {
-        cogoToast.error(`${res?.data?.message || 'Request failed'}`);
+        toast.error(`${res?.data?.message || 'Request failed'}`);
         return;
       }
     } catch (err) {
       setLoading(false);
       const errorMsg = err.response?.data?.message || 'Something went wrong. Please try again.';
-      cogoToast.error(errorMsg);
+      toast.error(errorMsg);
     }
   };
 

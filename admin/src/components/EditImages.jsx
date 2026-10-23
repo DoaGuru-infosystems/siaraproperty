@@ -13,7 +13,7 @@ import NavbarAd from "./NavbarAd";
 import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
 import { useDispatch, useSelector } from "react-redux";
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 
 const EditImages = () => {
@@ -57,16 +57,16 @@ const EditImages = () => {
                 }
             });
             if(response?.data.success){
-                cogoToast.success(`${response?.data.message}`)
+                toast.success(`${response?.data.message}`)
                 setRefresh((prevRefresh) => !prevRefresh); // Trigger refresh after successful deletion
             }
             else{
-                cogoToast.error(`${response?.data.message}`)
+                toast.error(`${response?.data.message}`)
             }
             
           } catch (error) {
             console.error('Error ', error);
-            cogoToast.error(`${error?.response?.data.message}`)
+            toast.error(`${error?.response?.data.message}`)
             
           }
     }

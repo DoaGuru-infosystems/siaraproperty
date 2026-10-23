@@ -9,7 +9,7 @@ import SiderbarMob from '../SiderbarMob';
 import NavbarAd from '../NavbarAd';
 import axios from 'axios';
 import moment from "moment";
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 import { BASE_URL } from '../../config';
 
@@ -60,13 +60,13 @@ function  Contact_User() {
 
         console.log(res);
         if(res?.data.success){
-         cogoToast.success(res?.data?.message);
+         toast.success(res?.data?.message);
              // Update state to remove the deleted user without a page reload
       setUser((prevUsers) => prevUsers.filter((user) => user.id !== id));
         }
         else{
          console.log(res?.error)
-         cogoToast.error(res?.data?.message || "Something went wrong")
+         toast.error(res?.data?.message || "Something went wrong")
         }
       }
       catch(err){

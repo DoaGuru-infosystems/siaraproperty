@@ -4,7 +4,7 @@ import NavbarAd from './NavbarAd';
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -66,11 +66,11 @@ export default function AddBlog() {
             quill.insertEmbed(range.index, 'image', url);
             quill.setSelection(range.index + 1);
           } else {
-            cogoToast.error('Failed to upload image');
+            toast.error('Failed to upload image');
           }
         } catch (error) {
           console.error('Image upload failed', error);
-          cogoToast.error('Image upload failed');
+          toast.error('Image upload failed');
         }
       }
     };
@@ -103,7 +103,7 @@ export default function AddBlog() {
     }
     
     if (!formData.title || isDescriptionEmpty || !image) {
-      cogoToast.warn('Please fill in Title, Description, and select a Banner Image.');
+      toast.warn('Please fill in Title, Description, and select a Banner Image.');
       return;
     }
 
@@ -124,14 +124,14 @@ export default function AddBlog() {
       });
 
       if (response.data.success) {
-        cogoToast.success('Blog added successfully!');
+        toast.success('Blog added successfully!');
         navigate('/admin/all-blogs');
       } else {
-        cogoToast.error(response.data.error || 'Failed to add blog');
+        toast.error(response.data.error || 'Failed to add blog');
       }
     } catch (error) {
       console.error(error);
-      cogoToast.error(error.response?.data?.error || 'An error occurred while adding the blog');
+      toast.error(error.response?.data?.error || 'An error occurred while adding the blog');
     } finally {
       setLoading(false);
     }

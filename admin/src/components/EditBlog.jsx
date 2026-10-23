@@ -4,7 +4,7 @@ import NavbarAd from './NavbarAd';
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -43,12 +43,12 @@ export default function EditBlog() {
           });
           setCurrentImage(blog.image);
         } else {
-          cogoToast.error('Blog not found');
+          toast.error('Blog not found');
           navigate('/admin/all-blogs');
         }
       } catch (error) {
         console.error('Error fetching blog:', error);
-        cogoToast.error('Failed to load blog data');
+        toast.error('Failed to load blog data');
         navigate('/admin/all-blogs');
       } finally {
         setLoading(false);
@@ -100,11 +100,11 @@ export default function EditBlog() {
             quill.insertEmbed(range.index, 'image', url);
             quill.setSelection(range.index + 1);
           } else {
-            cogoToast.error('Failed to upload image');
+            toast.error('Failed to upload image');
           }
         } catch (error) {
           console.error('Image upload failed', error);
-          cogoToast.error('Image upload failed');
+          toast.error('Image upload failed');
         }
       }
     };
@@ -136,7 +136,7 @@ export default function EditBlog() {
     }
     
     if (!formData.title || isDescriptionEmpty) {
-      cogoToast.warn('Please fill in Title and Description.');
+      toast.warn('Please fill in Title and Description.');
       return;
     }
 
@@ -159,14 +159,14 @@ export default function EditBlog() {
       });
 
       if (response.data.success) {
-        cogoToast.success('Blog updated successfully!');
+        toast.success('Blog updated successfully!');
         navigate('/admin/all-blogs');
       } else {
-        cogoToast.error(response.data.error || 'Failed to update blog');
+        toast.error(response.data.error || 'Failed to update blog');
       }
     } catch (error) {
       console.error(error);
-      cogoToast.error(error.response?.data?.error || 'An error occurred while updating the blog');
+      toast.error(error.response?.data?.error || 'An error occurred while updating the blog');
     } finally {
       setSubmitting(false);
     }

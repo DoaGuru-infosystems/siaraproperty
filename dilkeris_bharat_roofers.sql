@@ -71,6 +71,22 @@ INSERT INTO `contacted_user` (`id`, `name`, `email`, `phone`, `message`, `create
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `popup_leads`
+--
+
+CREATE TABLE `popup_leads` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `property_type` varchar(100) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `intrestedusers`
 --
 
@@ -356,6 +372,12 @@ ALTER TABLE `contacted_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `popup_leads`
+--
+ALTER TABLE `popup_leads`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `intrestedusers`
 --
 ALTER TABLE `intrestedusers`
@@ -400,6 +422,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `contacted_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `popup_leads`
+--
+ALTER TABLE `popup_leads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `intrestedusers`

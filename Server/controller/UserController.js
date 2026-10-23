@@ -3,9 +3,9 @@ const { db } = require("../db");
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
-const JWT = require('jsonwebtoken');
 dotenv.config();
-const { sendEmail } = require("./sendEmail");
+const JWT = require('jsonwebtoken');
+const { sendEmail, sendPopupLeadNotification } = require("./sendEmail");
 
 const userRegistration = (req, res) => {
   try {
@@ -256,6 +256,69 @@ const deleteContactedUser = (req, res) => {
         res.status(200).json({ success: true, message: 'User deleted successfully' });
       } else {
         res.status(404).json({ success: false, error: 'User not found', message: 'User not found' });
+      }
+    }
+  });
+};
+
+const addPopupLead = (req, res) => {
+  const { name, phone, email, propertyType, message } = req.body;
+  const propType = propertyType || "General Enquiry";
+  const userEmail = email && email.trim() ? email.trim() : null;
+  const userMessage = message && message.trim() ? message.trim() : "";
+
+  if (!name || !name.trim() || !phone || !phone.trim()) {
+    return res.status(400).json({ success: false, message: "Name and phone number are required" });
+  }
+
+  const sql = 'INSERT INTO popup_leads (name, phone, email, property_type, message) VALUES (?, ?, ?, ?, ?)';
+
+  db.query(sql, [name.trim(), phone.trim(), userEmail, propType, userMessage], (err, result) => {
+    if (err) {
+      console.error('Error inserting popup lead into MySQL:', err);
+      return res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Failed to save lead' });
+    }
+
+    // Send email notification to admin via sendEmail controller
+    sendPopupLeadNotification({
+      name: name.trim(),
+      phone: phone.trim(),
+      email: userEmail,
+      propertyType: propType,
+      message: userMessage,
+    }).catch(mailErr => console.error("Error sending popup lead email notification:", mailErr));
+
+    res.status(200).json({ success: true, message: "Enquiry received successfully" });
+  });
+};
+
+const getPopupLeads = (req, res) => {
+  const sql = 'SELECT * FROM popup_leads ORDER BY id DESC';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving popup leads from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      res.status(200).json({ success: true, data: result || [] });
+    }
+  });
+};
+
+const deletePopupLead = (req, res) => {
+  const leadId = req.params.leadId;
+
+  const sql = 'DELETE FROM popup_leads WHERE id = ?';
+
+  db.query(sql, [leadId], (err, result) => {
+    if (err) {
+      console.error('Error deleting popup lead from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.affectedRows > 0) {
+        res.status(200).json({ success: true, message: 'Popup lead deleted successfully' });
+      } else {
+        res.status(404).json({ success: false, error: 'Lead not found', message: 'Lead not found' });
       }
     }
   });
@@ -568,5 +631,8 @@ module.exports = {
   adminResetPassword,
   deleteContactedUser,
   deleteIntrestedUser,
-  deleteRegisteredUser
+  deleteRegisteredUser,
+  addPopupLead,
+  getPopupLeads,
+  deletePopupLead
 };

@@ -16,7 +16,8 @@ app.use(cors({
   origin: [
     "https://siaraproperties.com",
     "https://siarapropertyadmin.siarasystems.com",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:3001"
   ],
   credentials: true,
 }));

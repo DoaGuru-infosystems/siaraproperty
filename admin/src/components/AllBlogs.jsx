@@ -4,7 +4,7 @@ import NavbarAd from './NavbarAd';
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ export default function AllBlogs() {
       }
     } catch (error) {
       console.error('Error fetching blogs:', error);
-      cogoToast.error('Failed to load blogs');
+      toast.error('Failed to load blogs');
     } finally {
       setLoading(false);
     }
@@ -44,14 +44,14 @@ export default function AllBlogs() {
       });
 
       if (response.data.success) {
-        cogoToast.success('Blog deleted successfully');
+        toast.success('Blog deleted successfully');
         setBlogs(blogs.filter((blog) => blog.id !== id));
       } else {
-        cogoToast.error(response.data.error || 'Failed to delete blog');
+        toast.error(response.data.error || 'Failed to delete blog');
       }
     } catch (error) {
       console.error('Delete error:', error);
-      cogoToast.error(error.response?.data?.error || 'An error occurred while deleting');
+      toast.error(error.response?.data?.error || 'An error occurred while deleting');
     }
   };
 

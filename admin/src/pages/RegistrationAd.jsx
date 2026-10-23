@@ -2,7 +2,7 @@
 // import styled from 'styled-components'
 // import NavbarAd from '../components/NavbarAd';
 // import axios from 'axios';
-// import cogoToast from 'cogo-toast';
+// import { toast } from 'react-toastify';
 // import  { useState } from "react";
 // import { Link, useNavigate } from 'react-router-dom';
 
@@ -27,14 +27,14 @@
 //       const res  = await axios.post("", formData)
 //       console.log(res)
 //       if(res.data.success === true){
-//         cogoToast.success(`${res?.data.message}`)
+//         toast.success(`${res?.data.message}`)
 //         navigate("/admin_login");
 //       }
     
 //     }
 //     catch (error) {
 //       console.log(error.response?.data.error); // 
-//       cogoToast.error(`${error.response?.data.error}`);
+//       toast.error(`${error.response?.data.error}`);
 //     }
 
 //   }

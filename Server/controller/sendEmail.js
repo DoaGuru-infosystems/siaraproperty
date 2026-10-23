@@ -73,7 +73,74 @@ const sendEmailController = async (req, res) => {
   }
 };
 
+/**
+ * Sends notification to Admin when a new popup enquiry is received
+ */
+const sendPopupLeadNotification = async ({ name, phone, email, propertyType, message }) => {
+  const adminEmail = process.env.EMAIL_USER || "doaguruinfosystems@gmail.com";
+  const emailSubject = "popup lead of siara propertys";
+  const propType = propertyType || "General Enquiry";
+  const userEmail = email && email.trim() ? email.trim() : null;
+  const userMessage = message && message.trim() ? message.trim() : "";
+
+  const emailHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0d8cc; border-radius: 10px; background-color: #fdfcf9;">
+      <div style="text-align: center; border-bottom: 2px solid #b8895a; padding-bottom: 15px; margin-bottom: 20px;">
+        <h2 style="color: #2c2c28; margin: 0;">🏠 New Popup Lead Received</h2>
+        <p style="color: #b8895a; margin: 5px 0 0; font-weight: bold; letter-spacing: 1px;">SIARA PROPERTIES</p>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+        <tr>
+          <td style="padding: 10px 0; font-weight: bold; color: #555; width: 35%;">Customer Name:</td>
+          <td style="padding: 10px 0; color: #222; font-weight: bold;">${name}</td>
+        </tr>
+        <tr style="background-color: #f6f3ed;">
+          <td style="padding: 10px; font-weight: bold; color: #555;">Mobile Number:</td>
+          <td style="padding: 10px; color: #b8895a; font-weight: bold; font-size: 16px;">
+            <a href="tel:+91${phone}" style="color: #b8895a; text-decoration: none;">+91 ${phone}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0; font-weight: bold; color: #555;">Email Address:</td>
+          <td style="padding: 10px 0; color: #222;">${userEmail ? `<a href="mailto:${userEmail}">${userEmail}</a>` : '<span style="color: #999;">Not provided</span>'}</td>
+        </tr>
+        <tr style="background-color: #f6f3ed;">
+          <td style="padding: 10px; font-weight: bold; color: #555;">Interested In:</td>
+          <td style="padding: 10px; color: #222; font-weight: bold;">${propType}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0; font-weight: bold; color: #555;">Requirement / Locality:</td>
+          <td style="padding: 10px 0; color: #333;">${userMessage || 'Interested in property consultation in Jabalpur.'}</td>
+        </tr>
+        <tr style="background-color: #f6f3ed;">
+          <td style="padding: 10px; font-weight: bold; color: #555;">Date & Time:</td>
+          <td style="padding: 10px; color: #666;">${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</td>
+        </tr>
+      </table>
+      <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #e0d8cc; font-size: 12px; color: #888; text-align: center;">
+        This is an automated popup lead notification from Siara Properties website.
+      </div>
+    </div>
+  `;
+
+  const emailText = `New Popup Lead received on Siara Properties:
+Name: ${name}
+Phone: +91 ${phone}
+Email: ${userEmail || 'Not provided'}
+Interested In: ${propType}
+Message: ${userMessage || 'N/A'}
+Date: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+
+  return sendEmail({
+    to: adminEmail,
+    subject: emailSubject,
+    text: emailText,
+    html: emailHtml,
+  });
+};
+
 module.exports = {
   sendEmail,
   sendEmailController,
+  sendPopupLeadNotification,
 };

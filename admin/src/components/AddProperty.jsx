@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import NavbarAd from './NavbarAd';
@@ -117,7 +117,7 @@ function AddProperty() {
                 // Handle success, maybe redirect or show a success message
                 console.log('Form submitted successfully');
                 console.log(response);
-                cogoToast.success(`${responseData.message}`);
+                toast.success(`${responseData.message}`);
                 setTimeout(()=>{
                     navigate(`/admin/add-property/add-images/${responseData.data.id}`);
                 },2000)
@@ -126,7 +126,7 @@ function AddProperty() {
                 
 
                 
-                // cogoToast.success(`${res.data.message}`);
+                // toast.success(`${res.data.message}`);
 
                 // e.target.reset();
 
@@ -136,11 +136,11 @@ function AddProperty() {
                 // Handle errors, maybe show an error message
                 console.error('Failed to submit form');
                 if(responseData.message == "Unauthorized - Invalid token"){
-                    cogoToast.error(`${responseData.message} ! Please Login Again`);
+                    toast.error(`${responseData.message} ! Please Login Again`);
                     
                 }
                 else{
-                    cogoToast.error(`${responseData.message}`);
+                    toast.error(`${responseData.message}`);
                 } 
                 
                 

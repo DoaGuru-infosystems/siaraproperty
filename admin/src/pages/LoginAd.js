@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import NavbarAd from '../components/NavbarAd';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { BASE_URL } from '../config';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInFailure, signInStart, signInSuccess } from "../redux/admin/adminSlice";
@@ -21,7 +21,7 @@ function LoginAd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      cogoToast.warn('Please fill in all fields');
+      toast.warn('Please fill in all fields');
       return;
     }
 
@@ -30,19 +30,19 @@ function LoginAd() {
       const res = await axios.post(`${BASE_URL}/api/property/admin-login`, formData);
       if (res.data && res.data.success === true) {
         dispatch(signInSuccess(res.data));
-        cogoToast.success(res.data.message || 'Login successful!');
+        toast.success(res.data.message || 'Login successful!');
         navigate("/");
         return;
       }
       if (res.data && res.data.success === false) {
         dispatch(signInFailure(res.data));
-        cogoToast.error(res.data.message || 'Login failed');
+        toast.error(res.data.message || 'Login failed');
         return;
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || 'Something went wrong. Please try again.';
       dispatch(signInFailure(err.response?.data || { message: errorMsg }));
-      cogoToast.error(errorMsg);
+      toast.error(errorMsg);
     }
   };
 

@@ -16,7 +16,7 @@ import NavbarAd from "./NavbarAd";
 import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
 import { useSelector } from "react-redux";
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import { FaLocationDot } from "react-icons/fa6";
 import moment from "moment";
 import { BASE_URL } from "../config";
@@ -85,18 +85,18 @@ export default function SoldProperties() {
 
       if(response.data.success){
         
-        cogoToast.success(`${response.data.message}`);
+        toast.success(`${response.data.message}`);
         // Update the refresh state to trigger useEffect
         setRefresh((prevRefresh) => !prevRefresh);
       }
       else{
-        cogoToast.error(`${response.data.message}`);
+        toast.error(`${response.data.message}`);
       }
       
 
     }
     catch(err){
-      cogoToast.error(`${err.message}`);
+      toast.error(`${err.message}`);
     }
   }
 
@@ -121,18 +121,18 @@ export default function SoldProperties() {
 
       if(response?.data.success){
         
-        cogoToast.success(`${response?.data.message}`);
+        toast.success(`${response?.data.message}`);
         // Update the refresh state to trigger useEffect
         setRefresh((prevRefresh) => !prevRefresh);
       }
       else{
-        cogoToast.error(`${response?.data.message}`);
+        toast.error(`${response?.data.message}`);
       }
       
 
     }
     catch(err){
-      cogoToast.error(`${err.message}`);
+      toast.error(`${err.message}`);
     }
   }
 
@@ -158,7 +158,7 @@ export default function SoldProperties() {
       });
 
       if(response?.data.success){
-      cogoToast.success(`${response?.data.message}`);
+      toast.success(`${response?.data.message}`);
       setRefresh((prevRefresh) => !prevRefresh);
       }
       
@@ -166,7 +166,7 @@ export default function SoldProperties() {
       // Handle success (e.g., show a success message)
     } catch (error) {
       console.error('Error add suggestrd property', error);
-      cogoToast.error(`Error add suggestrd property: ${error?.response?.data.message}`);
+      toast.error(`Error add suggestrd property: ${error?.response?.data.message}`);
       // Handle error (e.g., show an error message to the user)
     }
   };
@@ -190,20 +190,20 @@ export default function SoldProperties() {
 
       if(response?.data.success){
         
-        cogoToast.success(`${response?.data.message}`);
+        toast.success(`${response?.data.message}`);
         // Update the refresh state to trigger useEffect
         
 setRefresh((prevRefresh) => !prevRefresh);
 
       }
       else{
-        cogoToast.error(`${response?.data.message}`);
+        toast.error(`${response?.data.message}`);
       }
       
 
     }
     catch(err){
-      cogoToast.error(`${err?.message}`);
+      toast.error(`${err?.message}`);
     }
   }
 

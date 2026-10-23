@@ -44,6 +44,9 @@ const {
   deleteContactedUser,
   deleteIntrestedUser,
   deleteRegisteredUser,
+  addPopupLead,
+  getPopupLeads,
+  deletePopupLead,
 } = require("../controller/UserController.js");
 const { sendEmailController } = require("../controller/sendEmail.js");
 const {
@@ -104,6 +107,9 @@ router.post("/admin-login", adminLoginController);
 router.post("/admin-registration", adminRegistration);
 router.post("/interestedUser", interestedUser);
 router.post("/contacted", contactedUser);
+router.post("/popup-lead", addPopupLead);
+router.get("/getPopupLeads", getPopupLeads);
+router.delete("/deletePopupLead/:leadId", deletePopupLead);
 router.get("/getInterestedUsers", getInterestedUsers);
 router.get("/getRegisterUsers", getRegisterUsers);
 router.get("/getContactedUsers", getContactedUsers);

@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import NavbarAd from "../components/NavbarAd";
 import { Card } from "react-bootstrap";
 import Cards from "../components/Cards";
+import PopupLeadsTable from "../components/PopupLeadsTable";
 import Chart from "../components/Chart";
 import BarChart from "../components/BarChart";
 import SiderbarMob from "../components/SiderbarMob";
@@ -31,6 +32,9 @@ function AdminHome() {
             </div>
             <div className="col-lg-12">
               <Cards />
+            </div>
+            <div className="col-lg-12">
+              <PopupLeadsTable />
             </div>
           </div>
         </div>

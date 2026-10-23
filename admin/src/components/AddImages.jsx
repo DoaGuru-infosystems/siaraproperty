@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import {useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
+import { toast } from 'react-toastify';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from './Sidebar';
@@ -34,11 +34,11 @@ function AddImages() {
   
     try {
       if (!property) {
-        cogoToast.error('Property ID is required');
+        toast.error('Property ID is required');
         return
       }
       if(!selectedFiles){
-        cogoToast.error('Images is required');
+        toast.error('Images is required');
         return
         
       }
@@ -65,11 +65,11 @@ function AddImages() {
       if(response?.data.success){
         
         console.log('Upload successful:', response?.data);
-        cogoToast.success(`${response?.data.message}`);
+        toast.success(`${response?.data.message}`);
       navigate(`/property/edit-property-images/${propertyId}`)
       }
       else{
-        cogoToast.error(`${response?.data.message}`);
+        toast.error(`${response?.data.message}`);
       }
       
       
@@ -78,8 +78,8 @@ function AddImages() {
     } catch (error) {
       setLoading(false)
       console.error('Error uploading images:', error);
-      cogoToast.error(`Error uploading images: ${error}`);
-      // cogoToast.error(`Error uploading images: ${error.response?.data.message}`);
+      toast.error(`Error uploading images: ${error}`);
+      // toast.error(`Error uploading images: ${error.response?.data.message}`);
       // Handle error (e.g., show an error message to the user)
     }
   };
