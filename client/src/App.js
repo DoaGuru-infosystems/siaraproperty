@@ -29,6 +29,7 @@ import AboutPageNew from "./pages/AboutPageNew";
 import ContactPageNew from "./pages/ContactPageNew";
 import ServicesPage from "./pages/ServicesPage";
 import AllProperties from "./pages/AllProperties";
+import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/UpdatedCode/Navbar";
 import FloatingContactButtons from "./components/FloatingContactButtons";
@@ -70,6 +71,7 @@ function App() {
             element={<ResetPassword />}
           />
           <Route path="/contact" element={<ContactPageNew />} />
+          <Route path="/gallery" element={<Gallery />} />
           
           {/* Dynamic Blogs Routes */}
           <Route path="/blog" element={<Blogs />} />

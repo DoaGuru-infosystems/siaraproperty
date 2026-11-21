@@ -31,6 +31,9 @@ import WelcomeSection from "../components/UpdatedCode/WelcomeSection";
 import PropertyTypes from "../components/UpdatedCode/PropertyTypes";
 import StatsStrip from "../components/UpdatedCode/StatsStrip";
 import PropertySection from "../components/UpdatedCode/PropertySection";
+import SeoFaqSection, {
+  homePageFaqs,
+} from "../components/SeoFaqSection";
 // import Footer from "../components/UpdatedCode/Footer";
 
 import axios from "axios";
@@ -120,21 +123,19 @@ export default function HomePageNew() {
   return (
     <Wrapper>
       <Helmet>
-        <title>
-          Property Dealer in Jabalpur | Buy, Sell & Rent - Siara Properties
-        </title>
+        <title>Best property in Jabalpur | Best Real Estate Agents - Siara Properties</title>
         <meta
           name="description"
-          content="Siara Properties – top property dealer in Jabalpur for residential & commercial properties. Genuine listings, best prices, trusted service. Enquire now!"
+          content="Looking for the best property in Jabalpur? Siara Properties provides verified residential plots, luxury flats, duplexes & commercial spaces across Jabalpur. 100% legal verification."
         />
         <link rel="canonical" href="https://siaraproperties.com/" />
         <meta
           property="og:title"
-          content="Property Dealer in Jabalpur | Buy, Sell & Rent - Siara Properties"
+          content="Best property in Jabalpur | Best Real Estate Agents - Siara Properties"
         />
         <meta
           property="og:description"
-          content="Siara Properties – top property dealer in Jabalpur for residential & commercial properties. Genuine listings, best prices, trusted service. Enquire now!"
+          content="Looking for the best property in Jabalpur? Siara Properties provides verified residential plots, luxury flats, duplexes & commercial spaces across Jabalpur. 100% legal verification."
         />
         <meta property="og:url" content="https://siaraproperties.com/" />
       </Helmet>
@@ -228,6 +229,11 @@ export default function HomePageNew() {
         properties={luxuryHouse}
         images={images}
         emptyText="No luxury houses available at the moment."
+      />
+
+      <SeoFaqSection
+        title="Frequently Asked Questions About Buying Property in Jabalpur"
+        faqs={homePageFaqs}
       />
 
       {/* ── FOOTER ──

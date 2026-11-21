@@ -72,6 +72,9 @@ export default function Navbar() {
             <Link to="/blog">Blog</Link>
           </li>
           <li>
+            <Link to="/gallery">Gallery</Link>
+          </li>
+          <li>
             <Link to="/contact">Contact</Link>
           </li>
         </ul>
@@ -129,6 +132,9 @@ export default function Navbar() {
             </Link>
             <Link to="/blog" onClick={() => setMenuOpen(false)}>
               Blog
+            </Link>
+            <Link to="/gallery" onClick={() => setMenuOpen(false)}>
+              Gallery
             </Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)}>
               Contact

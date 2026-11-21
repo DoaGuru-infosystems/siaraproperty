@@ -96,7 +96,7 @@ export default function SingleBlogDynamic() {
     );
   }
 
-  const seoTitle = blog.meta_title?.trim() || `${blog.title} - Siara Properties`;
+  const seoTitle = blog.title?.trim() || "Siara Properties";
   const descriptionText = blog.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   const seoDescription = blog.meta_description?.trim() || descriptionText.slice(0, 160) || blog.title;
   const seoCanonicalUrl = blog.canonical_url?.trim() || canonicalUrl;

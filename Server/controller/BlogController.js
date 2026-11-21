@@ -4,39 +4,41 @@ const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 
-const parseSeoMetadata = (body) => {
-    const fields = {
-        canonical_url: { maxLength: 2048, label: 'Canonical URL' },
-        meta_title: { maxLength: 255, label: 'Meta title' },
-        meta_description: { maxLength: 320, label: 'Meta description' }
-    };
-    const metadata = {};
-
-    for (const [field, { maxLength, label }] of Object.entries(fields)) {
-        const value = body[field];
-        if (value !== undefined && value !== null && typeof value !== 'string') {
-            return { error: `${label} must be text` };
-        }
-
-        const normalizedValue = typeof value === 'string' ? value.trim() : '';
-        if (normalizedValue.length > maxLength) {
-            return { error: `${label} must be ${maxLength} characters or fewer` };
-        }
-        metadata[field] = normalizedValue || null;
+const parseSeoMetadata = (body = {}) => {
+    const value = body.meta_description;
+    if (value !== undefined && value !== null && typeof value !== 'string') {
+        return { error: 'Meta description must be text' };
     }
 
-    if (metadata.canonical_url) {
-        try {
-            const canonicalUrl = new URL(metadata.canonical_url);
-            if (!['http:', 'https:'].includes(canonicalUrl.protocol)) {
-                return { error: 'Canonical URL must use HTTP or HTTPS' };
-            }
-        } catch (error) {
-            return { error: 'Canonical URL must be a valid absolute URL' };
-        }
+    const metaDescription = typeof value === 'string' ? value.trim() : '';
+    if (metaDescription.length > 320) {
+        return { error: 'Meta description must be 320 characters or fewer' };
     }
 
-    return { metadata };
+    return { metadata: { meta_description: metaDescription || null } };
+};
+
+const generateBlogSlug = (title) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+const generateBlogCanonicalUrl = (slug) => {
+    const clientUrl = process.env.CLIENT_URL?.trim();
+    if (!clientUrl) {
+        throw new Error('CLIENT_URL must be configured to generate blog canonical URLs');
+    }
+
+    let baseUrl;
+    try {
+        baseUrl = new URL(clientUrl);
+    } catch (error) {
+        throw new Error('CLIENT_URL must be a valid absolute URL');
+    }
+
+    if (!['http:', 'https:'].includes(baseUrl.protocol)) {
+        throw new Error('CLIENT_URL must use HTTP or HTTPS');
+    }
+
+    return new URL(`/blog/${slug}`, baseUrl.origin).toString();
 };
 
 // Add Blog
@@ -44,8 +46,12 @@ const addBlog = (req, res) => {
     try {
         const { title, description, category, author } = req.body;
         
-        if (!title || !description) {
+        const normalizedTitle = typeof title === 'string' ? title.trim() : '';
+        if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
             return res.status(400).json({ success: false, error: 'Title and description are required' });
+        }
+        if (normalizedTitle.length > 255) {
+            return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
         const seoResult = parseSeoMetadata(req.body);
@@ -53,8 +59,11 @@ const addBlog = (req, res) => {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
 
-        // 1. SECURE & CLEAN SLUG GENERATION
-        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const slug = generateBlogSlug(normalizedTitle);
+        if (!slug) {
+            return res.status(400).json({ success: false, error: 'Title must contain letters or numbers to generate a blog URL' });
+        }
+        const canonicalUrl = generateBlogCanonicalUrl(slug);
         
         // 2. DYNAMIC UPLOADS STRUCTURE (Store ONLY filename in DB)
         const image = req.file ? req.file.filename : null;
@@ -67,14 +76,14 @@ const addBlog = (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
-            title, 
+            normalizedTitle,
             slug, 
             description, // 3. RICH TEXT (HTML) RENDERING COMPATIBILITY (Saved as LONGTEXT string)
             image, 
             author || 'Siara Properties', 
             category || 'Real Estate',
-            seoResult.metadata.canonical_url,
-            seoResult.metadata.meta_title,
+            canonicalUrl,
+            normalizedTitle,
             seoResult.metadata.meta_description
         ];
 
@@ -139,6 +148,13 @@ const getBlogBySlug = (req, res) => {
                 });
 
                 const blog = results[0];
+                try {
+                    blog.canonical_url = generateBlogCanonicalUrl(blog.slug);
+                } catch (error) {
+                    console.error('Error generating blog canonical URL:', error);
+                    return res.status(500).json({ success: false, error: 'Blog URL configuration error', message: error.message });
+                }
+                blog.meta_title = blog.title;
                 // 2. DYNAMIC UPLOADS STRUCTURE & IMAGE URLS
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
 
@@ -213,6 +229,13 @@ const getBlogById = (req, res) => {
 
             if (results.length > 0) {
                 const blog = results[0];
+                try {
+                    blog.canonical_url = generateBlogCanonicalUrl(blog.slug);
+                } catch (error) {
+                    console.error('Error generating blog canonical URL:', error);
+                    return res.status(500).json({ success: false, error: 'Blog URL configuration error', message: error.message });
+                }
+                blog.meta_title = blog.title;
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
                 res.status(200).json({ success: true, data: blog, message: 'Blog fetched successfully' });
             } else {
@@ -230,9 +253,13 @@ const editBlog = (req, res) => {
     try {
         const blogId = req.params.id;
         const { title, description, category, author } = req.body;
-        
-        if (!title || !description) {
+        const normalizedTitle = typeof title === 'string' ? title.trim() : '';
+
+        if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
             return res.status(400).json({ success: false, error: 'Title and description are required' });
+        }
+        if (normalizedTitle.length > 255) {
+            return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
         const seoResult = parseSeoMetadata(req.body);
@@ -240,20 +267,31 @@ const editBlog = (req, res) => {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
 
-        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const slug = generateBlogSlug(normalizedTitle);
+        if (!slug) {
+            return res.status(400).json({ success: false, error: 'Title must contain letters or numbers to generate a blog URL' });
+        }
+        const canonicalUrl = generateBlogCanonicalUrl(slug);
         const newImage = req.file ? req.file.filename : null;
 
         let updateQuery = `
             UPDATE blogs 
-            SET title = ?, slug = ?, description = ?, author = ?, category = ?
+            SET title = ?, slug = ?, description = ?, author = ?, category = ?,
+                canonical_url = ?, meta_title = ?
         `;
-        let values = [title, slug, description, author || 'Siara Properties', category || 'Real Estate'];
+        let values = [
+            normalizedTitle,
+            slug,
+            description,
+            author || 'Siara Properties',
+            category || 'Real Estate',
+            canonicalUrl,
+            normalizedTitle
+        ];
 
-        for (const field of ['canonical_url', 'meta_title', 'meta_description']) {
-            if (Object.prototype.hasOwnProperty.call(req.body, field)) {
-                updateQuery += `, ${field} = ?`;
-                values.push(seoResult.metadata[field]);
-            }
+        if (Object.prototype.hasOwnProperty.call(req.body, 'meta_description')) {
+            updateQuery += `, meta_description = ?`;
+            values.push(seoResult.metadata.meta_description);
         }
 
         if (newImage) {

@@ -144,6 +144,12 @@ useEffect(() => {
                 </div>
             </li>
             <li>
+              <Link to="/admin/gallery" className="nav-link px-0 align-middle d-flex gap-2 text-decoration-none text-black">
+                <i className="fs-4 bi bi-images"></i>
+                <span className="d-sm-inline mt-2" id="navleft">Gallery</span>
+              </Link>
+            </li>
+            <li>
             
                 <button type="button" className="nav-link px-0 align-middle d-flex gap-2 border-0 bg-transparent" onClick={handleLogout}>
                 <i className="fs-4 bi bi-power"></i>

@@ -156,8 +156,21 @@ export default function AllProperties() {
   return (
     <PageWrapper>
       <Helmet>
-        <title>All Properties | Siara Properties</title>
+        <title>Siara Properties | Seller of Residential and Commercial Properties</title>
+        <meta
+          name="description"
+          content="Siara Properties | Real Estate Consultant in Jabalpur | Seller of premium residential and commercial properties, plots, and flats in Jabalpur"
+        />
         <link rel="canonical" href={canonicalUrl} />
+        <meta
+          property="og:title"
+          content="Siara Properties | Seller of Residential and Commercial Properties"
+        />
+        <meta
+          property="og:description"
+          content="Siara Properties | Real Estate Consultant in Jabalpur | Seller of premium residential and commercial properties, plots, and flats in Jabalpur"
+        />
+        <meta property="og:url" content={canonicalUrl} />
       </Helmet>
 
       {/* ── HEADER SECTION ── */}

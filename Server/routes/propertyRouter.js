@@ -58,8 +58,33 @@ const {
   deleteBlog,
   uploadBlogImage,
 } = require("../controller/BlogController.js");
+const {
+  addGalleryImage,
+  getGalleryImages,
+  updateGalleryImage,
+  deleteGalleryImage,
+} = require("../controller/GalleryController.js");
 
-const { upload, uploadBlog } = require("../utils/multerupload.js");
+const { upload, uploadBlog, uploadGallery } = require("../utils/multerupload.js");
+const multer = require("multer");
+
+const handleGalleryUpload = (req, res, next) => {
+  uploadGallery.single("image")(req, res, (error) => {
+    if (!error) return next();
+
+    console.error("Gallery image upload error:", error);
+    if (error.code === "LIMIT_FILE_SIZE") {
+      return res.status(413).json({ success: false, error: "Gallery images must be 10 MB or smaller" });
+    }
+
+    const isInvalidUpload =
+      error instanceof multer.MulterError ||
+      error.message.startsWith("Upload a JPG, PNG, WEBP, GIF, or AVIF image");
+    return res
+      .status(isInvalidUpload ? 400 : 500)
+      .json({ success: false, error: error.message });
+  });
+};
 
 router.post("/addproperty", authenticate, addProperty);
 router.put("/editproperty/:propertyId", authenticate, editProperty);
@@ -157,5 +182,10 @@ router.post(
   uploadBlogImage,
 );
 router.delete("/blogs/delete/:id", authenticate, deleteBlog);
+
+router.get("/gallery", getGalleryImages);
+router.post("/gallery", authenticate, handleGalleryUpload, addGalleryImage);
+router.put("/gallery/:id", authenticate, handleGalleryUpload, updateGalleryImage);
+router.delete("/gallery/:id", authenticate, deleteGalleryImage);
 
 module.exports = router;

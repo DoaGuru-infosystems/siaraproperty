@@ -9,7 +9,6 @@ import "react-multi-carousel/lib/styles.css";
 import { responsive } from "../responsive";
 import CarouselPlaceholder from "../CarouselPlaceholder";
 import { FaRupeeSign } from "react-icons/fa";
-import StickyNavbar from "../Navbar";
 
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
@@ -64,11 +63,6 @@ export default function ResaleProperty() {
       <Helmet>
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
-
-      <div className="nav1">
-        <StickyNavbar />
-      </div>
-      <div className="nav2"> </div>
 
       <div className="mb-4 mt-5 pt-5">
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
@@ -161,18 +155,6 @@ const Wrapper = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .nav1 {
-    display: block;
-    @media screen and (max-width: 1000px) {
-      display: none;
-    }
-  }
-  .nav2 {
-    display: none;
-    @media screen and (max-width: 1000px) {
-      display: block;
-    }
   }
   .post-heading {
     @media only screen and (max-width: 768px) {
