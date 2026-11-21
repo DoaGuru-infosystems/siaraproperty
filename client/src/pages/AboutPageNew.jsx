@@ -2,6 +2,9 @@ import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import rajeshImg from "../images/Artboard 1@3x.jpg.jpeg";
 import priyaImg from "../images/Artboard 2@3x.png";
+import SeoFaqSection, {
+  aboutPageFaqs,
+} from "../components/SeoFaqSection";
 /* ─── STYLE ─── */
 const css = `
   :root{
@@ -608,21 +611,19 @@ export default function AboutPageNew() {
   return (
     <>
       <Helmet>
-        <title>
-          About Siara Properties | Trusted Property Dealer in Jabalpur
-        </title>
+        <title>About Us | Premium Real Estate Property in Jabalpur | Siara Properties</title>
         <meta
           name="description"
-          content="Know more about Siara Properties – a trusted property dealer in Jabalpur offering honest service, local expertise & genuine real estate deals since day one."
+          content="Learn about Siara Properties, based in Jabalpur. It is a trusted real estate company known for selling premium residential homes, plots, flats, land, and properties designed for a modern lifestyle."
         />
         <link rel="canonical" href="https://siaraproperties.com/about" />
         <meta
           property="og:title"
-          content="About Siara Properties | Trusted Property Dealer in Jabalpur"
+          content="About Us | Premium Real Estate Property in Jabalpur | Siara Properties"
         />
         <meta
           property="og:description"
-          content="Know more about Siara Properties – a trusted property dealer in Jabalpur offering honest service, local expertise & genuine real estate deals since day one."
+          content="Learn about Siara Properties, based in Jabalpur. It is a trusted real estate company known for selling premium residential homes, plots, flats, land, and properties designed for a modern lifestyle."
         />
         <meta property="og:url" content="https://siaraproperties.com/about" />
       </Helmet>
@@ -882,6 +883,10 @@ export default function AboutPageNew() {
           />
         </div>
       </section> */}
+      <SeoFaqSection
+        title="Frequently Asked Questions About Siara Properties"
+        faqs={aboutPageFaqs}
+      />
       {/* CONTACT */}
       <section className="contact">
         <div className="contact-g">

@@ -9,7 +9,6 @@ import ContactUsModel from "./ContactUsModel";
 import RelatedProperty from "./RelatedProperty";
 import axios from "axios";
 import placeholder_img from "../images/placeholder-image.jpeg";
-import StickyNavbar from "../components/Navbar";
 
 import { BiCategoryAlt } from "react-icons/bi";
 
@@ -40,7 +39,6 @@ import { useLocation } from "react-router-dom";
 import { getAppUrl } from "../config/axios";
 
 function SingleProperty() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const { propertyId } = useParams();
   const [property, setProperty] = useState(null);
   const [propertyImages, setPropertyImages] = useState([]);
@@ -272,12 +270,6 @@ function SingleProperty() {
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
       <div>
-        <div className="nav1">
-          <StickyNavbar />
-        </div>
-        <div className="nav2">
-          {" "}
-        </div>
         {loading ? (
           // Loading...
           // placeholder when load the page
@@ -1110,18 +1102,6 @@ const Container = styled.div`
     color: #fff;
     cursor: pointer;
     font-size: 30px;
-  }
-  .nav1 {
-    display: block;
-    @media screen and (max-width: 1000px) {
-      display: none;
-    }
-  }
-  .nav2 {
-    display: none;
-    @media screen and (max-width: 1000px) {
-      display: block;
-    }
   }
   /* CSS Styles for Zooming */
   .zoomable-image {

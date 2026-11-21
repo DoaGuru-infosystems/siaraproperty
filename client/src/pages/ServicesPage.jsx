@@ -6,6 +6,9 @@ import axios from "axios";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SeoFaqSection, {
+  servicesPageFaqs,
+} from "../components/SeoFaqSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -699,6 +702,10 @@ export default function ServicesPage() {
           </CtaButton>
         </CtaContent>
       </CtaSection>
+      <SeoFaqSection
+        title="Frequently Asked Questions About Our Property Services"
+        faqs={servicesPageFaqs}
+      />
     </PageWrapper>
   );
 }
@@ -763,18 +770,18 @@ const BannerOverlay = styled.div`
   z-index: 1;
   background: linear-gradient(
     90deg,
-    rgba(20, 18, 14, 0.92) 0%,
-    rgba(20, 18, 14, 0.78) 35%,
-    rgba(20, 18, 14, 0.45) 65%,
-    rgba(20, 18, 14, 0.15) 100%
+    rgba(20, 18, 14, 0.78) 0%,
+    rgba(20, 18, 14, 0.62) 35%,
+    rgba(20, 18, 14, 0.36) 65%,
+    rgba(20, 18, 14, 0.12) 100%
   );
   pointer-events: none;
 
   @media (max-width: 768px) {
     background: linear-gradient(
       180deg,
-      rgba(20, 18, 14, 0.7) 0%,
-      rgba(20, 18, 14, 0.85) 100%
+      rgba(20, 18, 14, 0.62) 0%,
+      rgba(20, 18, 14, 0.72) 100%
     );
   }
 `;
@@ -811,6 +818,15 @@ const BannerTextSide = styled.div`
   flex-direction: column;
   align-items: flex-start;
   max-width: 620px;
+
+  > p:first-child {
+    color: #f0c27b;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
+
+    span {
+      background: currentColor;
+    }
+  }
 
   @media (max-width: 768px) {
     align-items: center;
@@ -869,24 +885,27 @@ const BannerTitle = styled.h1`
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(2.4rem, 5vw, 3.8rem);
   font-weight: 300;
-  color: #f5f0e8;
+  color: #fffdf8;
   line-height: 1.18;
   margin: 0 0 24px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
 `;
 
 const BannerTitleGold = styled.em`
-  color: ${GOLD};
+  color: #f0c27b;
   font-style: italic;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 `;
 
 const BannerSub = styled.p`
-  color: #b0aa9c;
-  font-size: 16px;
-  font-weight: 300;
+  color: #fffdf8;
+  font-size: 18px;
+  font-weight: 400;
   letter-spacing: 0.02em;
-  max-width: 460px;
+  max-width: 520px;
   margin: 0 0 36px;
-  line-height: 1.85;
+  line-height: 1.75;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);
 `;
 
 const CtaArrow = styled.span`

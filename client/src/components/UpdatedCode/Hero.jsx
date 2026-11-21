@@ -8,6 +8,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const TITLE_WORDS = ["Property", "Buying", "&", "Selling"];
+const TITLE_WORD_STARTS = [0, 8, 14, 15];
+
 export default function Hero() {
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
@@ -95,10 +98,23 @@ export default function Hero() {
           <span className="title-lead">Your Trusted Partner in</span>
           <br />
           <em className="title-highlight wavy-text">
-            {"Property Buying & Selling".split("").map((char, idx) => (
-              <span key={idx} style={{ animationDelay: `${idx * 0.08}s` }}>
-                {char === " " ? "\u00A0" : char}
-              </span>
+            {TITLE_WORDS.map((word, wordIndex) => (
+              <React.Fragment key={word}>
+                {wordIndex > 0 && " "}
+                <span className="title-word">
+                  {word.split("").map((char, charIndex) => (
+                    <span
+                      className="title-char"
+                      key={charIndex}
+                      style={{
+                        animationDelay: `${(TITLE_WORD_STARTS[wordIndex] + charIndex) * 0.08}s`,
+                      }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              </React.Fragment>
             ))}
           </em>
         </h1>
@@ -179,21 +195,28 @@ const HeroSection = styled.section`
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(44, 44, 40, 0.2) 0%,
-        rgba(44, 44, 40, 0.08) 30%,
-        rgba(250, 248, 243, 0.88) 75%,
-        rgba(250, 248, 243, 1) 100%
-      );
+      background:
+        radial-gradient(
+          ellipse at 25% 42%,
+          rgba(20, 18, 15, 0.48) 0%,
+          rgba(20, 18, 15, 0.3) 38%,
+          rgba(20, 18, 15, 0) 76%
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(44, 44, 40, 0.2) 0%,
+          rgba(44, 44, 40, 0.08) 30%,
+          rgba(250, 248, 243, 0.88) 75%,
+          rgba(250, 248, 243, 1) 100%
+        );
 
       @media (max-width: 768px) {
         background: linear-gradient(
           180deg,
-          rgba(250, 248, 243, 0.88) 0%,
-          rgba(250, 248, 243, 0.76) 35%,
-          rgba(250, 248, 243, 0.95) 75%,
-          #faf8f3 100%
+          rgba(20, 18, 15, 0.52) 0%,
+          rgba(20, 18, 15, 0.42) 45%,
+          rgba(20, 18, 15, 0.12) 72%,
+          rgba(250, 248, 243, 0.96) 100%
         );
       }
     }
@@ -216,7 +239,7 @@ const HeroSection = styled.section`
     font-size: 13px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #8c6340;
+    color: #f0c27b;
     font-weight: 600;
     margin-bottom: 16px;
     display: flex;
@@ -227,7 +250,7 @@ const HeroSection = styled.section`
       content: "";
       width: 32px;
       height: 1px;
-      background: #b8895a;
+      background: currentColor;
       display: inline-block;
     }
 
@@ -239,29 +262,35 @@ const HeroSection = styled.section`
 
   .hero-title {
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+    font-size: clamp(2.8rem, 5vw, 4.7rem);
     font-weight: 300;
-    line-height: 1.08;
-    color: #2c2c28;
+    line-height: 1.1;
+    color: #fffaf1;
     letter-spacing: -0.01em;
     margin-bottom: 22px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 
     .title-lead {
       display: inline-block;
-      background: linear-gradient(135deg, #5c3513 0%, #9e6932 40%, #c89552 70%, #7d491a 100%);
+      background: linear-gradient(135deg, #fffdf8 0%, #f8ead2 55%, #e8c99a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 16px rgba(200, 149, 82, 0.35));
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
     }
 
     em.title-highlight {
       font-style: italic;
-      color: #b8895a;
+      color: #f0c27b;
       font-weight: 400;
       display: inline-block;
-      filter: drop-shadow(0 0 20px rgba(184, 137, 90, 0.45));
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
 
-      &.wavy-text span {
+      .title-word {
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      &.wavy-text .title-char {
         display: inline-block;
         animation: waveAnim 2.2s infinite ease-in-out;
         will-change: transform, color;
@@ -272,13 +301,13 @@ const HeroSection = styled.section`
       0%,
       100% {
         transform: translateY(0);
-        color: #b8895a;
-        text-shadow: 0 0 16px rgba(184, 137, 90, 0.5);
+        color: #f0c27b;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
       }
       50% {
         transform: translateY(-5px);
-        color: #8c5523;
-        text-shadow: 0 0 24px rgba(217, 163, 102, 0.65);
+        color: #ffe0a6;
+        text-shadow: 0 3px 14px rgba(0, 0, 0, 0.6);
       }
     }
 
@@ -291,15 +320,16 @@ const HeroSection = styled.section`
 
   .hero-sub {
     font-size: 15.5px;
-    color: #5a5a54;
+    color: rgba(255, 255, 255, 0.94);
     max-width: 480px;
     margin-bottom: 34px;
-    font-weight: 300;
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.65;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 
     strong {
-      color: #2c2c28;
-      font-weight: 600;
+      color: #fff;
+      font-weight: 700;
     }
 
     @media (max-width: 768px) {

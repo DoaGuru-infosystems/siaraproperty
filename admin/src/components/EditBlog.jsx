@@ -22,8 +22,6 @@ export default function EditBlog() {
     category: 'Real Estate',
     author: '',
     description: '',
-    canonical_url: '',
-    meta_title: '',
     meta_description: ''
   });
   const [currentImage, setCurrentImage] = useState(null);
@@ -43,8 +41,6 @@ export default function EditBlog() {
             category: blog.category || 'Real Estate',
             author: blog.author || '',
             description: blog.description || '',
-            canonical_url: blog.canonical_url || '',
-            meta_title: blog.meta_title || '',
             meta_description: blog.meta_description || ''
           });
           setCurrentImage(blog.image);
@@ -152,8 +148,6 @@ export default function EditBlog() {
     data.append('category', formData.category);
     data.append('author', formData.author);
     data.append('description', formData.description); 
-    data.append('canonical_url', formData.canonical_url);
-    data.append('meta_title', formData.meta_title);
     data.append('meta_description', formData.meta_description);
     if (image) {
       data.append('image', image);
@@ -225,6 +219,7 @@ export default function EditBlog() {
                       value={formData.title}
                       onChange={handleChange}
                       placeholder="Enter blog title" 
+                      maxLength={255}
                       required 
                     />
                   </div>
@@ -259,30 +254,9 @@ export default function EditBlog() {
 
                   <div className="col-12 mt-2">
                     <h5 className="fw-semibold">SEO Metadata</h5>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="form-label fw-medium">Canonical URL</label>
-                    <input
-                      type="url"
-                      className="form-control"
-                      name="canonical_url"
-                      value={formData.canonical_url}
-                      onChange={handleChange}
-                      maxLength={2048}
-                      placeholder="https://siaraproperties.com/blog/your-blog-slug"
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="form-label fw-medium">Meta Title</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="meta_title"
-                      value={formData.meta_title}
-                      onChange={handleChange}
-                      maxLength={255}
-                      placeholder="Search result title"
-                    />
+                    <p className="text-muted mb-2">
+                      Meta title matches the blog title. The slug and canonical URL are generated from the title using CLIENT_URL in Server/.env.
+                    </p>
                   </div>
                   <div className="col-12 mb-3">
                     <label className="form-label fw-medium">Meta Description</label>

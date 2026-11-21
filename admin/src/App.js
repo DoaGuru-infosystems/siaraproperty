@@ -25,6 +25,7 @@ import ResetPassword from './pages/ResetPassword';
 import AllBlogs from './components/AllBlogs';
 import AddBlog from './components/AddBlog';
 import EditBlog from './components/EditBlog';
+import GalleryManager from './components/GalleryManager';
 import NotFound from './pages/NotFound';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -66,6 +67,7 @@ function App() {
         <Route path="/admin/all-blogs" element={currentAdmin ? <AllBlogs/> : <NotFound />} />
         <Route path="/admin/add-blog" element={currentAdmin ? <AddBlog/> : <NotFound />} />
         <Route path="/admin/edit-blog/:id" element={currentAdmin ? <EditBlog/> : <NotFound />} />
+        <Route path="/admin/gallery" element={currentAdmin ? <GalleryManager /> : <NotFound />} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
