@@ -55,7 +55,7 @@ useEffect(() => {
     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" id='btnside' onClick={() => setIsOffcanvasVisible(!isOffcanvasVisible)}>
       <span className="navbar-toggler-icon"></span>
     </button>
-    <div className={`offcanvas offcanvas-start${isOffcanvasVisible ? ' show' : ''}`} tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div className={`offcanvas offcanvas-start${isOffcanvasVisible ? ' show' : ''}`} tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
         <h5 className="offcanvas-title d-flex gap-2 align-items-center" id="offcanvasNavbarLabel">
           <div style={{ width: '30px', height: '30px', background: '#b8895a', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontFamily: '"Cormorant Garamond", Georgia, serif', fontSize: '13px', fontWeight: '600' }}>SP</div>
@@ -68,19 +68,19 @@ useEffect(() => {
         <li>
             
                 {" "}
-                <a className="d-flex gap-2 text-decoration-none">
+                <Link to="/" className="d-flex gap-2 text-decoration-none text-black">
                   <i className="fs-4 bi bi-house-door-fill"></i>
                   <br />
                   <span className=" text-black  mt-2 mx-2" id="navleft1">
-                  <Link to="/" className=" text-decoration-none text-black">Dashboard</Link> 
+                    Dashboard
                   </span>{" "}
-                </a>
+                </Link>
              
             </li>
             <li>
               {" "}
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <div className="nav-link px-0 align-middle d-flex gap-2">
                   <i className="fs-4 bi  bi-building"></i> <br />
                  
                   <span className=" d-sm-inline" id="navleft">
@@ -98,13 +98,13 @@ useEffect(() => {
         </Dropdown.Menu>
       </Dropdown>
     </span>
-                </a>
+                </div>
              {" "}
             </li>
           
             <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <div className="nav-link px-0 align-middle d-flex gap-2">
                   <i className="fs-4 bi bi-file-post"></i>
                   <br />
                  
@@ -123,11 +123,11 @@ useEffect(() => {
           </Dropdown.Menu>
         </Dropdown>
     </span>
-                </a>
+                </div>
              
             </li>
             <li>
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <div className="nav-link px-0 align-middle d-flex gap-2">
                   <i className="fs-4 bi bi-journal-text"></i>
                   <br />
                   <span className=" d-sm-inline" id="navleft">
@@ -141,17 +141,17 @@ useEffect(() => {
           </Dropdown.Menu>
         </Dropdown>
     </span>
-                </a>
+                </div>
             </li>
             <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2" onClick={handleLogout}>
+                <button type="button" className="nav-link px-0 align-middle d-flex gap-2 border-0 bg-transparent" onClick={handleLogout}>
                 <i className="fs-4 bi bi-power"></i>
                   <br />
                   <span className=" text-black  mt-2 mx-2 " id="navleft" >
                     Logout
                   </span>{" "}
-                </a>
+                </button>
              
             </li>
         </ul>

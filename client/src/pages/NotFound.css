@@ -1,0 +1,109 @@
+.not-found-page {
+  display: grid;
+  min-height: 65vh;
+  place-items: center;
+  padding: 72px 24px;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(184, 137, 90, 0.12), transparent 48%),
+    #f7f5f0;
+}
+
+.not-found-card {
+  width: min(100%, 680px);
+  padding: clamp(32px, 7vw, 72px);
+  border: 1px solid rgba(44, 44, 40, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(44, 44, 40, 0.08);
+  text-align: center;
+}
+
+.not-found-code {
+  margin: 0;
+  color: #b8895a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(96px, 20vw, 172px);
+  font-weight: 700;
+  letter-spacing: -0.09em;
+  line-height: 0.9;
+}
+
+.not-found-eyebrow {
+  margin: 24px 0 10px;
+  color: #8c6340;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.not-found-card h1 {
+  margin: 0;
+  color: #2c2c28;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+}
+
+.not-found-description {
+  max-width: 430px;
+  margin: 16px auto 28px;
+  color: #5a5a54;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.not-found-home,
+.not-found-blog {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 1px solid #b8895a;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.not-found-home {
+  background: #b8895a;
+  color: #fff;
+}
+
+.not-found-home:hover,
+.not-found-home:focus-visible {
+  border-color: #8c6340;
+  background: #8c6340;
+  color: #fff;
+}
+
+.not-found-blog {
+  background: transparent;
+  color: #8c6340;
+}
+
+.not-found-blog:hover,
+.not-found-blog:focus-visible {
+  background: #f7f5f0;
+  color: #5a402a;
+}
+
+@media (max-width: 480px) {
+  .not-found-page {
+    min-height: 60vh;
+    padding: 40px 16px;
+  }
+
+  .not-found-actions {
+    flex-direction: column;
+  }
+}

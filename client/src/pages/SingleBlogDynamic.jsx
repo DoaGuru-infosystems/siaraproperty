@@ -5,12 +5,14 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import useLenis from "../hooks/useLenis";
 import { getAppUrl } from "../config/axios";
+import NotFound from "./NotFound";
 
 export default function SingleBlogDynamic() {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
   const location = useLocation();
   const canonicalUrl = getAppUrl(location.pathname);
@@ -30,8 +32,12 @@ export default function SingleBlogDynamic() {
           setError(response.data.error || 'Blog not found');
         }
       } catch (err) {
-        console.error(err);
-        setError('Blog not found or an error occurred');
+        if (err.response?.status === 404) {
+          setNotFound(true);
+        } else {
+          console.error(err);
+          setError('Blog not found or an error occurred');
+        }
       } finally {
         setLoading(false);
       }
@@ -75,6 +81,10 @@ export default function SingleBlogDynamic() {
     );
   }
 
+  if (notFound) {
+    return <NotFound />;
+  }
+
   if (error || !blog) {
     return (
       <Wrapper className="container mt-5 pt-5 text-center" style={{ minHeight: '60vh' }}>
@@ -86,12 +96,22 @@ export default function SingleBlogDynamic() {
     );
   }
 
+  const seoTitle = blog.meta_title?.trim() || `${blog.title} - Siara Properties`;
+  const descriptionText = blog.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  const seoDescription = blog.meta_description?.trim() || descriptionText.slice(0, 160) || blog.title;
+  const seoCanonicalUrl = blog.canonical_url?.trim() || canonicalUrl;
+
   return (
     <Wrapper>
       <Helmet>
-        <link rel="canonical" href={canonicalUrl} />
-        <title>{blog.title} - Siara Properties</title>
-        <meta name="description" content={blog.title} />
+        <link rel="canonical" href={seoCanonicalUrl} />
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:url" content={seoCanonicalUrl} />
+        {blog.image && <meta property="og:image" content={blog.image} />}
       </Helmet>
       
             

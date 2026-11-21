@@ -34,19 +34,19 @@ function Sidebar() {
             <li>
             
                 {" "}
-                <a className="d-flex gap-2 text-decoration-none">
+                <Link to="/" className="d-flex gap-2 text-decoration-none text-black">
                   <i className="fs-4 bi bi-house-door-fill"></i>
                   <br />
                   <span className=" d-none d-sm-inline mt-2 mx-2" id="navleft1">
-                  <Link to="/" className=" text-decoration-none text-black">Dashboard</Link>  
+                    Dashboard
                   </span>{" "}
-                </a>
+                </Link>
              
             </li>
             <li>
               {" "}
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <div className="nav-link px-0 align-middle d-flex gap-2">
                   <i className="fs-4 bi  bi-building"></i> <br />
                   
                     
@@ -65,16 +65,16 @@ function Sidebar() {
         </Dropdown.Menu>
       </Dropdown>
     </span>
-                </a>
+                </div>
              {" "}
             </li>
          
             
               <li>
               
-                  <a className="nav-link px-0 align-middle d-flex gap-2">
+                  <div className="nav-link px-0 align-middle d-flex gap-2">
                     <i className="fs-4 bi bi-person"></i>
-                    <i class="bi "></i>
+                    <i className="bi "></i>
                     <br />
                     
                     <span className="d-none d-sm-inline" id="navleft">
@@ -91,11 +91,11 @@ function Sidebar() {
           </Dropdown.Menu>
         </Dropdown>
       </span>
-                  </a>
+                  </div>
               
               </li>
               <li>
-                  <a className="nav-link px-0 align-middle d-flex gap-2">
+                  <div className="nav-link px-0 align-middle d-flex gap-2">
                     <i className="fs-4 bi bi-journal-text"></i>
                     <br />
                     <span className="d-none d-sm-inline" id="navleft">
@@ -109,17 +109,17 @@ function Sidebar() {
           </Dropdown.Menu>
         </Dropdown>
       </span>
-                  </a>
+                  </div>
               </li>
             <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2"onClick={handleLogout} style={{cursor:"pointer"}}>
+                <button type="button" className="nav-link px-0 align-middle d-flex gap-2 border-0 bg-transparent" onClick={handleLogout} style={{ cursor: "pointer" }}>
                 <i className="fs-4 bi bi-power"></i>
                   <br />
                   <span className=" d-none d-sm-inline mt-2 mx-2 " id="navleft">
                     Logout
                   </span>{" "}
-                </a>
+                </button>
              
             </li>
           </ul>

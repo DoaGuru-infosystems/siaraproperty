@@ -21,7 +21,10 @@ export default function AddBlog() {
     title: '',
     category: 'Real Estate',
     author: currentAdmin?.user?.name || 'Siara Properties',
-    description: ''
+    description: '',
+    canonical_url: '',
+    meta_title: '',
+    meta_description: ''
   });
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -113,6 +116,9 @@ export default function AddBlog() {
     data.append('category', formData.category);
     data.append('author', formData.author);
     data.append('description', formData.description); 
+    data.append('canonical_url', formData.canonical_url);
+    data.append('meta_title', formData.meta_title);
+    data.append('meta_description', formData.meta_description);
     data.append('image', image);
 
     try {
@@ -192,6 +198,46 @@ export default function AddBlog() {
                       value={formData.author}
                       onChange={handleChange}
                       placeholder="e.g. Siara Properties" 
+                    />
+                  </div>
+
+                  <div className="col-12 mt-2">
+                    <h5 className="fw-semibold">SEO Metadata</h5>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-medium">Canonical URL</label>
+                    <input
+                      type="url"
+                      className="form-control"
+                      name="canonical_url"
+                      value={formData.canonical_url}
+                      onChange={handleChange}
+                      maxLength={2048}
+                      placeholder="https://siaraproperties.com/blog/your-blog-slug"
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-medium">Meta Title</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="meta_title"
+                      value={formData.meta_title}
+                      onChange={handleChange}
+                      maxLength={255}
+                      placeholder="Search result title"
+                    />
+                  </div>
+                  <div className="col-12 mb-3">
+                    <label className="form-label fw-medium">Meta Description</label>
+                    <textarea
+                      className="form-control"
+                      name="meta_description"
+                      value={formData.meta_description}
+                      onChange={handleChange}
+                      maxLength={320}
+                      rows={3}
+                      placeholder="Short summary for search results"
                     />
                   </div>
 

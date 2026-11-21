@@ -4,6 +4,41 @@ const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 
+const parseSeoMetadata = (body) => {
+    const fields = {
+        canonical_url: { maxLength: 2048, label: 'Canonical URL' },
+        meta_title: { maxLength: 255, label: 'Meta title' },
+        meta_description: { maxLength: 320, label: 'Meta description' }
+    };
+    const metadata = {};
+
+    for (const [field, { maxLength, label }] of Object.entries(fields)) {
+        const value = body[field];
+        if (value !== undefined && value !== null && typeof value !== 'string') {
+            return { error: `${label} must be text` };
+        }
+
+        const normalizedValue = typeof value === 'string' ? value.trim() : '';
+        if (normalizedValue.length > maxLength) {
+            return { error: `${label} must be ${maxLength} characters or fewer` };
+        }
+        metadata[field] = normalizedValue || null;
+    }
+
+    if (metadata.canonical_url) {
+        try {
+            const canonicalUrl = new URL(metadata.canonical_url);
+            if (!['http:', 'https:'].includes(canonicalUrl.protocol)) {
+                return { error: 'Canonical URL must use HTTP or HTTPS' };
+            }
+        } catch (error) {
+            return { error: 'Canonical URL must be a valid absolute URL' };
+        }
+    }
+
+    return { metadata };
+};
+
 // Add Blog
 const addBlog = (req, res) => {
     try {
@@ -13,6 +48,11 @@ const addBlog = (req, res) => {
             return res.status(400).json({ success: false, error: 'Title and description are required' });
         }
 
+        const seoResult = parseSeoMetadata(req.body);
+        if (seoResult.error) {
+            return res.status(400).json({ success: false, error: seoResult.error });
+        }
+
         // 1. SECURE & CLEAN SLUG GENERATION
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         
@@ -20,8 +60,11 @@ const addBlog = (req, res) => {
         const image = req.file ? req.file.filename : null;
 
         const insertQuery = `
-            INSERT INTO blogs (title, slug, description, image, author, category)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO blogs (
+                title, slug, description, image, author, category,
+                canonical_url, meta_title, meta_description
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             title, 
@@ -29,7 +72,10 @@ const addBlog = (req, res) => {
             description, // 3. RICH TEXT (HTML) RENDERING COMPATIBILITY (Saved as LONGTEXT string)
             image, 
             author || 'Siara Properties', 
-            category || 'Real Estate'
+            category || 'Real Estate',
+            seoResult.metadata.canonical_url,
+            seoResult.metadata.meta_title,
+            seoResult.metadata.meta_description
         ];
 
         db.query(insertQuery, values, (err, result) => {
@@ -189,6 +235,11 @@ const editBlog = (req, res) => {
             return res.status(400).json({ success: false, error: 'Title and description are required' });
         }
 
+        const seoResult = parseSeoMetadata(req.body);
+        if (seoResult.error) {
+            return res.status(400).json({ success: false, error: seoResult.error });
+        }
+
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         const newImage = req.file ? req.file.filename : null;
 
@@ -197,6 +248,13 @@ const editBlog = (req, res) => {
             SET title = ?, slug = ?, description = ?, author = ?, category = ?
         `;
         let values = [title, slug, description, author || 'Siara Properties', category || 'Real Estate'];
+
+        for (const field of ['canonical_url', 'meta_title', 'meta_description']) {
+            if (Object.prototype.hasOwnProperty.call(req.body, field)) {
+                updateQuery += `, ${field} = ?`;
+                values.push(seoResult.metadata[field]);
+            }
+        }
 
         if (newImage) {
             updateQuery += `, image = ?`;

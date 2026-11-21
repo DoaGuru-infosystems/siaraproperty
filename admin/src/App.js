@@ -25,6 +25,7 @@ import ResetPassword from './pages/ResetPassword';
 import AllBlogs from './components/AllBlogs';
 import AddBlog from './components/AddBlog';
 import EditBlog from './components/EditBlog';
+import NotFound from './pages/NotFound';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,8 +43,8 @@ function App() {
         
         
         <Route path='/' element={currentAdmin ? <AdminHome/> :<Navigate to="/admin_login"/> } />
-        <Route path="/allproperties" element={ currentAdmin ? <AllProperties/> :  <Navigate to="/admin_login" />} />
-        <Route path="/soldproperties" element={ currentAdmin ? <SoldProperties/> :  <Navigate to="/admin_login" />} />
+        <Route path="/allproperties" element={ currentAdmin ? <AllProperties/> : <NotFound />} />
+        <Route path="/soldproperties" element={ currentAdmin ? <SoldProperties/> : <NotFound />} />
        {/* <PrivateRoute path="/allproperties" element={<AllProperties />} />  */}
         {/* <Route path="/admin_register" element={currentAdmin ?  <AdminHome/> :<RegistrationAd/>} /> */}
         <Route path="/admin_forgot" element={ currentAdmin ?  <AdminHome/> :<ForgotPassword/>} />
@@ -51,20 +52,21 @@ function App() {
         <Route path="/admin_login"  element={currentAdmin ?  <AdminHome/> : <LoginAd/>} />
         
       
-        <Route path="/registered_user" element={currentAdmin ? <Registered_User/>:<Navigate to="/admin_login"/>}/>
-        <Route path="/interested_user" element={ currentAdmin ?<Interested_User/>:<Navigate to="/admin_login"/>} />
-        <Route path="/contact_user" element={ currentAdmin ? <Contact_User/> :<Navigate to="/admin_login"/>} />
+        <Route path="/registered_user" element={currentAdmin ? <Registered_User/>:<NotFound />}/>
+        <Route path="/interested_user" element={ currentAdmin ?<Interested_User/>:<NotFound />} />
+        <Route path="/contact_user" element={ currentAdmin ? <Contact_User/> :<NotFound />} />
 
 
-        <Route path="/admin/add-property" element={currentAdmin ? <AddProperty/> :<Navigate to="/admin_login"/>} />
-        <Route path="/admin/add-property/add-images/:propertyId" element={currentAdmin ?<AddImages/> :<Navigate to="/admin_login"/>} />
-        <Route path="/admin/suggested-property" element={currentAdmin ?<SuggestedProperty/>  :<Navigate to="/admin_login"/>} />
-        <Route path="/property/:propertyId" element={currentAdmin ?<SingleProperty/>:<Navigate to="/admin_login"/>} />
-        <Route path="/property/edit-property/:propertyId" element={currentAdmin ?<EditProperty/>:<Navigate to="/admin_login"/>} />
-        <Route path="/property/edit-property-images/:propertyId" element={currentAdmin ?<EditImages/>:<Navigate to="/admin_login"/>} />
-        <Route path="/admin/all-blogs" element={currentAdmin ? <AllBlogs/> : <Navigate to="/admin_login"/>} />
-        <Route path="/admin/add-blog" element={currentAdmin ? <AddBlog/> : <Navigate to="/admin_login"/>} />
-        <Route path="/admin/edit-blog/:id" element={currentAdmin ? <EditBlog/> : <Navigate to="/admin_login"/>} />
+        <Route path="/admin/add-property" element={currentAdmin ? <AddProperty/> :<NotFound />} />
+        <Route path="/admin/add-property/add-images/:propertyId" element={currentAdmin ?<AddImages/> :<NotFound />} />
+        <Route path="/admin/suggested-property" element={currentAdmin ?<SuggestedProperty/>  :<NotFound />} />
+        <Route path="/property/:propertyId" element={currentAdmin ?<SingleProperty/>:<NotFound />} />
+        <Route path="/property/edit-property/:propertyId" element={currentAdmin ?<EditProperty/>:<NotFound />} />
+        <Route path="/property/edit-property-images/:propertyId" element={currentAdmin ?<EditImages/>:<NotFound />} />
+        <Route path="/admin/all-blogs" element={currentAdmin ? <AllBlogs/> : <NotFound />} />
+        <Route path="/admin/add-blog" element={currentAdmin ? <AddBlog/> : <NotFound />} />
+        <Route path="/admin/edit-blog/:id" element={currentAdmin ? <EditBlog/> : <NotFound />} />
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
       {/* <FooterAd /> */}

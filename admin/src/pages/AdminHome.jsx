@@ -25,10 +25,8 @@ function AdminHome() {
         <div className="col-lg-11 mt-2" id="set">
           <div className="row">
             <div className="col-lg-12">
-              <h3 className="hdd">
-                Dashboard
-                <h6 className="mt-2">Welcome toSiara Properties Admin</h6>
-              </h3>
+              <h3 className="hdd">Dashboard</h3>
+              <h6 className="mt-2">Welcome to Siara Properties Admin</h6>
             </div>
             <div className="col-lg-12">
               <Cards />

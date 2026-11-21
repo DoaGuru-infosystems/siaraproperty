@@ -336,6 +336,30 @@ INSERT INTO `suggestions` (`id`, `property_id`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `author` varchar(255) NOT NULL DEFAULT 'Siara Properties',
+  `category` varchar(255) NOT NULL DEFAULT 'Real Estate',
+  `canonical_url` varchar(2048) DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` varchar(320) DEFAULT NULL,
+  `views` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_blogs_slug` (`slug`),
+  KEY `idx_blogs_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 

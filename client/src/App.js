@@ -29,6 +29,7 @@ import AboutPageNew from "./pages/AboutPageNew";
 import ContactPageNew from "./pages/ContactPageNew";
 import ServicesPage from "./pages/ServicesPage";
 import AllProperties from "./pages/AllProperties";
+import NotFound from "./pages/NotFound";
 import Navbar from "./components/UpdatedCode/Navbar";
 import FloatingContactButtons from "./components/FloatingContactButtons";
 import AutoPopupModal from "./components/AutoPopupModal";
@@ -105,6 +106,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/info/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Footer */}
         <Footer />
