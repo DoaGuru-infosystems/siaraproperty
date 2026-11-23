@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import axios from "axios";
 import moment from "moment";
@@ -48,7 +48,35 @@ export default function AllProperties() {
   const [sortBy, setSortBy] = useState("newest");
 
   const location = useLocation();
+  const navigate = useNavigate();
   const canonicalUrl = getAppUrl(location.pathname);
+
+  // Sync URL query parameters (q/search, category, type) to state
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const qParam = params.get("q") || params.get("search") || "";
+    const catParam = (params.get("category") || "").toLowerCase().trim();
+    const typeParam = (params.get("type") || "").toLowerCase().trim();
+
+    if (qParam) {
+      setSearchQuery(qParam);
+    }
+
+    if (typeParam === "rent") {
+      if (catParam && catParam !== "all") {
+        setSelectedCategory(catParam);
+      } else {
+        setSelectedCategory("rent");
+      }
+    } else if (catParam && catParam !== "all") {
+      const matched = CATEGORIES.find(
+        (c) => c.value === catParam || c.value.toLowerCase() === catParam
+      );
+      if (matched) {
+        setSelectedCategory(matched.value);
+      }
+    }
+  }, [location.search]);
 
   useEffect(() => {
     let isMounted = true;
@@ -108,8 +136,10 @@ export default function AllProperties() {
   // Filter and sort properties
   const filteredProperties = useMemo(() => {
     let list = [...allList];
+    const params = new URLSearchParams(location.search);
+    const typeParam = (params.get("type") || "").toLowerCase().trim();
 
-    // Category filter
+    // Category and Type filter
     if (selectedCategory !== "all") {
       if (selectedCategory === "rent") {
         list = list.filter(
@@ -118,21 +148,39 @@ export default function AllProperties() {
       } else {
         list = list.filter((p) => {
           const t = (p.property_type || "").toLowerCase().replace(/\s+/g, "");
+          const matchesCategory = t === selectedCategory;
+          if (typeParam === "rent") {
+            return (
+              matchesCategory &&
+              (p.property_for || "").toLowerCase() === "rent"
+            );
+          }
           return (
-            t === selectedCategory &&
+            matchesCategory &&
             (p.property_for || "").toLowerCase() !== "rent"
           );
         });
       }
+    } else if (typeParam === "rent") {
+      list = list.filter(
+        (p) => (p.property_for || "").toLowerCase() === "rent"
+      );
+    } else if (typeParam === "buy") {
+      list = list.filter(
+        (p) => (p.property_for || "").toLowerCase() !== "rent"
+      );
     }
 
-    // Search query filter
+    // Search query filter (matches name, address, location, city, and description)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter(
         (p) =>
           (p.property_name || "").toLowerCase().includes(q) ||
-          (p.property_address || "").toLowerCase().includes(q)
+          (p.property_address || "").toLowerCase().includes(q) ||
+          (p.property_location || "").toLowerCase().includes(q) ||
+          (p.property_city || "").toLowerCase().includes(q) ||
+          (p.property_description || "").toLowerCase().includes(q)
       );
     }
 
@@ -151,7 +199,7 @@ export default function AllProperties() {
     }
 
     return list;
-  }, [allList, selectedCategory, searchQuery, sortBy]);
+  }, [allList, selectedCategory, searchQuery, sortBy, location.search]);
 
   return (
     <PageWrapper>
@@ -342,6 +390,9 @@ export default function AllProperties() {
                 setSelectedCategory("all");
                 setSearchQuery("");
                 setSortBy("newest");
+                if (location.search) {
+                  navigate("/properties", { replace: true });
+                }
               }}
             >
               Reset Filters

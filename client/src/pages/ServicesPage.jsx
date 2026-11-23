@@ -435,7 +435,7 @@ export default function ServicesPage() {
         </title>
         <meta
           name="description"
-          content="Siara Properties offers best residential, commercial & plots for sale in Jabalpur. Genuine listings, trusted deals. Contact us for expert property guidance today!"
+          content="Siara Properties | Real Estate Consultant in Jabalpur | Seller of premium residential and commercial properties, plots, and flats in Jabalpur"
         />
         <link rel="canonical" href="https://siaraproperties.com/services" />
         <meta
@@ -444,7 +444,7 @@ export default function ServicesPage() {
         />
         <meta
           property="og:description"
-          content="Siara Properties offers best residential, commercial & plots for sale in Jabalpur. Genuine listings, trusted deals. Contact us for expert property guidance today!"
+          content="Siara Properties | Real Estate Consultant in Jabalpur | Seller of premium residential and commercial properties, plots, and flats in Jabalpur"
         />
         <meta property="og:url" content="https://siaraproperties.com/services" />
       </Helmet>

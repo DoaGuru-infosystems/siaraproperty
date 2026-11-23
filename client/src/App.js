@@ -79,6 +79,7 @@ function App() {
 
           {/* Properties Routes */}
           <Route path="/properties" element={<AllProperties />} />
+          <Route path="/search" element={<AllProperties />} />
           <Route path="/property/:propertyId" element={<SingleProperty />} />
           <Route
             path="/property/propertyType/:propertyType"

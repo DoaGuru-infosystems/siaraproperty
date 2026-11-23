@@ -383,11 +383,11 @@ function SingleProperty() {
 )} */}
 
                   {propertyImages && propertyImages?.length > 0 ? (
-                    <>
+                    <div className="property-carousel-wrapper">
                       <Carousel
                         id="carouselExampleIndicators"
                         interval={null}
-                        className="custom-carousel-transition"
+                        className="custom-carousel-transition property-carousel"
                       >
                         {propertyImages?.map((image, index) => (
                           <Carousel.Item
@@ -397,7 +397,6 @@ function SingleProperty() {
                               setPhotoIndex(index);
                               setLightboxOpen(true);
                             }}
-                            className="carousel-inner"
                           >
                             <img
                               src={image?.image}
@@ -415,14 +414,16 @@ function SingleProperty() {
                         currentIndex={photoIndex}
                         setCurrentIndex={setPhotoIndex}
                       />
-                    </>
+                    </div>
                   ) : (
-                    <img
-                      src={placeholder_img}
-                      className="d-block img-fluid mx-auto"
-                      alt="Placeholder"
-                      style={{ maxWidth: "100%", maxHeight: "70vh" }}
-                    />
+                    <div className="property-carousel-wrapper">
+                      <img
+                        src={placeholder_img}
+                        className="d-block img-fluid mx-auto"
+                        alt="Placeholder"
+                        style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "12px" }}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
@@ -443,23 +444,25 @@ function SingleProperty() {
                 )}
 
                 <div className="col-12 col-lg-8 mt-5">
-                  Share :
-                  <FacebookShareButton url={currentUrl}>
-                    <FacebookIcon round className="icons" />
-                  </FacebookShareButton>
-                  <FacebookMessengerShareButton url={currentUrl}>
-                    <FacebookMessengerIcon round className="icons" />
-                  </FacebookMessengerShareButton>
-                  <WhatsappShareButton url={currentUrl}>
-                    <WhatsappIcon round className="icons" />
-                  </WhatsappShareButton>
-                  <TelegramShareButton url={currentUrl}>
-                    <TelegramIcon round className="icons" />
-                  </TelegramShareButton>
-                  <TwitterShareButton url={currentUrl}>
-                    <XIcon round className="icons" />{" "}
-                  </TwitterShareButton>
-                  <h5 className="">PROPERTY DETAILS</h5>
+                  <div className="d-flex align-items-center gap-2 mb-4 flex-wrap">
+                    <span className="fw-medium text-muted me-1">Share :</span>
+                    <FacebookShareButton url={currentUrl}>
+                      <FacebookIcon round className="icons" />
+                    </FacebookShareButton>
+                    <FacebookMessengerShareButton url={currentUrl}>
+                      <FacebookMessengerIcon round className="icons" />
+                    </FacebookMessengerShareButton>
+                    <WhatsappShareButton url={currentUrl}>
+                      <WhatsappIcon round className="icons" />
+                    </WhatsappShareButton>
+                    <TelegramShareButton url={currentUrl}>
+                      <TelegramIcon round className="icons" />
+                    </TelegramShareButton>
+                    <TwitterShareButton url={currentUrl}>
+                      <XIcon round className="icons" />
+                    </TwitterShareButton>
+                  </div>
+                  <h5 className="mt-4 mb-3">PROPERTY DETAILS</h5>
                   <div className="row mt-3 property-detail">
                     <div className="col-4">
                       <span className="d-block">Property Id</span>
@@ -1114,29 +1117,84 @@ const Container = styled.div`
     transform: scale(1.5); /* Adjust the scale factor for zoom level */
   }
 
-  .carousel-inner {
-    /* height: 100vh; */
+  .property-carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0 28px;
+    background: transparent;
+  }
+
+  .property-carousel {
+    max-width: 100%;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: #eaebed;
+    background: transparent;
+  }
+
+  .carousel-inner {
+    border-radius: 12px;
+    background-color: transparent;
+    overflow: hidden;
   }
 
   .carousel-item {
-    @media only screen and (max-width: 1025px) {
+    text-align: center;
+    background: transparent;
+
+    img {
+      max-width: 100%;
+      max-height: 75vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    @media only screen and (max-width: 768px) {
       img {
-        /* width: 100%;
-      height: 100%; */
-        max-width: 100%;
-        height: 70vh;
+        max-height: 60vh;
       }
     }
-    @media only screen and (min-width: 1025px) {
-      img {
-        object-fit: cover;
-        /* width: 100%;
-        height: 100%; */
-        max-width: 150%;
-        height: 100vh;
-      }
+  }
+
+  .property-carousel .carousel-control-prev,
+  .property-carousel .carousel-control-next {
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 10px;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+      opacity: 1;
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: 34px;
+      height: 34px;
+      margin: 0 4px;
+    }
+  }
+
+  .property-carousel .carousel-control-prev-icon,
+  .property-carousel .carousel-control-next-icon {
+    width: 18px;
+    height: 18px;
+    @media only screen and (max-width: 768px) {
+      width: 14px;
+      height: 14px;
     }
   }
   .list {

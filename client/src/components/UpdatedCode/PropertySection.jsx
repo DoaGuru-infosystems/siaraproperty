@@ -96,51 +96,27 @@ export default function PropertySection({
       // card stagger
       const cards = cardsRef.current.filter(Boolean);
       if (cards.length) {
-        cards.forEach((card, i) => {
-          gsap.fromTo(
-            card,
-            { opacity: 0, y: 48 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power3.out",
-              delay: (i % 4) * 0.1,
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-                toggleActions: "play none none none",
-              },
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 36 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: cards[0],
+              start: "top 92%",
+              once: true,
             },
-          );
-        });
+          },
+        );
       }
     });
 
     return () => ctx.revert();
   }, [properties]);
-
-  // tilt on mouse-move
-  const handleMouseMove = (e, card) => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    gsap.to(card, {
-      rotateY: x * 4,
-      rotateX: -y * 4,
-      transformPerspective: 800,
-      duration: 0.4,
-      ease: "power1.out",
-    });
-  };
-  const handleMouseLeave = (card) => {
-    gsap.to(card, {
-      rotateY: 0,
-      rotateX: 0,
-      duration: 0.5,
-      ease: "power2.out",
-    });
-  };
 
   const isLoading = properties === null || images === null;
   const hasData = properties?.data?.length > 0;
@@ -182,9 +158,6 @@ export default function PropertySection({
                   key={property.id}
                   className="prop-card"
                   ref={(el) => (cardsRef.current[i] = el)}
-                  style={{ opacity: 0, transform: "translateY(40px)" }}
-                  onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-                  onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
                 >
                   <Link
                     to={`/property/${property.id}`}

@@ -10,10 +10,10 @@ export default function useLenis() {
   useEffect(() => {
     // Instantiate Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      syncTouch: true,
-      touchMultiplier: 1.5,
+      smoothWheel: true,
+      syncTouch: false,
     });
 
     // Sync ScrollTrigger scroll calculations with Lenis
@@ -24,7 +24,6 @@ export default function useLenis() {
       lenis.raf(time * 1000);
     };
     gsap.ticker.add(onTickerUpdate);
-    gsap.ticker.lagSmoothing(0);
 
     // Cleanup when component unmounts
     return () => {

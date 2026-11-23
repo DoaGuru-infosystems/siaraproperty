@@ -81,8 +81,17 @@ export default function Hero() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const q = e.target.elements.query.value.trim();
-    if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
+    const query = e.target.elements.query?.value?.trim() || "";
+    const type = e.target.elements.type?.value || "";
+    const category = e.target.elements.category?.value || "";
+
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (type) params.set("type", type);
+    if (category) params.set("category", category);
+
+    const queryString = params.toString();
+    navigate(`/properties${queryString ? `?${queryString}` : ""}`);
   };
 
   return (
@@ -198,14 +207,14 @@ const HeroSection = styled.section`
       background:
         radial-gradient(
           ellipse at 25% 42%,
-          rgba(20, 18, 15, 0.48) 0%,
-          rgba(20, 18, 15, 0.3) 38%,
-          rgba(20, 18, 15, 0) 76%
+          rgba(20, 18, 15, 0.62) 0%,
+          rgba(20, 18, 15, 0.44) 42%,
+          rgba(20, 18, 15, 0.08) 78%
         ),
         linear-gradient(
           to bottom,
-          rgba(44, 44, 40, 0.2) 0%,
-          rgba(44, 44, 40, 0.08) 30%,
+          rgba(44, 44, 40, 0.28) 0%,
+          rgba(44, 44, 40, 0.12) 30%,
           rgba(250, 248, 243, 0.88) 75%,
           rgba(250, 248, 243, 1) 100%
         );
@@ -319,21 +328,24 @@ const HeroSection = styled.section`
   }
 
   .hero-sub {
-    font-size: 15.5px;
-    color: rgba(255, 255, 255, 0.94);
-    max-width: 480px;
+    font-size: 17px;
+    color: #ffffff;
+    max-width: 520px;
     margin-bottom: 34px;
-    font-weight: 400;
-    line-height: 1.65;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.75;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
 
     strong {
-      color: #fff;
+      color: #ffffff;
       font-weight: 700;
+      letter-spacing: 0.03em;
     }
 
     @media (max-width: 768px) {
-      font-size: 14px;
+      font-size: 15px;
+      letter-spacing: 0.03em;
       margin-bottom: 24px;
     }
   }
