@@ -4,13 +4,35 @@ const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 
-const parseSeoMetadata = (body = {}) => {
+const extractExcerpt = (htmlContent, length = 160) => {
+    if (!htmlContent || typeof htmlContent !== 'string') return '';
+    const clean = htmlContent
+        .replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '')
+        .replace(/<style[^>]*>([\S\s]*?)<\/style>/gmi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\s+/g, ' ')
+        .trim();
+    return clean.length > length ? clean.substring(0, length) + '...' : clean;
+};
+
+const parseSeoMetadata = (body = {}, defaultDescription = '') => {
     const value = body.meta_description;
     if (value !== undefined && value !== null && typeof value !== 'string') {
         return { error: 'Meta description must be text' };
     }
 
-    const metaDescription = typeof value === 'string' ? value.trim() : '';
+    let metaDescription = typeof value === 'string' ? value.trim() : '';
+    // If empty, extract excerpt from main content description
+    if (!metaDescription && defaultDescription) {
+        metaDescription = extractExcerpt(defaultDescription, 160);
+    }
+
     if (metaDescription.length > 320) {
         return { error: 'Meta description must be 320 characters or fewer' };
     }
@@ -19,32 +41,23 @@ const parseSeoMetadata = (body = {}) => {
 };
 
 const generateBlogSlug = (title) =>
-    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    (title || '').toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 const generateBlogCanonicalUrl = (slug) => {
-    const clientUrl = process.env.CLIENT_URL?.trim();
-    if (!clientUrl) {
-        throw new Error('CLIENT_URL must be configured to generate blog canonical URLs');
-    }
-
+    const clientUrl = (process.env.CLIENT_URL || 'https://siaraproperties.com').trim();
     let baseUrl;
     try {
         baseUrl = new URL(clientUrl);
     } catch (error) {
-        throw new Error('CLIENT_URL must be a valid absolute URL');
+        baseUrl = new URL('https://siaraproperties.com');
     }
-
-    if (!['http:', 'https:'].includes(baseUrl.protocol)) {
-        throw new Error('CLIENT_URL must use HTTP or HTTPS');
-    }
-
     return new URL(`/blog/${slug}`, baseUrl.origin).toString();
 };
 
 // Add Blog
 const addBlog = (req, res) => {
     try {
-        const { title, description, category, author } = req.body;
+        const { title, description, category, author, meta_title, slug, canonical_url, image_alt } = req.body;
         
         const normalizedTitle = typeof title === 'string' ? title.trim() : '';
         if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
@@ -54,36 +67,48 @@ const addBlog = (req, res) => {
             return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
-        const seoResult = parseSeoMetadata(req.body);
+        const seoResult = parseSeoMetadata(req.body, description);
         if (seoResult.error) {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
 
-        const slug = generateBlogSlug(normalizedTitle);
-        if (!slug) {
+        const normalizedMetaTitle = typeof meta_title === 'string' && meta_title.trim()
+            ? meta_title.trim().slice(0, 255)
+            : normalizedTitle;
+
+        const customSlug = typeof slug === 'string' && slug.trim() ? generateBlogSlug(slug.trim()) : '';
+        const finalSlug = customSlug || generateBlogSlug(normalizedMetaTitle) || generateBlogSlug(normalizedTitle);
+        if (!finalSlug) {
             return res.status(400).json({ success: false, error: 'Title must contain letters or numbers to generate a blog URL' });
         }
-        const canonicalUrl = generateBlogCanonicalUrl(slug);
+
+        let finalCanonicalUrl = '';
+        if (typeof canonical_url === 'string' && canonical_url.trim()) {
+            finalCanonicalUrl = canonical_url.trim().slice(0, 2048);
+        } else {
+            finalCanonicalUrl = generateBlogCanonicalUrl(finalSlug);
+        }
         
         // 2. DYNAMIC UPLOADS STRUCTURE (Store ONLY filename in DB)
         const image = req.file ? req.file.filename : null;
 
         const insertQuery = `
             INSERT INTO blogs (
-                title, slug, description, image, author, category,
+                title, slug, description, image, image_alt, author, category,
                 canonical_url, meta_title, meta_description
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             normalizedTitle,
-            slug, 
+            finalSlug, 
             description, // 3. RICH TEXT (HTML) RENDERING COMPATIBILITY (Saved as LONGTEXT string)
             image, 
+            image_alt ? image_alt.trim().slice(0, 255) : null,
             author || 'Siara Properties', 
             category || 'Real Estate',
-            canonicalUrl,
-            normalizedTitle,
+            finalCanonicalUrl,
+            normalizedMetaTitle,
             seoResult.metadata.meta_description
         ];
 
@@ -117,6 +142,8 @@ const getAllBlogs = (req, res) => {
             // 2. DYNAMIC UPLOADS STRUCTURE & IMAGE URLS (Construct URLs dynamically)
             const updatedResults = results.map(row => ({
                 ...row,
+                short_description: extractExcerpt(row.description, 160),
+                image_alt: row.image_alt || row.title,
                 image: row.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${row.image}` : null
             }));
 
@@ -148,13 +175,14 @@ const getBlogBySlug = (req, res) => {
                 });
 
                 const blog = results[0];
-                try {
+                if (!blog.canonical_url && blog.slug) {
                     blog.canonical_url = generateBlogCanonicalUrl(blog.slug);
-                } catch (error) {
-                    console.error('Error generating blog canonical URL:', error);
-                    return res.status(500).json({ success: false, error: 'Blog URL configuration error', message: error.message });
                 }
-                blog.meta_title = blog.title;
+                if (!blog.meta_title) {
+                    blog.meta_title = blog.title;
+                }
+                blog.image_alt = blog.image_alt || blog.title;
+                blog.short_description = extractExcerpt(blog.description, 160);
                 // 2. DYNAMIC UPLOADS STRUCTURE & IMAGE URLS
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
 
@@ -229,13 +257,14 @@ const getBlogById = (req, res) => {
 
             if (results.length > 0) {
                 const blog = results[0];
-                try {
+                if (!blog.canonical_url && blog.slug) {
                     blog.canonical_url = generateBlogCanonicalUrl(blog.slug);
-                } catch (error) {
-                    console.error('Error generating blog canonical URL:', error);
-                    return res.status(500).json({ success: false, error: 'Blog URL configuration error', message: error.message });
                 }
-                blog.meta_title = blog.title;
+                if (!blog.meta_title) {
+                    blog.meta_title = blog.title;
+                }
+                blog.image_alt = blog.image_alt || blog.title;
+                blog.short_description = extractExcerpt(blog.description, 160);
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
                 res.status(200).json({ success: true, data: blog, message: 'Blog fetched successfully' });
             } else {
@@ -252,7 +281,7 @@ const getBlogById = (req, res) => {
 const editBlog = (req, res) => {
     try {
         const blogId = req.params.id;
-        const { title, description, category, author } = req.body;
+        const { title, description, category, author, meta_title, slug, canonical_url, image_alt } = req.body;
         const normalizedTitle = typeof title === 'string' ? title.trim() : '';
 
         if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
@@ -262,37 +291,46 @@ const editBlog = (req, res) => {
             return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
-        const seoResult = parseSeoMetadata(req.body);
+        const seoResult = parseSeoMetadata(req.body, description);
         if (seoResult.error) {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
 
-        const slug = generateBlogSlug(normalizedTitle);
-        if (!slug) {
+        const normalizedMetaTitle = typeof meta_title === 'string' && meta_title.trim()
+            ? meta_title.trim().slice(0, 255)
+            : normalizedTitle;
+
+        const customSlug = typeof slug === 'string' && slug.trim() ? generateBlogSlug(slug.trim()) : '';
+        const finalSlug = customSlug || generateBlogSlug(normalizedMetaTitle) || generateBlogSlug(normalizedTitle);
+        if (!finalSlug) {
             return res.status(400).json({ success: false, error: 'Title must contain letters or numbers to generate a blog URL' });
         }
-        const canonicalUrl = generateBlogCanonicalUrl(slug);
+
+        let finalCanonicalUrl = '';
+        if (typeof canonical_url === 'string' && canonical_url.trim()) {
+            finalCanonicalUrl = canonical_url.trim().slice(0, 2048);
+        } else {
+            finalCanonicalUrl = generateBlogCanonicalUrl(finalSlug);
+        }
+
         const newImage = req.file ? req.file.filename : null;
 
         let updateQuery = `
             UPDATE blogs 
             SET title = ?, slug = ?, description = ?, author = ?, category = ?,
-                canonical_url = ?, meta_title = ?
+                canonical_url = ?, meta_title = ?, meta_description = ?, image_alt = ?
         `;
         let values = [
             normalizedTitle,
-            slug,
+            finalSlug,
             description,
             author || 'Siara Properties',
             category || 'Real Estate',
-            canonicalUrl,
-            normalizedTitle
+            finalCanonicalUrl,
+            normalizedMetaTitle,
+            seoResult.metadata.meta_description,
+            image_alt ? image_alt.trim().slice(0, 255) : null
         ];
-
-        if (Object.prototype.hasOwnProperty.call(req.body, 'meta_description')) {
-            updateQuery += `, meta_description = ?`;
-            values.push(seoResult.metadata.meta_description);
-        }
 
         if (newImage) {
             updateQuery += `, image = ?`;
@@ -356,3 +394,6 @@ module.exports = {
     deleteBlog,
     uploadBlogImage
 };
+
+
+

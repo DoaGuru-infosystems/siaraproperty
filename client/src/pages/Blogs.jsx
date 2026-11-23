@@ -5,6 +5,24 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const getCleanExcerpt = (content, maxLength = 150) => {
+  if (!content) return "";
+  const text = content
+    .replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '')
+    .replace(/<style[^>]*>([\S\s]*?)<\/style>/gmi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + "...";
+};
+
 function Blogs() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,15 +102,15 @@ function Blogs() {
                         <img
                           src={ blog.image || 'https://via.placeholder.com/400x250?text=Blog' }
                           className="card-img-top"
-                          alt={ blog.title }
+                          alt={ blog.image_alt || blog.title }
                           style={ { height: '220px', objectFit: 'cover' } }
                         />
                         <div className="card-body d-flex flex-column">
                           <span className="badge bg-secondary mb-2 align-self-start">{ blog.category }</span>
                           <h5 className="card-title text-dark fw-bold mb-3">{ blog.title }</h5>
                           <p className="card-text text-muted mb-4 text-truncate" style={ { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', whiteSpace: 'normal' } }>
-                            {/* Stripping HTML for the excerpt snippet */ }
-                            { blog.description.replace(/<[^>]+>/g, '') }
+                            {/* Short excerpt extracted from main content */}
+                            { blog.short_description || getCleanExcerpt(blog.description, 150) }
                           </p>
                           <div className="mt-auto d-flex justify-content-between align-items-center text-muted small">
                             <span><i className="bi bi-person me-1"></i> { blog.author }</span>

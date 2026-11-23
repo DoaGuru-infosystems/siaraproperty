@@ -20,9 +20,12 @@ export default function EditBlog() {
   const [formData, setFormData] = useState({
     title: '',
     category: 'Real Estate',
-    author: '',
+    author: 'Siara Properties',
     description: '',
-    meta_description: ''
+    meta_title: '',
+    canonical_url: '',
+    meta_description: '',
+    image_alt: ''
   });
   const [currentImage, setCurrentImage] = useState(null);
   const [image, setImage] = useState(null);
@@ -30,18 +33,34 @@ export default function EditBlog() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
+  const CLIENT_BASE = 'https://siaraproperties.com';
+
+  const slugify = (text) => {
+    return (text || '')
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)+/g, '');
+  };
+
   useEffect(() => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/api/property/blogs/get/${id}`);
         if (response.data.success) {
           const blog = response.data.data;
+          const initialSlug = blog.slug || slugify(blog.meta_title || blog.title || '');
+          const initialCanonical = blog.canonical_url || (initialSlug ? `${CLIENT_BASE}/blog/${initialSlug}` : '');
           setFormData({
             title: blog.title || '',
             category: blog.category || 'Real Estate',
-            author: blog.author || '',
+            author: blog.author || 'Siara Properties',
             description: blog.description || '',
-            meta_description: blog.meta_description || ''
+            meta_title: blog.meta_title || '',
+            canonical_url: initialCanonical,
+            meta_description: blog.meta_description || '',
+            image_alt: blog.image_alt || ''
           });
           setCurrentImage(blog.image);
         } else {
@@ -64,6 +83,25 @@ export default function EditBlog() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleTitleChange = (e) => {
+    // Blog Title is completely independent - does NOT change meta data
+    setFormData(prev => ({ ...prev, title: e.target.value }));
+  };
+
+  const handleMetaTitleChange = (e) => {
+    const val = e.target.value;
+    const newSlug = slugify(val);
+    setFormData(prev => ({
+      ...prev,
+      meta_title: val,
+      canonical_url: newSlug ? `${CLIENT_BASE}/blog/${newSlug}` : ''
+    }));
+  };
+
+  const handleCanonicalChange = (e) => {
+    setFormData(prev => ({ ...prev, canonical_url: e.target.value }));
   };
 
   const handleDescriptionChange = (content) => {
@@ -143,12 +181,17 @@ export default function EditBlog() {
     }
 
     setSubmitting(true);
+    const generatedSlug = slugify(formData.meta_title || formData.title);
     const data = new FormData();
     data.append('title', formData.title);
     data.append('category', formData.category);
-    data.append('author', formData.author);
+    data.append('author', formData.author || 'Siara Properties');
     data.append('description', formData.description); 
+    data.append('meta_title', formData.meta_title);
+    data.append('slug', generatedSlug);
+    data.append('canonical_url', formData.canonical_url || (generatedSlug ? `${CLIENT_BASE}/blog/${generatedSlug}` : ''));
     data.append('meta_description', formData.meta_description);
+    data.append('image_alt', formData.image_alt || '');
     if (image) {
       data.append('image', image);
     }
@@ -217,7 +260,7 @@ export default function EditBlog() {
                       className="form-control" 
                       name="title" 
                       value={formData.title}
-                      onChange={handleChange}
+                      onChange={handleTitleChange}
                       placeholder="Enter blog title" 
                       maxLength={255}
                       required 
@@ -252,23 +295,65 @@ export default function EditBlog() {
                     />
                   </div>
 
-                  <div className="col-12 mt-2">
-                    <h5 className="fw-semibold">SEO Metadata</h5>
-                    <p className="text-muted mb-2">
-                      Meta title matches the blog title. The slug and canonical URL are generated from the title using CLIENT_URL in Server/.env.
-                    </p>
-                  </div>
-                  <div className="col-12 mb-3">
-                    <label className="form-label fw-medium">Meta Description</label>
-                    <textarea
-                      className="form-control"
-                      name="meta_description"
-                      value={formData.meta_description}
-                      onChange={handleChange}
-                      maxLength={320}
-                      rows={3}
-                      placeholder="Short summary for search results"
-                    />
+                  <div className="col-12 mt-3">
+                    <div className="p-3 bg-light rounded border mb-3">
+                      <h5 className="fw-semibold mb-2 text-dark">
+                        <i className="bi bi-search me-2 text-primary"></i>SEO Metadata
+                      </h5>
+                      <p className="text-muted small mb-3">
+                        Canonical URL and Blog Slug are automatically linked and generated directly from the <strong>Meta Title</strong>.
+                      </p>
+
+                      <div className="row">
+                        <div className="col-md-6 mb-3">
+                          <label className="form-label fw-medium">Meta Title</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="meta_title"
+                            value={formData.meta_title}
+                            onChange={handleMetaTitleChange}
+                            placeholder="Enter SEO meta title"
+                            maxLength={255}
+                          />
+                          <div className="form-text small text-muted">
+                            Characters: {formData.meta_title.length}/255 (Recommended: 50-60 chars for Google)
+                          </div>
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+                          <label className="form-label fw-medium">Canonical URL</label>
+                          <input
+                            type="url"
+                            className="form-control"
+                            name="canonical_url"
+                            value={formData.canonical_url}
+                            onChange={handleCanonicalChange}
+                            placeholder="https://siaraproperties.com/blog/..."
+                            maxLength={2048}
+                          />
+                          <div className="form-text small text-muted">
+                            URL Slug: <code>/blog/{slugify(formData.meta_title) || 'your-blog-slug'}</code>
+                          </div>
+                        </div>
+
+                        <div className="col-12 mb-1">
+                          <label className="form-label fw-medium">Meta Description</label>
+                          <textarea
+                            className="form-control"
+                            name="meta_description"
+                            value={formData.meta_description}
+                            onChange={handleChange}
+                            maxLength={320}
+                            rows={3}
+                            placeholder="Short summary for search engines (optional - defaults to first 160 characters of blog content if left empty)"
+                          />
+                          <div className="form-text small text-muted">
+                            Characters: {formData.meta_description.length}/320. Note: Public blog cards will show an excerpt from the main blog content.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="col-md-6 mb-3">
@@ -287,6 +372,22 @@ export default function EditBlog() {
                   </div>
 
                   <div className="col-md-6 mb-3">
+                    <label className="form-label fw-medium">Banner Image Alt Text (SEO)</label>
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      name="image_alt" 
+                      value={formData.image_alt}
+                      onChange={handleChange}
+                      placeholder="e.g. Luxury house in Jabalpur" 
+                      maxLength={255}
+                    />
+                    <div className="form-text small text-muted">
+                      Descriptive alt text for Google Image SEO and accessibility.
+                    </div>
+                  </div>
+
+                  <div className="col-md-12 mb-3">
                     <label className="form-label fw-medium">Editor Mode</label>
                     <select 
                       className="form-select border" 

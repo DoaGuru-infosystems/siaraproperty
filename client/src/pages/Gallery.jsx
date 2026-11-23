@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import { getAppUrl } from "../config/axios";
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const location = useLocation();
+  const canonicalUrl = getAppUrl(location.pathname) || "https://siaraproperties.com/gallery";
 
   useEffect(() => {
     let active = true;
@@ -37,6 +42,14 @@ export default function Gallery() {
           name="description"
           content="Explore property, project, and community photos from Siara Properties in Jabalpur."
         />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content="Gallery | Siara Properties" />
+        <meta
+          property="og:description"
+          content="Explore property, project, and community photos from Siara Properties in Jabalpur."
+        />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
       </Helmet>
       <header className="gallery-heading">
         <p className="eyebrow">SIARA PROPERTIES</p>

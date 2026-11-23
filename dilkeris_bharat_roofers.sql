@@ -345,6 +345,7 @@ CREATE TABLE `blogs` (
   `slug` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `image_alt` varchar(255) DEFAULT NULL,
   `author` varchar(255) NOT NULL DEFAULT 'Siara Properties',
   `category` varchar(255) NOT NULL DEFAULT 'Real Estate',
   `canonical_url` varchar(2048) DEFAULT NULL,

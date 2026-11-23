@@ -96,9 +96,22 @@ export default function SingleBlogDynamic() {
     );
   }
 
-  const seoTitle = blog.title?.trim() || "Siara Properties";
-  const descriptionText = blog.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  const seoDescription = blog.meta_description?.trim() || descriptionText.slice(0, 160) || blog.title;
+  const seoTitle = blog.meta_title?.trim() || blog.title?.trim() || "Siara Properties";
+  const descriptionText = blog.description 
+    ? blog.description
+        .replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '')
+        .replace(/<style[^>]*>([\S\s]*?)<\/style>/gmi, '')
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\s+/g, ' ')
+        .trim() 
+    : '';
+  const seoDescription = blog.meta_description?.trim() || (descriptionText.length > 160 ? descriptionText.slice(0, 160) + '...' : descriptionText) || blog.title;
   const seoCanonicalUrl = blog.canonical_url?.trim() || canonicalUrl;
 
   return (
@@ -141,7 +154,7 @@ export default function SingleBlogDynamic() {
             <div className="blog-banner-container mb-5 rounded overflow-hidden shadow-sm">
               <img 
                 src={blog.image || 'https://via.placeholder.com/1200x600?text=No+Image+Available'} 
-                alt={blog.title} 
+                alt={blog.image_alt || blog.title} 
                 className="img-fluid w-100" 
                 style={{ maxHeight: '550px', objectFit: 'cover' }}
               />
