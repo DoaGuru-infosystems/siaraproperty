@@ -94,7 +94,7 @@ const addBlog = (req, res) => {
 
         const insertQuery = `
             INSERT INTO blogs (
-                title, slug, description, image, image_alt, author, category,
+                title, slug, description, image, img_alt, author, category,
                 canonical_url, meta_title, meta_description
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -143,7 +143,7 @@ const getAllBlogs = (req, res) => {
             const updatedResults = results.map(row => ({
                 ...row,
                 short_description: extractExcerpt(row.description, 160),
-                image_alt: row.image_alt || row.title,
+                image_alt: row.img_alt || row.title,
                 image: row.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${row.image}` : null
             }));
 
@@ -181,7 +181,7 @@ const getBlogBySlug = (req, res) => {
                 if (!blog.meta_title) {
                     blog.meta_title = blog.title;
                 }
-                blog.image_alt = blog.image_alt || blog.title;
+                blog.image_alt = blog.img_alt || blog.title;
                 blog.short_description = extractExcerpt(blog.description, 160);
                 // 2. DYNAMIC UPLOADS STRUCTURE & IMAGE URLS
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
@@ -263,7 +263,7 @@ const getBlogById = (req, res) => {
                 if (!blog.meta_title) {
                     blog.meta_title = blog.title;
                 }
-                blog.image_alt = blog.image_alt || blog.title;
+                blog.image_alt = blog.img_alt || blog.title;
                 blog.short_description = extractExcerpt(blog.description, 160);
                 blog.image = blog.image ? `${process.env.BACKEND_BASE_URL}/uploads/blog/${blog.image}` : null;
                 res.status(200).json({ success: true, data: blog, message: 'Blog fetched successfully' });
@@ -318,7 +318,7 @@ const editBlog = (req, res) => {
         let updateQuery = `
             UPDATE blogs 
             SET title = ?, slug = ?, description = ?, author = ?, category = ?,
-                canonical_url = ?, meta_title = ?, meta_description = ?, image_alt = ?
+                canonical_url = ?, meta_title = ?, meta_description = ?, img_alt = ?
         `;
         let values = [
             normalizedTitle,
