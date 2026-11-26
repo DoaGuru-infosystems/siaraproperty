@@ -60,14 +60,23 @@ const addBlog = (req, res) => {
         const { title, description, category, author, meta_title, slug, canonical_url, image_alt } = req.body;
         
         const normalizedTitle = typeof title === 'string' ? title.trim() : '';
-        if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
-            return res.status(400).json({ success: false, error: 'Title and description are required' });
+        
+        // Normalize description — treat empty Quill output (<p><br></p>) as empty
+        const rawDescription = typeof description === 'string' ? description : '';
+        const descriptionTextOnly = rawDescription.replace(/<[^>]+>/g, '').replace(/\s+/g, '').trim();
+        const isDescriptionEmpty = !descriptionTextOnly && !rawDescription.includes('<img');
+
+        if (!normalizedTitle) {
+            return res.status(400).json({ success: false, error: 'Blog title is required' });
+        }
+        if (isDescriptionEmpty || !rawDescription) {
+            return res.status(400).json({ success: false, error: 'Blog description is required. Please write your blog content.' });
         }
         if (normalizedTitle.length > 255) {
             return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
-        const seoResult = parseSeoMetadata(req.body, description);
+        const seoResult = parseSeoMetadata(req.body, rawDescription);
         if (seoResult.error) {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
@@ -102,7 +111,7 @@ const addBlog = (req, res) => {
         const values = [
             normalizedTitle,
             finalSlug, 
-            description, // 3. RICH TEXT (HTML) RENDERING COMPATIBILITY (Saved as LONGTEXT string)
+            rawDescription, // 3. RICH TEXT (HTML) RENDERING COMPATIBILITY (Saved as LONGTEXT string)
             image, 
             image_alt ? image_alt.trim().slice(0, 255) : null,
             author || 'Siara Properties', 
@@ -284,14 +293,22 @@ const editBlog = (req, res) => {
         const { title, description, category, author, meta_title, slug, canonical_url, image_alt } = req.body;
         const normalizedTitle = typeof title === 'string' ? title.trim() : '';
 
-        if (!normalizedTitle || typeof description !== 'string' || !description.trim()) {
-            return res.status(400).json({ success: false, error: 'Title and description are required' });
+        // Normalize description — treat empty Quill output (<p><br></p>) as empty
+        const rawDescription = typeof description === 'string' ? description : '';
+        const descriptionTextOnly = rawDescription.replace(/<[^>]+>/g, '').replace(/\s+/g, '').trim();
+        const isDescriptionEmpty = !descriptionTextOnly && !rawDescription.includes('<img');
+
+        if (!normalizedTitle) {
+            return res.status(400).json({ success: false, error: 'Title is required' });
+        }
+        if (isDescriptionEmpty || !rawDescription) {
+            return res.status(400).json({ success: false, error: 'Blog description is required. Please write your blog content.' });
         }
         if (normalizedTitle.length > 255) {
             return res.status(400).json({ success: false, error: 'Title must be 255 characters or fewer' });
         }
 
-        const seoResult = parseSeoMetadata(req.body, description);
+        const seoResult = parseSeoMetadata(req.body, rawDescription);
         if (seoResult.error) {
             return res.status(400).json({ success: false, error: seoResult.error });
         }
@@ -323,7 +340,7 @@ const editBlog = (req, res) => {
         let values = [
             normalizedTitle,
             finalSlug,
-            description,
+            rawDescription,
             author || 'Siara Properties',
             category || 'Real Estate',
             finalCanonicalUrl,
